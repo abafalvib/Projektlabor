@@ -25,6 +25,10 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+import Calendar from 'react-calendar';
+import myCalendar from './components/Calendar';
+import 'react-calendar/dist/Calendar.css';
+
 const App: React.FC = () => {
   const [user, setUser] = useState('');
   const [email, setEmail] = useState('');
@@ -32,6 +36,7 @@ const App: React.FC = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [hasAccount, setHasAccount] = useState(false);
+  const [date, setDate] = useState(new Date());
 
   const clearInputs = () => {
     setEmail('');
@@ -133,19 +138,27 @@ const App: React.FC = () => {
     authListener();
   }, []);
 
+  const onDateChange = date => {
+    setDate(date);
+  };
+
 return (
   <IonApp>
   <div>
   {user ? (
+    <React.Fragment>
     <Hero handleLogout={handleLogout}/>
+      <Calendar onChange={onDateChange} value={date} minDate={date}/>
+    </React.Fragment>
   ) : (
+    <React.Fragment>
     <Login email={email} setEmail={setEmail} password={password} setPassword={setPassword}
     handleLogin={handleLogin} handleSignup={handleSignup} hasAccount={hasAccount}
     setHasAccount={setHasAccount} emailError={emailError} passwordError={passwordError}/>
+    </React.Fragment>
   )}
 
-
-   </div>
+  </div>
   </IonApp>
 );
 };
