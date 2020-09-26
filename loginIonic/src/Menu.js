@@ -7,7 +7,7 @@ const Menu = ({ history }) => (
   <IonMenu contentId="main">
     <IonContent>
       <IonMenuToggle>
-        <IonItem onClick={() => history.push('/')}><IonIcon name="home-outline" slot="start" />Home</IonItem>
+        <IonItem onClick={() => history.push('/')}><IonIcon name="home-outline" slot="start" /><div className="proba">Home</div></IonItem>
       </IonMenuToggle>
       <IonMenuToggle>
         <IonItem onClick={() => history.push('/about')}><IonIcon name="information-circle-outline" slot="start" />About</IonItem>
