@@ -1,14 +1,38 @@
 import React from 'react';
-import { IonApp, IonButton, IonInput,
-          IonLabel, IonItem, IonTitle, IonHeader,
-        IonToolbar, IonIcon} from '@ionic/react';
+import { IonApp, IonButton,IonButtons,IonMenuButton, IonInput,
+          IonLabel, IonItem, IonTitle, IonHeader,IonSplitPane,
+        IonToolbar, IonIcon, IonContent, IonPage, IonRouterOutlet} from '@ionic/react';
+        import {BrowserRouter,Route,Router} from 'react-router-dom';
+import '@ionic/core/css/ionic.bundle.css';
 import {calendarOutline} from 'ionicons/icons';
+import Menu from'./Menu';
+import Home from './Home';
+import About from './About';
+import Bid from './Bid';
 
 const Login = (props) => {
   const {email,setEmail,password,setPassword, handleLogin, handleSignup,
   hasAccount, setHasAccount, emailError,passwordError}=props;
+  const dontShowIt=false;
   return (
+    <React.Fragment>
+    <BrowserRouter>
+      <IonApp>
+        <IonSplitPane disabled="true" contentId="main">
+          <Menu />
+          <IonPage id="main">
+            <IonRouterOutlet>
+              <Route exact path="/" component={Home} />
+              <Route path="/about" component={About} />
+              <Route path="/bid" component={Bid} />
+            </IonRouterOutlet>
+          </IonPage>
+        </IonSplitPane>
+      </IonApp>
+    </BrowserRouter>
+
     <div className="wrapper">
+
     <div className="form-wrapper">
     <IonHeader>
     <IonToolbar color="primary">
@@ -16,12 +40,16 @@ const Login = (props) => {
     <IonTitle>Projekt Labor</IonTitle>
     </IonToolbar>
     </IonHeader>
+
+
+
     <IonItem>
     <IonLabel position="floating">User Name</IonLabel>
     <IonInput type="text"  autoFocus required id="name"
     value={email} onIonChange={(e)=> setEmail(e.target.value)}></IonInput>
     </IonItem>
     <p className="errorMsg">{emailError}</p>
+
 
 
 
@@ -49,6 +77,8 @@ const Login = (props) => {
 
     </div>
     </div>
+    </React.Fragment>
+
   )
 }
 

@@ -29,6 +29,7 @@ import Calendar from 'react-calendar';
 import myCalendar from './components/Calendar';
 import 'react-calendar/dist/Calendar.css';
 
+
 const App: React.FC = () => {
   const [user, setUser] = useState('');
   const [email, setEmail] = useState('');
@@ -157,6 +158,7 @@ return (
     setHasAccount={setHasAccount} emailError={emailError} passwordError={passwordError}/>
     </React.Fragment>
   )}
+
 
   </div>
   </IonApp>
