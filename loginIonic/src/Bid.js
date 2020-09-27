@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   IonApp,
   IonHeader,
@@ -16,8 +16,8 @@ import {
   IonRadioGroup,
 } from '@ionic/react';
 
-const Bid = () => {
-
+export const Bid: React.FC = () => {
+  const [ selected, setSelected ] = useState('');
   return(
   <>
 
@@ -29,11 +29,11 @@ const Bid = () => {
         <IonTitle>Árajánlat</IonTitle>
       </IonToolbar>
     </IonHeader>
+
     <IonContent>
 
-
     <IonList>
-    <IonRadioGroup >
+    <IonRadioGroup value={selected} onIonChange={e => setSelected(e.detail.value)}>
           <IonItem>
             <IonLabel>Sávalap ásás</IonLabel>
             <IonRadio slot="start" value="1" />
@@ -70,6 +70,7 @@ const Bid = () => {
           </IonRadioGroup>
 
         </IonList>
+
         <IonButton>Ajánlat kérése</IonButton>
 
     </IonContent>
