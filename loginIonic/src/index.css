@@ -1,4 +1,11 @@
+.Clickable:hover{
+  --background:#3880ff;
+  cursor: pointer;
+}
 
+ion-card{
+  --ion-background-color:white;
+}
 
 .wrapper
 {

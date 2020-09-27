@@ -6,6 +6,8 @@ import Menu from'./Menu';
 import Home from './Home';
 import About from './About';
 import Bid from './Bid';
+import Connect from './Connect';
+import Login from './Login';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -49,7 +51,9 @@ return (
           <IonRouterOutlet>
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
+            <Route path="/connect" component={Connect} />
             <Route path="/bid" component={Bid} />
+            <Route path="/login" component={Login} />
           </IonRouterOutlet>
         </IonPage>
       </IonSplitPane>
