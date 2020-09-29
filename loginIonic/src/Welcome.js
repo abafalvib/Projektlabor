@@ -1,15 +1,35 @@
 import React from 'react';
+import {
+  IonApp,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonBackButton,
+  IonButtons,
+  IonButton,
+  IonSplitPane,
+  IonRouterOutlet,
+  IonPage,
+  IonItem,
+  IonMenu,
+  IonMenuToggle
 
+} from '@ionic/react';
+import {BrowserRouter,Route,Router} from 'react-router-dom';
 const Welcome = ({handleLogout}) => {
 return(
-  <section>
-    <nav>
-      <h2>Welcome</h2>
-      <button onClick={handleLogout}>Logout</button>
-    </nav>
+  <>
 
-  </section>
-)
+  <div>
+  <IonButton onClick={handleLogout}>Logout</IonButton>
+  </div>
+
+
+
+  </>
+
+);
 }
 
 export default Welcome;

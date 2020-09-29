@@ -1,6 +1,7 @@
 import React, {useRef, useState, useEffect, Component} from 'react';
 import {calendarOutline} from 'ionicons/icons';
 import fire from './fire';
+/*import Welcome from './Welcome';*/
 import Welcome from './Welcome';
 import {
   IonHeader,
@@ -15,7 +16,8 @@ import {
   IonIcon,
   IonInput,
   IonLabel,
-  IonButton
+  IonButton,
+  IonApp
 } from '@ionic/react';
 
 const Login:React.FC = () => {
@@ -27,8 +29,7 @@ const Login:React.FC = () => {
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    const [hasAccount, setHasAccount] = useState(false);
-    const [date, setDate] = useState(new Date());
+
 
     const clearInputs = () => {
       setEmail('');
@@ -53,32 +54,20 @@ const Login:React.FC = () => {
               case "auth/user-disabled":
               case "auth/user-not-found":
                 setEmailError(err.message);
+                 successful=false;
                 break;
               case "auth/wrong-password":
                 setPasswordError(err.message);
+                 successful=false;
                 break;
             }
-          });
-          if (successful)
-          {
-            db.collection("Users").get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
+          })
 
-          if(email == doc.get("Username")){
+      };
 
-              if(doc.get("Admin") === "true"){
-                console.log("Admin");
-              }else{
-                console.log("User");
-              }
-
-          }
-
-        });
-      });
-          }
-    };
-
+      const handleLogout = () => {
+        fire.auth().signOut();
+      };
 
   const authListener = () => {
     fire.auth().onAuthStateChanged((user) => {
@@ -101,57 +90,62 @@ useEffect(() => {
 
   return(
   <>
-    <IonHeader>
-      <IonToolbar>
-        <IonButtons slot="start">
-          <IonBackButton defaultHref="/" />
-          {/*<IonMenuButton />*/}
-        </IonButtons>
-        <IonTitle>Bejelentkezés</IonTitle>
-      </IonToolbar>
-    </IonHeader>
+
 
     <IonContent>
-    <div className="wrapper">
 
-    <div className="form-wrapper">
-    <IonHeader>
-    <IonToolbar color="primary">
-    <IonIcon slot="end" size="large" icon={calendarOutline}/>
-    <IonTitle>Admin</IonTitle>
-    </IonToolbar>
-    </IonHeader>
+    <div>
+        {(() => {
+          if (user) {
+            return (
+               <Welcome handleLogout={handleLogout} />
+            )
+          } else {
+            return(
+            <>
+            <IonHeader>
+              <IonToolbar>
+                <IonButtons slot="start">
+                  <IonBackButton defaultHref="/" />
+                  {/*<IonMenuButton />*/}
+                </IonButtons>
+                <IonTitle>Bejelentkezés</IonTitle>
+              </IonToolbar>
+            </IonHeader>
 
-    <IonItem>
-    <IonLabel position="floating">User Name</IonLabel>
-    <IonInput type="text" autoFocus required id="name"
-    value={email} onIonChange={(e)=> setEmail(e.target.value)}></IonInput>
-    </IonItem>
-    <p className="errorMsg">{emailError}</p>
+            <div className="wrapper">
 
-    <IonItem>
-    <IonLabel position="floating">Password</IonLabel>
-    <IonInput type="password" name="password"
-    required value={password} noValidate id="pw" onIonChange={(e)=> setPassword(e.target.value)}></IonInput>
-    </IonItem>
-    <p className="errorMsg">{passwordError}</p>
-    <IonButton onClick={handleLogin}>Login</IonButton>
-    </div>
-    </div>
-    </IonContent>
+            <div className="form-wrapper">
+            <IonHeader>
+            <IonToolbar color="primary">
+            <IonIcon slot="end" size="large" icon={calendarOutline}/>
+            <IonTitle>Admin</IonTitle>
+            </IonToolbar>
+            </IonHeader>
 
+            <IonItem>
+            <IonLabel position="floating">User Name</IonLabel>
+            <IonInput type="text" autoFocus required id="name"
+            value={email} onIonChange={(e)=> setEmail(e.target.value)}></IonInput>
+            </IonItem>
+            <p className="errorMsg">{emailError}</p>
 
-  <div>
-      {(() => {
-        if (user) {
-          console.log("anyad");
-          return (
-             /*<Welcome handleLogout={handleLogout}/>*/
-             <h1>54345</h1>
+            <IonItem>
+            <IonLabel position="floating">Password</IonLabel>
+            <IonInput type="password" name="password"
+            required value={password} noValidate id="pw" onIonChange={(e)=> setPassword(e.target.value)}></IonInput>
+            </IonItem>
+            <p className="errorMsg">{passwordError}</p>
+            <IonButton onClick={handleLogin}>Login</IonButton>
+
+            </div>
+            </div>
+            </>
           )
-        }
-      })()}
-    </div>
+          }
+        })()}
+      </div>
+      </IonContent>
     </>
 
 );
