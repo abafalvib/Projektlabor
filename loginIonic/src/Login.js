@@ -13,9 +13,7 @@ import {
 
 const Login = () => {
 
-
-
-  App.tsx
+  /*
   fuggveny{
   const [user, setUser] = useState('');
     const [email, setEmail] = useState('');
@@ -59,18 +57,18 @@ const Login = () => {
             db.collection("Users").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
 
-    			if(email == doc.get("Username")){
+          if(email == doc.get("Username")){
 
-    					if(doc.get("Admin") === "true"){
-    						console.log("Admin");
-    					}else{
-    						console.log("User");
-    					}
+              if(doc.get("Admin") === "true"){
+                console.log("Admin");
+              }else{
+                console.log("User");
+              }
 
-    			}
+          }
 
-    		});
-    	});
+        });
+      });
           }
     };
 
@@ -128,15 +126,15 @@ const Login = () => {
     const onDateChange = date => {
       setDate(date);
     };
-  };
+  };*/
 
 
 
 
 
 
-  return
-  (
+
+  return(
   <>
     <IonHeader>
       <IonToolbar>
@@ -152,5 +150,6 @@ const Login = () => {
     </IonContent>
   </>
 
-);}
+);
+}
 export default Login;
