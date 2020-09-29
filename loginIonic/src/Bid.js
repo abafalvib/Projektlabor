@@ -45,6 +45,9 @@ export const Bid: React.FC = () => {
   };
 
   var db = fire.firestore();
+  var docRef = db.collection("AdminData").doc("e7U5eti6iZbTraUz57vu");
+
+
 
   let folyom;
   if (selected=="Sávalap ásás") {
@@ -76,6 +79,28 @@ export const Bid: React.FC = () => {
     kobm = Number(tekobm);
   } else {
     kobm = 0;
+  }
+
+  let koltseg;
+  switch (selected) {
+    case 'Sávalap ásás':
+      koltseg=folyom * /*docRef.get("First")*/1 * (100 + kanalm) /100;
+      break;
+    case 'Ház körüli drainezés':
+      koltseg=folyom * /*docRef.get("Second")*/2;
+      break;
+    case 'Térkő alap előkészítés':
+      koltseg=negyzetm * /*docRef.get("Third")*/3;
+      break;
+    case 'Törmelék elhordás':
+      koltseg=kobm * /*docRef.get("Fourth")*/4;
+      break;
+    case 'Tüköralap':
+      koltseg=negyzetm * /*docRef.get("Fifth")*/5;
+      break;
+    default:
+      koltseg=0;
+      break;
   }
 
   return(
@@ -233,6 +258,9 @@ export const Bid: React.FC = () => {
             <IonLabel>E-mail cím:</IonLabel>
             <IonInput value={email} onIonChange={(e) => setEmail(e.target.value)}/>
           </IonItem>
+          <div>
+            <IonLabel>Várható költség: {koltseg} Ft</IonLabel>
+          </div>
           <IonLabel>Határidő:</IonLabel>
           <Calendar onChange={onDateChange} value={date} minDate={today}/>
         </div>
