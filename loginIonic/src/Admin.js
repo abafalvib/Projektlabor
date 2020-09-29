@@ -79,7 +79,7 @@ const Admin = ({history}) => {
       docRef.set({
       First: firstFinal,
       Second: secondFinal,
-      Thrid: thirdFinal,
+      Third: thirdFinal,
       Fourth: fourthFinal,
       Fifth: fifthFinal
       })
