@@ -6,6 +6,23 @@
 ion-card{
   --ion-background-color:white;
 }
+.Center{
+  margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+ion-grid {
+    height: 100%;
+  display: grid;
+}
+
+.fel{
+  width: 50%;
+  height:100%;
+}
 
 .wrapper
 {

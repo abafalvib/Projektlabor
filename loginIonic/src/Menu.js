@@ -19,6 +19,9 @@ const Menu = ({ history }) => (
       <IonMenuToggle>
         <IonItem onClick={() => history.push('/login')}  class="Clickable"><IonIcon name="log-in-outline" slot="start" /><div>Bejelentkezés</div></IonItem>
       </IonMenuToggle>
+      <IonMenuToggle>
+        <IonItem onClick={() => history.push('/admin')}  class="Clickable"><IonIcon name="log-out-outline" slot="start" /><div>Admn</div></IonItem>
+      </IonMenuToggle>
 
     </IonContent>
   </IonMenu>
