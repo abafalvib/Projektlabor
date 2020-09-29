@@ -17,7 +17,9 @@ import {
   IonGrid,
   IonCol,
   IonRow,
-  IonInput
+  IonInput,
+  IonSelect,
+  IonSelectOption
 } from '@ionic/react';
 
 import fire from './fire';
@@ -42,20 +44,39 @@ export const Bid: React.FC = () => {
     setDate(date);
   };
 
-/*  const submitRequest = (folyom,kanalm,kobm,negyzetm,
-                        datum,desc,em) => {
-    var db = fire.firestore();
-    db.collection("Requests").add({
-      Folyóméter : {folyom},
-      Kanálméret: {kanalm},
-      Köbméter: {kobm},
-      Négyzetméter: {negyzetm},
-      date: {datum},
-      desc: {desc},
-      distance: 0,
-      email: {em}
-    })
-  };*/
+  var db = fire.firestore();
+
+  let folyom;
+  if (selected=="Sávalap ásás") {
+    folyom = Number(safolyom);
+  } else if (selected=="Ház körüli drainezés"){
+    folyom = Number(hkdfolyom);
+  } else {
+    folyom = 0;
+  }
+
+  let kanalm;
+  if (selected=="Sávalap ásás") {
+    kanalm = Number(sakanalm);
+  } else {
+    kanalm = 0;
+  }
+
+  let negyzetm;
+  if (selected=="Térkő alap előkészítés") {
+    negyzetm = Number(taenegyzetm);
+  } else if (selected=="Tüköralap"){
+    negyzetm = Number(tanegyzetm);
+  } else {
+    negyzetm = 0;
+  }
+
+  let kobm;
+  if (selected=="Törmelék elhordás") {
+    kobm = Number(tekobm);
+  } else {
+    kobm = 0;
+  }
 
   return(
   <>
@@ -120,13 +141,16 @@ export const Bid: React.FC = () => {
                     <IonCol>
                       <IonItem>
                         <IonLabel>Folyóméter:</IonLabel>
-                        <IonInput value={safolyom} onIonChange={(e) => setSafolyom(e.target.value)}/>
+                        <IonInput type="number" value={safolyom} onIonChange={(e) => setSafolyom(e.target.value)}/>
                       </IonItem>
                     </IonCol>
                     <IonCol>
                       <IonItem>
                         <IonLabel>Kanálméret:</IonLabel>
-                        <IonInput value={sakanalm} onIonChange={(e) => setSakanalm(e.target.value)}/>
+                        <IonSelect value={sakanalm} onIonChange={(e) => setSakanalm(e.target.value)}>
+                          <IonSelectOption value='40'>40</IonSelectOption>
+                          <IonSelectOption value='50'>50</IonSelectOption>
+                        </IonSelect>
                       </IonItem>
                     </IonCol>
                   </IonRow>
@@ -140,7 +164,7 @@ export const Bid: React.FC = () => {
                     <IonCol>
                       <IonItem>
                         <IonLabel>Folyóméter:</IonLabel>
-                        <IonInput value={hkdfolyom} onIonChange={(e) => setHkdfolyom(e.target.value)}/>
+                        <IonInput type="number" value={hkdfolyom} onIonChange={(e) => setHkdfolyom(e.target.value)}/>
                       </IonItem>
                     </IonCol>
                   </IonRow>
@@ -154,7 +178,7 @@ export const Bid: React.FC = () => {
                     <IonCol>
                       <IonItem>
                         <IonLabel>Négyzetméter:</IonLabel>
-                        <IonInput value={taenegyzetm} onIonChange={(e) => setTaenegyzetm(e.target.value)}/>
+                        <IonInput type="number" value={taenegyzetm} onIonChange={(e) => setTaenegyzetm(e.target.value)}/>
                       </IonItem>
                     </IonCol>
                   </IonRow>
@@ -168,7 +192,7 @@ export const Bid: React.FC = () => {
                     <IonCol>
                       <IonItem>
                         <IonLabel>Köbméter:</IonLabel>
-                        <IonInput value={tekobm} onIonChange={(e) => setTekobm(e.target.value)}/>
+                        <IonInput type="number" value={tekobm} onIonChange={(e) => setTekobm(e.target.value)}/>
                       </IonItem>
                     </IonCol>
                   </IonRow>
@@ -182,7 +206,7 @@ export const Bid: React.FC = () => {
                     <IonCol>
                       <IonItem>
                         <IonLabel>Négyzetméter:</IonLabel>
-                        <IonInput value={tanegyzetm} onIonChange={(e) => setTanegyzetm(e.target.value)}/>
+                        <IonInput type="number" value={tanegyzetm} onIonChange={(e) => setTanegyzetm(e.target.value)}/>
                       </IonItem>
                     </IonCol>
                   </IonRow>
@@ -214,17 +238,17 @@ export const Bid: React.FC = () => {
         </div>
 
         <div align="center">
-            <IonButton /*onClick={(e) =>{var db = fire.firestore();
-            db.collection("Requests").add({
-              Folyóméter : {safolyom},
-              Kanálméret: {sakanalm},
-              Köbméter: {tekobm},
-              Négyzetméter: {tanegyzetm},
-              date: {date},
-              desc: {selected},
+            <IonButton onClick={(e) => {
+            db.collection('Requests').add({
+              Folyóméter : folyom,
+              Kanálméret: kanalm,
+              Köbméter: kobm,
+              Négyzetméter: negyzetm,
+              date: date,
+              desc: selected,
               distance: 0,
-              email: {email}
-            )}}*/>Ajánlat kérése</IonButton>
+              email: email
+            })}}>Ajánlat kérése</IonButton>
         </div>
         <br/>
         <br/>
