@@ -9,7 +9,11 @@ import {
   IonMenuButton,
   IonButton,
   IonSlides,
-  IonSlide
+  IonSlide,
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
+  IonCardTitle
 } from '@ionic/react';
 
 const Home = () => (
@@ -24,17 +28,17 @@ const Home = () => (
     <h1>KKV Helper</h1>
     <IonSlides scrollbar="true">
     <IonSlide>
-    <ion-card class="HomeCard">
-      <ion-card-header>
-      </ion-card-header>
+    <IonCard class="HomeCard">
+      <IonCardHeader>
+      </IonCardHeader>
         <img src="https://s.tmimgcdn.com/scr/800x500/78100/panda-logo-sablon-78131_78131-2-original.jpg" />
-        <ion-card-header>
-          <ion-card-title>Home</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
+        <IonCardHeader>
+          <IonCardTitle>Home</IonCardTitle>
+        </IonCardHeader>
+        <IonCardContent>
           Lorem Ipsum
-        </ion-card-content>
-      </ion-card>
+        </IonCardContent>
+      </IonCard>
     </IonSlide>
     <IonSlide>
       <h1>Slide 2</h1>
