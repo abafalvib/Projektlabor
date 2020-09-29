@@ -1,6 +1,5 @@
 import React, {useRef, useState, useEffect, Component} from 'react';
 import "./index.css";
-import fire from './fire';
 import Hero from './Hero';
 import Menu from'./Menu';
 import Home from './Home';
