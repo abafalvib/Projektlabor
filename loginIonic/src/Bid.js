@@ -300,6 +300,7 @@ export const Bid: React.FC = () => {
               date: date,
               desc: selected,
               distance: 0,
+              elfogadva: false,
               email: email
             })}}>Ajánlat kérése</IonButton>
         </div>
