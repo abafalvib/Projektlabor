@@ -290,19 +290,81 @@ export const Bid: React.FC = () => {
           <Calendar onChange={onDateChange} value={date} minDate={today}/>
         </div>
 
-        <div align="center">
-            <IonButton onClick={(e) => {
-            db.collection('Requests').add({
-              Folyóméter : folyom,
-              Kanálméret: kanalm,
-              Köbméter: kobm,
-              Négyzetméter: negyzetm,
-              date: date,
-              desc: selected,
-              distance: 0,
-              elfogadva: false,
-              email: email
-            })}}>Ajánlat kérése</IonButton>
+        <div align="center"> {(() => {
+          switch(selected)
+            {
+            case 'Sávalap ásás':
+            return (
+              <IonButton onClick={(e) => {
+                db.collection('Requests').add({
+                  Folyóméter : folyom,
+                  Kanálméret: kanalm,
+                  date: date,
+                  desc: selected,
+                  distance: 0,
+                  elfogadva: false,
+                  email: email
+                })}}>Ajánlat kérése</IonButton>
+              );
+            case 'Ház körüli drainezés':
+            return (
+              <IonButton onClick={(e) => {
+                db.collection('Requests').add({
+                  Folyóméter : folyom,
+                  date: date,
+                  desc: selected,
+                  distance: 0,
+                  elfogadva: false,
+                  email: email
+                })}}>Ajánlat kérése</IonButton>);
+            case 'Térkő alap előkészítés':
+            return (
+              <IonButton onClick={(e) => {
+                db.collection('Requests').add({
+                  Négyzetméter: negyzetm,
+                  date: date,
+                  desc: selected,
+                  distance: 0,
+                  elfogadva: false,
+                  email: email
+                })}}>Ajánlat kérése</IonButton>);
+            case 'Törmelék elhordás':
+            return (
+              <IonButton onClick={(e) => {
+                db.collection('Requests').add({
+                  Köbméter: kobm,
+                  date: date,
+                  desc: selected,
+                  distance: 0,
+                  elfogadva: false,
+                  email: email
+                })}}>Ajánlat kérése</IonButton>);
+            case 'Tüköralap':
+            return (
+              <IonButton onClick={(e) => {
+                db.collection('Requests').add({
+                  Négyzetméter: negyzetm,
+                  date: date,
+                  desc: selected,
+                  distance: 0,
+                  elfogadva: false,
+                  email: email
+                })}}>Ajánlat kérése</IonButton>);
+            case 'Tereprendezés':
+            case 'Medence ásás':
+            case 'Közműbeásás':
+            return (
+              <>
+                <p>Ehhez a munkakörhöz további egyeztetés szükséges!</p>
+              </>);
+            default:
+            return (
+              <>
+
+              </>);
+            }
+          })()}
+
         </div>
         <br/>
         <br/>
