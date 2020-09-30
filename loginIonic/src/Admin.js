@@ -40,19 +40,11 @@ const Admin = ({history}) => {
     var docRef = db.collection("AdminData").doc("e7U5eti6iZbTraUz57vu");
     docRef.get().then(function(doc) {
         if (doc.exists) {
-            console.log("Document data:", doc.data());
-
             setFirst(parseInt(doc.get("First")));
-
             setSecond(parseInt(doc.get("Second")));
-
             setThird(parseInt(doc.get("Third")));
-
             setFourth(parseInt(doc.get("Fourth")));
-
             setFifth(parseInt(doc.get("Fifth")));
-
-
             } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");

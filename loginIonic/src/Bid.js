@@ -40,13 +40,34 @@ export const Bid: React.FC = () => {
   const [tanegyzetm, setTanegyzetm] = useState(0);
   const [email, setEmail] = useState('');
 
+  const [first, setFirst] = useState(0);
+  const [second, setSecond] = useState(0);
+  const [third, setThird] = useState(0);
+  const [fourth, setFourth] = useState(0);
+  const [fifth, setFifth] = useState(0);
+
   const onDateChange = date => {
     setDate(date);
   };
 
   var db = fire.firestore();
   var docRef = db.collection("AdminData").doc("e7U5eti6iZbTraUz57vu");
-
+  useEffect(() => {var db = fire.firestore("");
+  var docRef = db.collection("AdminData").doc("e7U5eti6iZbTraUz57vu");
+  docRef.get().then(function(doc) {
+      if (doc.exists) {
+          setFirst(parseInt(doc.get("First")));
+          setSecond(parseInt(doc.get("Second")));
+          setThird(parseInt(doc.get("Third")));
+          setFourth(parseInt(doc.get("Fourth")));
+          setFifth(parseInt(doc.get("Fifth")));
+          } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+      }
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+  });}, []);
 
 
   let folyom;
@@ -81,22 +102,25 @@ export const Bid: React.FC = () => {
     kobm = 0;
   }
 
+
+
+
   let koltseg;
   switch (selected) {
     case 'Sávalap ásás':
-      koltseg=folyom * /*docRef.get("First")*/1 * (100 + kanalm) /100;
+      koltseg=folyom *  first * (100 + kanalm) /100;
       break;
     case 'Ház körüli drainezés':
-      koltseg=folyom * /*docRef.get("Second")*/2;
+      koltseg=folyom * second;
       break;
     case 'Térkő alap előkészítés':
-      koltseg=negyzetm * /*docRef.get("Third")*/3;
+      koltseg=negyzetm * third;
       break;
     case 'Törmelék elhordás':
-      koltseg=kobm * /*docRef.get("Fourth")*/4;
+      koltseg=kobm * fourth;
       break;
     case 'Tüköralap':
-      koltseg=negyzetm * /*docRef.get("Fifth")*/5;
+      koltseg=negyzetm * fifth;
       break;
     default:
       koltseg=0;
@@ -173,6 +197,7 @@ export const Bid: React.FC = () => {
                       <IonItem>
                         <IonLabel>Kanálméret:</IonLabel>
                         <IonSelect value={sakanalm} onIonChange={(e) => setSakanalm(e.target.value)}>
+                          <IonSelectOption value='30'>30</IonSelectOption>
                           <IonSelectOption value='40'>40</IonSelectOption>
                           <IonSelectOption value='50'>50</IonSelectOption>
                         </IonSelect>
