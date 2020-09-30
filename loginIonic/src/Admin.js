@@ -117,24 +117,27 @@ const Admin = ({history}) => {
             <IonCol  class = "fel">
              <div class="Center">
              <IonList>
+              <IonItem>
+                <h1>Jelenlegi árak</h1>
+              </IonItem>
                <IonItem>
-                 <IonLabel>Sávköltség</IonLabel>
+                 <IonLabel>Sáv: </IonLabel>
                  <IonInput placeholder={first} value={firstValue} onIonChange={(e) => setFirstValue(e.target.value)}></IonInput>
                </IonItem>
                <IonItem>
-                 <IonLabel>Drainköltség</IonLabel>
+                 <IonLabel>Drain: </IonLabel>
                  <IonInput placeholder={second} value={secondValue} onIonChange={(e) => setSecondValue(e.target.value)}></IonInput>
                </IonItem>
                <IonItem>
-                 <IonLabel>Négyzetméter Költség</IonLabel>
+                 <IonLabel>Négyzetméter: </IonLabel>
                  <IonInput placeholder={third} value={thirdValue} onIonChange={(e) => setThirdValue(e.target.value)}></IonInput>
                </IonItem>
                <IonItem>
-                 <IonLabel>Köbméter költség</IonLabel>
+                 <IonLabel>Köbméter: </IonLabel>
                  <IonInput placeholder={fourth} value={fourthValue} onIonChange={(e) => setFourthValue(e.target.value)}></IonInput>
                </IonItem>
                <IonItem>
-                 <IonLabel>Tükör költség</IonLabel>
+                 <IonLabel>Tükör:</IonLabel>
                  <IonInput placeholder={fifth} value={fifthValue} onIonChange={(e) => setFifthValue(e.target.value)}></IonInput>
                </IonItem>
                <IonItem>
