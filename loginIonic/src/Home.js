@@ -21,11 +21,11 @@ const Home = () => (
     <IonHeader>
       <IonToolbar>
         <IonMenuButton slot="start" />
-        <IonTitle>Home</IonTitle>
+        <IonTitle>Kezdőlap</IonTitle>
       </IonToolbar>
     </IonHeader>
     <IonContent>
-    <h1>KKV Helper</h1>
+    <h1>KKV Segítő</h1>
     <IonSlides scrollbar="true">
     <IonSlide>
     <IonCard class="HomeCard">
@@ -33,7 +33,7 @@ const Home = () => (
       </IonCardHeader>
         <img src="https://s.tmimgcdn.com/scr/800x500/78100/panda-logo-sablon-78131_78131-2-original.jpg" />
         <IonCardHeader>
-          <IonCardTitle>Home</IonCardTitle>
+          <IonCardTitle>Kezdőlap</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
           Lorem Ipsum
