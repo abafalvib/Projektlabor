@@ -139,7 +139,6 @@ export const Bid: React.FC = () => {
     </IonHeader>
 
     <IonContent>
-
     <IonList>
     <IonRadioGroup value={selected} onIonChange={e => setSelected(e.detail.value)}>
           <IonItem>
