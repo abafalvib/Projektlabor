@@ -2,7 +2,8 @@ import React, {useRef, useState, useEffect, Component} from 'react';
 import {calendarOutline} from 'ionicons/icons';
 import fire from './fire';
 /*import Welcome from './Welcome';*/
-import Welcome from './Welcome';
+import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom';
 import {
   IonHeader,
   IonToolbar,
@@ -65,18 +66,16 @@ const Login:React.FC = () => {
 
       };
 
-      const handleLogout = () => {
-        fire.auth().signOut();
-      };
-
   const authListener = () => {
     fire.auth().onAuthStateChanged((user) => {
       if (user){
         clearInputs();
         setUser(user);
+        Cookies.set("log","loginTrue");
       }
       else {
         setUser("");
+        Cookies.set("log","loginFalse");
       }
     });
   };
@@ -93,20 +92,20 @@ useEffect(() => {
 
 
     <IonContent>
-
-    <div>
         {(() => {
           if (user) {
             return (
-               <Welcome handleLogout={handleLogout} />
+              <>
+              <Redirect to={{pathname:"/admin"}}/>
+              </>
             )
           } else {
             return(
-            <>
-            <IonHeader>
+              <>
+            <IonHeader >
               <IonToolbar>
                 <IonButtons slot="start">
-                  <IonBackButton defaultHref="/" />
+                  <IonBackButton defaultHref="/"></IonBackButton>
                   {/*<IonMenuButton />*/}
                 </IonButtons>
                 <IonTitle>Bejelentkezés</IonTitle>
@@ -144,10 +143,8 @@ useEffect(() => {
           )
           }
         })()}
-      </div>
       </IonContent>
     </>
-
 );
 }
 export default Login;

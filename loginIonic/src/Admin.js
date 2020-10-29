@@ -23,6 +23,9 @@ import {
 
 } from '@ionic/react';
 import fire from './fire';
+import Login from './Login';
+import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom';
 const Admin = ({history}) => {
 
     const [first, setFirst] = useState(0);
@@ -86,21 +89,32 @@ const Admin = ({history}) => {
 
     }
 
+    const proba=Cookies.get('log');
     return(
-      <>
-      <IonHeader>
-        <IonToolbar>
-          <IonMenuButton slot="start" />
-          <IonTitle>Admin</IonTitle>
-        </IonToolbar>
-      </IonHeader>
 
+
+
+      <>
+
+      {(() => {
+        if (proba=='loginTrue') {
+          return (
+            <>
+            <IonHeader>
+              <IonToolbar>
+              <IonButtons slot="start">
+                <IonBackButton defaultHref="/"></IonBackButton>
+                {/*<IonMenuButton />*/}
+              </IonButtons>
+                <IonTitle>Admin</IonTitle>
+              </IonToolbar>
+            </IonHeader>
       <IonGrid>
            <IonRow>
 
-             <IonCol class = "fel">
+             <IonCol className = "fel">
 
-              <div class="Center">
+              <div className="Center">
 
               <IonCard>
               <IonCardHeader>
@@ -114,8 +128,8 @@ const Admin = ({history}) => {
               </div>
             </IonCol>
 
-            <IonCol  class = "fel">
-             <div class="Center">
+            <IonCol  className = "fel">
+             <div className="Center">
              <IonList>
               <IonItem>
                 <h1>Jelenlegi árak</h1>
@@ -144,14 +158,23 @@ const Admin = ({history}) => {
                  <IonButton onClick={ () => {Submit();}}>Save Changes</IonButton>
               { /*/<IonButton onClick={ () => {resetChages();console.log({firstValue})} }>Reset Changes</IonButton>*/}
                </IonItem>
+
              </IonList>
              </div></IonCol>
            </IonRow>
       </IonGrid>
-
-
       </>
+          )
+        } else {
+          return(
+            <>
+            <Redirect to={{pathname:"/login"}}/>
+            </>
     )
+    }
+  })()}
+  </>
+);
 }
 export default Admin;
 /**/

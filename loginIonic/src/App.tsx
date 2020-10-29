@@ -29,7 +29,7 @@ import './theme/variables.css';
 import Calendar from 'react-calendar';
 import myCalendar from './components/Calendar';
 import 'react-calendar/dist/Calendar.css';
-
+import Cookies from 'js-cookie'
 
 import { IonApp, IonButton,IonButtons,IonMenuButton, IonInput,
           IonLabel, IonItem, IonTitle, IonHeader,IonSplitPane,
