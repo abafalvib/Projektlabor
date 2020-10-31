@@ -6,6 +6,10 @@
 ion-card{
   --ion-background-color:white;
 }
+textarea{
+  resize: none;
+  width:auto;
+}
 .Center{
   margin: auto;
     position: absolute;

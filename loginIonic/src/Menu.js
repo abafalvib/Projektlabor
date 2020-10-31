@@ -22,6 +22,9 @@ const Menu = ({ history }) => {
             <IonMenuToggle>
               <IonItem onClick={() => history.push('/admin')}  class="Clickable"><IonIcon name="person-outline" slot="start" /><div>Admin</div></IonItem>
             </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem onClick={() => history.push('/agenda')}  class="Clickable"><IonIcon name="calendar-outline" slot="start" /><div>Napirend</div></IonItem>
+            </IonMenuToggle>
               <IonMenuToggle>
                 <IonItem onClick={() => history.push('/about')} class="Clickable"><IonIcon name="information-circle-outline" slot="start" />Rólunk</IonItem>
               </IonMenuToggle>
@@ -31,6 +34,7 @@ const Menu = ({ history }) => {
               <IonMenuToggle>
                 <IonItem routerLink="/login" onClick={handleLogout}  class="Clickable"><IonIcon name="log-out-outline" slot="start" /><div>Kijelentkezés</div></IonItem>
               </IonMenuToggle>
+
 
 
             </IonContent>

@@ -7,6 +7,7 @@ import Bid from './Bid';
 import Connect from './Connect';
 import Login from './Login';
 import Admin from './Admin';
+import Agenda from './Agenda';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -54,6 +55,7 @@ return (
             <Route path="/bid" component={Bid} />
             <Route path="/login" component={Login} />
             <Route path="/admin" component={Admin} />
+            <Route path="/agenda" component={Agenda} />
           </IonRouterOutlet>
         </IonPage>
       </IonSplitPane>
