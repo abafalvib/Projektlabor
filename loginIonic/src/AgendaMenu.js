@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {Inject, ScheduleComponent,
         Day, Week, WorkWeek, Month, Agenda,
-        EventSettingsModel} from '@syncfusion/ej2-react-schedule';
+        EventSettingsModel, ActionEventArgs} from '@syncfusion/ej2-react-schedule';
 import {
   IonHeader,
   IonToolbar,
@@ -32,6 +32,7 @@ const AgendaMenu = () => {
   var years = [];
   var months = [];
   var days = [];
+  var ids = [];
 
   var localData: EventSettingsModel = {
     allowDeleting: true,
@@ -43,6 +44,10 @@ const AgendaMenu = () => {
     }
   };
 
+  var deleted: ActionEventArgs = {
+
+  }
+
 
   db.collection("AcceptedRequests")
     .get()
@@ -53,18 +58,23 @@ const AgendaMenu = () => {
             months.push(parseInt(doc.get("Month"))-1);
             days.push(parseInt(doc.get("Day")));
             events.push(doc.get("desc"));
+            ids.push(doc.id);
         });
     })
     .catch(function(error) {
         console.log("Error getting documents: ", error);
   });
 
-  /*const saveChanges = () => {
-    db.collection("AcceptedRequests").listDocuments().then(val => {
-        val.map((val) => {
-            val.delete()
-        })
-    })
+  const saveChanges = () => {
+    console.log(deleted.deletedRecords);
+    /*let deleted:{[key: string]: Object} = deletedRecords;*/
+    for (var j=0;j<events.length;j++){
+      db.collection("AcceptedRequests").doc(ids[j]).delete().then(function() {
+          console.log("Document successfully deleted!");
+      }).catch(function(error) {
+          console.error("Error removing document: ", error);
+      });
+    }
     for (var j=0;j<events.length;j++){
       db.collection("AcceptedRequests").add({
         Year: years[j],
@@ -73,11 +83,12 @@ const AgendaMenu = () => {
         desc: events[j]
       })
     }
-  }*/
+  }
 
   const addData = () => {
     for (var j=0;j<events.length;j++){
       let eventData:{[key: string]: Object} = {
+        id: ids[j],
         Summary: events[j],
         End: new Date(years[j],months[j],days[j],23,59),
         Start: new Date(years[j],months[j],days[j],0,0),
