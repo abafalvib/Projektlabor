@@ -21,7 +21,7 @@ import fire from './fire';
 
 
 
-const AgendaMenu = () => {
+const PriceHandler = () => {
   const proba=Cookies.get('log');
 
   var db = fire.firestore();
@@ -112,7 +112,7 @@ const AgendaMenu = () => {
               <IonBackButton defaultHref="/"></IonBackButton>
               {/*<IonMenuButton />*/}
             </IonButtons>
-              <IonTitle>Napirend</IonTitle>
+              <IonTitle>>Árajánlat kezelése</IonTitle>
             </IonToolbar>
           </IonHeader>
           <IonContent>
@@ -136,4 +136,4 @@ const AgendaMenu = () => {
 </>
 );
 }
-export default AgendaMenu;
+export default PriceHandler;

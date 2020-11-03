@@ -14,6 +14,7 @@ import {
 } from '@ionic/react';
 import Cookies from 'js-cookie'
 import fire from './fire';
+import emailjs from 'emailjs-com';
 
 
 const Connect = () => {
@@ -53,6 +54,17 @@ const Connect = () => {
     });
 
   }
+  function sendEmail(e) {
+    e.preventDefault();
+
+    emailjs.sendForm('gmail', 'Contact_Template', e.target, 'user_i5wHzJ9RuYMkYklggEtke')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+      e.target.reset()
+  }
 
   return(
 
@@ -74,10 +86,18 @@ const Connect = () => {
             </IonToolbar>
           </IonHeader>
           <IonContent>
+
             <IonTextarea auto-grow="true" placeholder={contactText} value={contactText} onIonChange={(e) => setContactText(e.target.value)}></IonTextarea>
+
             <IonButton onClick={(e) => Submit()}>
               Változtatások mentése
             </IonButton>
+            <form onSubmit={sendEmail}>
+            <input type="email" placeholder="Email Cím" name="email"></input>
+          <textarea placeholder="Üzenet"name="message"></textarea>
+          <input type="submit" value="Üzenet küldése"></input>
+
+            </form>
           </IonContent>
     </>
         )
@@ -94,7 +114,15 @@ const Connect = () => {
             </IonToolbar>
           </IonHeader>
           <IonContent>
-            <p>{contactText}</p>
+
+      <p>{contactText}</p>
+            <form onSubmit={sendEmail}>
+            <input type="email" placeholder="Email Cím" name="email"></input>
+          <textarea placeholder="Üzenet"name="message"></textarea>
+          <input type="submit" value="Üzenet küldése"></input>
+
+            </form>
+
           </IonContent>
           </>
   )

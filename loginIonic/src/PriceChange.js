@@ -26,7 +26,7 @@ import fire from './fire';
 import Login from './Login';
 import Cookies from 'js-cookie'
 import {Redirect} from 'react-router-dom';
-const Admin = ({history}) => {
+const PriceChange = ({history}) => {
 
     const [first, setFirst] = useState(0);
     const [second, setSecond] = useState(0);
@@ -106,7 +106,7 @@ const Admin = ({history}) => {
                 <IonBackButton defaultHref="/"></IonBackButton>
                 {/*<IonMenuButton />*/}
               </IonButtons>
-                <IonTitle>Admin</IonTitle>
+                <IonTitle>Árszerkesztés</IonTitle>
               </IonToolbar>
             </IonHeader>
       <IonGrid>
@@ -176,5 +176,5 @@ const Admin = ({history}) => {
   </>
 );
 }
-export default Admin;
+export default PriceChange;
 /**/

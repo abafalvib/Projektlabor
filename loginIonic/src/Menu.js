@@ -20,10 +20,10 @@ const Menu = ({ history }) => {
           <IonMenu contentId="main">
             <IonContent>
             <IonMenuToggle>
-              <IonItem onClick={() => history.push('/admin')}  class="Clickable"><IonIcon name="person-outline" slot="start" /><div>Admin</div></IonItem>
+              <IonItem onClick={() => history.push('/pricechange')}  class="Clickable"><IonIcon name="build-outline" slot="start" /><div>Árszerkesztés</div></IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
-              <IonItem onClick={() => history.push('/agenda')}  class="Clickable"><IonIcon name="calendar-outline" slot="start" /><div>Napirend</div></IonItem>
+              <IonItem onClick={() => history.push('/pricehandler')}  class="Clickable"><IonIcon name="calendar-outline" slot="start" /><div>Árajánlat kezelése</div></IonItem>
             </IonMenuToggle>
               <IonMenuToggle>
                 <IonItem onClick={() => history.push('/about')} class="Clickable"><IonIcon name="information-circle-outline" slot="start" />Rólunk</IonItem>
