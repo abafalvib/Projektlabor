@@ -39,6 +39,7 @@ export const Bid: React.FC = () => {
   const [tekobm, setTekobm] = useState(0);
   const [tanegyzetm, setTanegyzetm] = useState(0);
   const [email, setEmail] = useState('');
+  const [tav, setTav] = useState(0);
 
   const [first, setFirst] = useState(0);
   const [second, setSecond] = useState(0);
@@ -302,7 +303,9 @@ export const Bid: React.FC = () => {
                   desc: selected,
                   distance: 0,
                   elfogadva: false,
-                  email: email
+                  email: email,
+                  longDesc: selected+" (Folyóméter: "+folyom+", Kanálméret: "+
+                            kanalm+", távolság: "+tav+" km, e-mail: "+email+")"
                 })}}>Ajánlat kérése</IonButton>
               );
             case 'Ház körüli drainezés':
@@ -314,7 +317,9 @@ export const Bid: React.FC = () => {
                   desc: selected,
                   distance: 0,
                   elfogadva: false,
-                  email: email
+                  email: email,
+                  longDesc: selected+" (Folyóméter: "+folyom+
+                            ", távolság: "+tav+" km, e-mail: "+email+")"
                 })}}>Ajánlat kérése</IonButton>);
             case 'Térkő alap előkészítés':
             return (
@@ -325,7 +330,9 @@ export const Bid: React.FC = () => {
                   desc: selected,
                   distance: 0,
                   elfogadva: false,
-                  email: email
+                  email: email,
+                  longDesc: selected+" (Négyzetméter: "+negyzetm+
+                            ", távolság: "+tav+" km, e-mail: "+email+")"
                 })}}>Ajánlat kérése</IonButton>);
             case 'Törmelék elhordás':
             return (
@@ -336,7 +343,9 @@ export const Bid: React.FC = () => {
                   desc: selected,
                   distance: 0,
                   elfogadva: false,
-                  email: email
+                  email: email,
+                  longDesc: selected+" (Köbméter: "+kobm+
+                            ", távolság: "+tav+" km, e-mail: "+email+")"
                 })}}>Ajánlat kérése</IonButton>);
             case 'Tüköralap':
             return (
@@ -347,7 +356,9 @@ export const Bid: React.FC = () => {
                   desc: selected,
                   distance: 0,
                   elfogadva: false,
-                  email: email
+                  email: email,
+                  longDesc: selected+" (Négyzetméter: "+negyzetm+
+                            ", távolság: "+tav+" km, e-mail: "+email+")"
                 })}}>Ajánlat kérése</IonButton>);
             case 'Tereprendezés':
             case 'Medence ásás':
@@ -355,6 +366,15 @@ export const Bid: React.FC = () => {
             return (
               <>
                 <p>Ehhez a munkakörhöz további egyeztetés szükséges!</p>
+                <IonButton onClick={(e) => {
+                  db.collection('Requests').add({
+                    date: date,
+                    desc: selected,
+                    distance: 0,
+                    elfogadva: false,
+                    email: email,
+                    longDesc: selected+" (Távolság: "+tav+" km, e-mail: "+email+")"
+                  })}}>Ajánlat kérése</IonButton>
               </>);
             default:
             return (
