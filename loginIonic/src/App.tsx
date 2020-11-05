@@ -6,6 +6,7 @@ import About from './About';
 import Bid from './Bid';
 import Login from './Login';
 import PriceChange from './PriceChange';
+import AgendaMenu from './AgendaMenu';
 import PriceHandler from './PriceHandler';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -53,7 +54,8 @@ return (
             <Route path="/bid" component={Bid} />
             <Route path="/login" component={Login} />
             <Route path="/pricechange" component={PriceChange} />
-            <Route path="/pricehandler" component={PriceHandler} />
+              <Route path="/pricehandler" component={PriceHandler} />
+            <Route path="/agendamenu" component={AgendaMenu} />
           </IonRouterOutlet>
         </IonPage>
       </IonSplitPane>

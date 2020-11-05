@@ -20,15 +20,18 @@ const Menu = ({ history }) => {
           <IonMenu contentId="main">
             <IonContent>
             <IonMenuToggle>
-              <IonItem onClick={() => history.push('/pricechange')}  class="Clickable"><IonIcon name="pencil-outline" slot="start" /><div>Árszerkesztés</div></IonItem>
+              <IonItem onClick={() => history.push('/pricehandler')}  class="Clickable"><IonIcon name="person-outline" slot="start" /><div>Árajánlat kezelése</div></IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
-              <IonItem onClick={() => history.push('/pricehandler')}  class="Clickable"><IonIcon name="calendar-outline" slot="start" /><div>Árajánlat kezelése</div></IonItem>
+              <IonItem onClick={() => history.push('/agendamenu')}  class="Clickable"><IonIcon name="calendar-outline" slot="start" /><div>Napirend</div></IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem onClick={() => history.push('/pricechange')}  class="Clickable"><IonIcon name="pencil-outline" slot="start" /><div>Árszerkesztés</div></IonItem>
             </IonMenuToggle>
               <IonMenuToggle>
                 <IonItem onClick={() => history.push('/about')} class="Clickable"><IonIcon name="information-circle-outline" slot="start" />Rólunk</IonItem>
               </IonMenuToggle>
-            
+
               <IonMenuToggle>
                 <IonItem routerLink="/login" onClick={handleLogout}  class="Clickable"><IonIcon name="log-out-outline" slot="start" /><div>Kijelentkezés</div></IonItem>
               </IonMenuToggle>

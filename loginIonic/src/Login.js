@@ -96,7 +96,7 @@ useEffect(() => {
           if (user) {
             return (
               <>
-              <Redirect to={{pathname:"/pricehandler"}}/>
+              <Redirect to={{pathname:"/agendamenu"}}/>
               </>
             )
           } else {
