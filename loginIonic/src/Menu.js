@@ -20,7 +20,7 @@ const Menu = ({ history }) => {
           <IonMenu contentId="main">
             <IonContent>
             <IonMenuToggle>
-              <IonItem onClick={() => history.push('/pricechange')}  class="Clickable"><IonIcon name="build-outline" slot="start" /><div>Árszerkesztés</div></IonItem>
+              <IonItem onClick={() => history.push('/pricechange')}  class="Clickable"><IonIcon name="pencil-outline" slot="start" /><div>Árszerkesztés</div></IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
               <IonItem onClick={() => history.push('/pricehandler')}  class="Clickable"><IonIcon name="calendar-outline" slot="start" /><div>Árajánlat kezelése</div></IonItem>
@@ -28,9 +28,7 @@ const Menu = ({ history }) => {
               <IonMenuToggle>
                 <IonItem onClick={() => history.push('/about')} class="Clickable"><IonIcon name="information-circle-outline" slot="start" />Rólunk</IonItem>
               </IonMenuToggle>
-              <IonMenuToggle>
-                <IonItem onClick={() => history.push('/connect')}  class="Clickable"><IonIcon name="call-outline" slot="start" /><div>Kapcsolat</div></IonItem>
-              </IonMenuToggle>
+            
               <IonMenuToggle>
                 <IonItem routerLink="/login" onClick={handleLogout}  class="Clickable"><IonIcon name="log-out-outline" slot="start" /><div>Kijelentkezés</div></IonItem>
               </IonMenuToggle>
@@ -55,9 +53,7 @@ const Menu = ({ history }) => {
       <IonMenuToggle>
         <IonItem onClick={() => history.push('/about')} class="Clickable"><IonIcon name="information-circle-outline" slot="start" />Rólunk</IonItem>
       </IonMenuToggle>
-      <IonMenuToggle>
-        <IonItem onClick={() => history.push('/connect')}  class="Clickable"><IonIcon name="call-outline" slot="start" /><div>Kapcsolat</div></IonItem>
-      </IonMenuToggle>
+
       <IonMenuToggle>
         <IonItem onClick={() => history.push('/login')}  class="Clickable"><IonIcon name="log-in-outline" slot="start" /><div>Bejelentkezés</div></IonItem>
       </IonMenuToggle>

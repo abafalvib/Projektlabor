@@ -4,7 +4,6 @@ import Menu from'./Menu';
 import Home from './Home';
 import About from './About';
 import Bid from './Bid';
-import Connect from './Connect';
 import Login from './Login';
 import PriceChange from './PriceChange';
 import PriceHandler from './PriceHandler';
@@ -51,7 +50,6 @@ return (
           <IonRouterOutlet>
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
-            <Route path="/connect" component={Connect} />
             <Route path="/bid" component={Bid} />
             <Route path="/login" component={Login} />
             <Route path="/pricechange" component={PriceChange} />

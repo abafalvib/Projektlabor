@@ -16,18 +16,23 @@ import {
   IonCardHeader,
   IonCardContent,
   IonCardTitle,
-  IonCardSubtitle
+  IonCardSubtitle,
+  IonIcon
 
 } from '@ionic/react';
 import Cookies from 'js-cookie'
-
+import emailjs from 'emailjs-com';
 import fire from './fire';
 
 const About = () => {
 const proba=Cookies.get('log');
 const [text,setText]=useState("");
 const [contactText,setContactText]=useState("");
-
+const [telText,setTelText]=useState("");
+const [adressText,setAdressText]=useState("");
+const [emailText,setEmailText]=useState("");
+const [nameText,setNameText]=useState("");
+const [orText,setOrText]=useState("");
 var db = fire.firestore();
 var docRef = db.collection("Texts").doc("NhaKoopVtQ8K21zBXvmk");
 useEffect(() => {var db = fire.firestore("");
@@ -36,6 +41,11 @@ docRef.get().then(function(doc) {
     if (doc.exists) {
         setContactText(doc.get("Contact"));
         setText(doc.get("About"));
+        setTelText(doc.get("Telefon"));
+        setAdressText(doc.get("Address"));
+        setEmailText(doc.get("Email"));
+        setNameText(doc.get("Name"));
+        setOrText(doc.get("Or"));
         console.log(text);
         } else {
         // doc.data() will be undefined in this case
@@ -48,7 +58,12 @@ docRef.get().then(function(doc) {
 function Submit(){var db = fire.firestore();
   docRef.set({
   About: text,
-  Contact: contactText
+  Contact: contactText,
+  Telefon: telText,
+  Address: adressText,
+  Email: emailText,
+  Name: nameText,
+  Or: orText
   })
   .then(function() {
       console.log("Document successfully written!");
@@ -59,6 +74,17 @@ function Submit(){var db = fire.firestore();
     window.location.reload(false);
   });
 
+}
+function sendEmail(e) {
+  e.preventDefault();
+
+  emailjs.sendForm('gmail', 'Contact_Template', e.target, 'user_i5wHzJ9RuYMkYklggEtke')
+    .then((result) => {
+        console.log(result.text);
+    }, (error) => {
+        console.log(error.text);
+    });
+    e.target.reset()
 }
 
 return(
@@ -81,16 +107,83 @@ return(
           <IonCard>
               <img src="https://as1.ftcdn.net/jpg/02/11/26/98/500_F_211269880_j3hBBnIyUSwg168l6tjAolifK8Z35Bif.jpg" />
               <IonCardHeader>
-                <IonCardTitle>KKV helper</IonCardTitle>
-                <IonCardSubtitle>Rólunk</IonCardSubtitle>
+                <IonCardTitle>Rólunk</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
+              <IonItem>
                 <IonTextarea auto-grow="true" placeholder={text} value={text} onIonChange={(e) => setText(e.target.value)}></IonTextarea>
+                </IonItem>
               </IonCardContent>
             </IonCard>
-            <IonButton onClick={(e) => Submit()}>
-              Változtatások mentése
-            </IonButton>
+            <IonCard>
+                <IonCardHeader>
+                  <IonCardTitle>Kapcsolat</IonCardTitle>
+                  <h5>Miben segíthetünk?</h5>
+                </IonCardHeader>
+                <IonCardContent>
+
+                <IonItem>
+                  <IonTextarea auto-grow="true" placeholder={contactText} value={contactText} onIonChange={(e) => setContactText(e.target.value)}></IonTextarea>
+                  </IonItem>
+                </IonCardContent>
+
+                <IonCardContent className="wrapper2">
+                <div className="form-wrapper2">
+                <form onSubmit={sendEmail}>
+                <div>
+                <input required type="email" placeholder="Email cím" name="email"></input>
+                </div>
+                  <div>
+              <textarea required placeholder="Írd le a problémádat"name="message"></textarea>
+              </div>
+              <input type="submit" value="Üzenet küldése"></input>
+
+                </form>
+                </div>
+                  </IonCardContent>
+
+
+                <IonCardContent>
+                <IonItem>
+                  <IonTextarea auto-grow="true" placeholder={orText} value={orText} onIonChange={(e) => setOrText(e.target.value)}></IonTextarea>
+                  </IonItem>
+
+
+                <div className="area">
+                <IonItem>
+                <IonIcon name="call-outline" slot="start" />
+                <IonTextarea  placeholder={telText}value={telText}onIonChange={(e) => setTelText(e.target.value)}></IonTextarea>
+                </IonItem>
+                </div>
+                <div className="area">
+                <IonItem>
+                <IonIcon name="business-outline" slot="start" />
+                <IonTextarea  placeholder={adressText}value={adressText}onIonChange={(e) => setAdressText(e.target.value)}></IonTextarea>
+                </IonItem>
+                </div>
+                <div className="area">
+                <IonItem >
+                <IonIcon name="mail-outline" slot="start" />
+                <IonTextarea    placeholder={emailText}value={emailText}onIonChange={(e) => setEmailText(e.target.value)}></IonTextarea>
+                </IonItem>
+                </div>
+                <div className="area">
+                <IonItem >
+                <IonIcon name="person-outline" slot="start" />
+                <IonTextarea    placeholder={nameText}value={nameText}onIonChange={(e) => setNameText(e.target.value)}></IonTextarea>
+                </IonItem>
+                </div>
+                </IonCardContent>
+
+              </IonCard>
+              <IonButton onClick={(e) => Submit()}>
+                Változtatások mentése
+              </IonButton>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+
           </IonContent>
         </>
       )
@@ -105,17 +198,82 @@ return(
               <IonTitle>Rólunk</IonTitle>
             </IonToolbar>
           </IonHeader>
-          <IonContent>
+          <IonContent className="aboutwrapper">
           <IonCard>
               <img src="https://as1.ftcdn.net/jpg/02/11/26/98/500_F_211269880_j3hBBnIyUSwg168l6tjAolifK8Z35Bif.jpg" />
               <IonCardHeader>
-                <IonCardTitle>KKV helper</IonCardTitle>
-                <IonCardSubtitle>Rólunk</IonCardSubtitle>
-              </IonCardHeader>
-              <IonCardContent>
-                <p>{text}</p>
+              <IonCardTitle>Rólunk</IonCardTitle>
+            </IonCardHeader>
+            <IonCardContent>
+            <IonItem>
+            <IonTextarea readonly auto-grow="true" placeholder={text} value={text}></IonTextarea>
+              </IonItem>
+
               </IonCardContent>
             </IonCard>
+
+            <IonCard>
+                <IonCardHeader>
+                  <IonCardTitle>Kapcsolat</IonCardTitle>
+                  <h5>Miben segíthetünk?</h5>
+                </IonCardHeader>
+                <IonCardContent>
+                <IonItem>
+                  <IonTextarea readonly auto-grow="true" placeholder={contactText} value={contactText} onIonChange={(e) => setContactText(e.target.value)}></IonTextarea>
+                  </IonItem>
+                </IonCardContent>
+                <IonCardContent className="wrapper2">
+                <div className="form-wrapper2">
+                <form onSubmit={sendEmail}>
+                <div>
+                <input required type="email" placeholder="Email cím" name="email"></input>
+                </div>
+                  <div>
+              <textarea required placeholder="Írd le a problémádat"name="message"></textarea>
+              </div>
+              <input type="submit" value="Üzenet küldése"></input>
+
+                </form>
+                </div>
+                  </IonCardContent>
+                <IonCardContent>
+
+                <IonItem>
+                  <IonTextarea readonly auto-grow="true" placeholder={orText} value={orText} onIonChange={(e) => setOrText(e.target.value)}></IonTextarea>
+                  </IonItem>
+
+
+                <div className="area">
+                <IonItem>
+                <IonIcon name="call-outline" slot="start" />
+                <IonTextarea readonly  placeholder={telText}value={telText}onIonChange={(e) => setTelText(e.target.value)}></IonTextarea>
+                </IonItem>
+                </div>
+                <div className="area">
+                <IonItem>
+                <IonIcon name="business-outline" slot="start" />
+                <IonTextarea readonly placeholder={adressText}value={adressText}onIonChange={(e) => setAdressText(e.target.value)}></IonTextarea>
+                </IonItem>
+                </div>
+                <div className="area">
+                <IonItem >
+                <IonIcon name="mail-outline" slot="start" />
+                <IonTextarea  readonly  placeholder={emailText}value={emailText}onIonChange={(e) => setEmailText(e.target.value)}></IonTextarea>
+                </IonItem>
+                </div>
+                <div className="area">
+                <IonItem >
+                <IonIcon name="person-outline" slot="start" />
+                <IonTextarea readonly   placeholder={nameText}value={nameText}onIonChange={(e) => setNameText(e.target.value)}></IonTextarea>
+                </IonItem>
+                </div>
+                </IonCardContent>
+
+              </IonCard>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
 
           </IonContent>
         </>
