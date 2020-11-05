@@ -82,6 +82,11 @@ input::placeholder{
   font-size: 0.75em;
   display:relative;
 }
+.successMsg{
+  color: green;
+  font-size: 0.75em;
+  display:relative;
+}
 .userName{
   margin-right: 1%;
   width: 100%;

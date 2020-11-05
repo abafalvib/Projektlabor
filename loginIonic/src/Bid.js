@@ -40,6 +40,7 @@ export const Bid: React.FC = () => {
   const [tanegyzetm, setTanegyzetm] = useState(0);
   const [email, setEmail] = useState('');
   const [tav, setTav] = useState(0);
+  const [status, setStatus] = useState(0);  //-1:paraméterek nincsenek megadva, 0:alapállapot (semmi sincs megadva), 1:email nincs megadva, 2:minden meg van adva
 
   const [first, setFirst] = useState(0);
   const [second, setSecond] = useState(0);
@@ -281,7 +282,7 @@ export const Bid: React.FC = () => {
         <div>
           <IonItem>
             <IonLabel>E-mail cím:</IonLabel>
-            <IonInput value={email} onIonChange={(e) => setEmail(e.target.value)}/>
+            <IonInput value={email} onIonChange={(e) => {setEmail(e.target.value)}}/>
           </IonItem>
           <div>
             <IonLabel>Várható költség: {koltseg} Ft</IonLabel>
@@ -296,70 +297,145 @@ export const Bid: React.FC = () => {
             case 'Sávalap ásás':
             return (
               <IonButton onClick={(e) => {
-                db.collection('Requests').add({
-                  Folyóméter : folyom,
-                  Kanálméret: kanalm,
-                  date: date,
-                  desc: selected,
-                  distance: 0,
-                  elfogadva: false,
-                  email: email,
-                  longDesc: selected+" (Folyóméter: "+folyom+", Kanálméret: "+
-                            kanalm+", távolság: "+tav+" km, e-mail: "+email+")"
-                })}}>Ajánlat kérése</IonButton>
+                if(folyom!=0&&kanalm!=0&&email!=""){
+                  db.collection('Requests').add({
+                    Folyóméter : folyom,
+                    Kanálméret: kanalm,
+                    date: date,
+                    desc: selected,
+                    distance: 0,
+                    elfogadva: false,
+                    email: email,
+                    longDesc: selected+" (Folyóméter: "+folyom+", Kanálméret: "+
+                              kanalm+", távolság: "+tav+" km, e-mail: "+email+")"
+                  })
+                .then(function(docRef) {
+                  setStatus(1);
+                  console.log("Document written with ID: ", docRef.id);
+                })
+                .catch(function(error) {
+                  console.error("Error adding document: ", error);
+                })
+                }else if(email!=""){
+                  setStatus(-1);
+                }else if (folyom!=0&&kanalm!=0){
+                  setStatus(-2);
+                }else{
+                  setStatus(-3);
+                }}}>Ajánlat kérése</IonButton>
               );
             case 'Ház körüli drainezés':
             return (
               <IonButton onClick={(e) => {
-                db.collection('Requests').add({
-                  Folyóméter : folyom,
-                  date: date,
-                  desc: selected,
-                  distance: 0,
-                  elfogadva: false,
-                  email: email,
-                  longDesc: selected+" (Folyóméter: "+folyom+
-                            ", távolság: "+tav+" km, e-mail: "+email+")"
-                })}}>Ajánlat kérése</IonButton>);
+                if(folyom!=0&&email!=""){
+                  db.collection('Requests').add({
+                    Folyóméter : folyom,
+                    date: date,
+                    desc: selected,
+                    distance: 0,
+                    elfogadva: false,
+                    email: email,
+                    longDesc: selected+" (Folyóméter: "+folyom+
+                              ", távolság: "+tav+" km, e-mail: "+email+")"
+                })
+                .then(function(docRef) {
+                  setStatus(1);
+                  console.log("Document written with ID: ", docRef.id);
+                })
+                .catch(function(error) {
+                  console.error("Error adding document: ", error);
+                })
+                }else if(email!=""){
+                  setStatus(-1);
+                }else if (folyom!=0){
+                  setStatus(-2);
+                }else{
+                  setStatus(-3);
+                }}}>Ajánlat kérése</IonButton>);
             case 'Térkő alap előkészítés':
             return (
               <IonButton onClick={(e) => {
-                db.collection('Requests').add({
-                  Négyzetméter: negyzetm,
-                  date: date,
-                  desc: selected,
-                  distance: 0,
-                  elfogadva: false,
-                  email: email,
-                  longDesc: selected+" (Négyzetméter: "+negyzetm+
-                            ", távolság: "+tav+" km, e-mail: "+email+")"
-                })}}>Ajánlat kérése</IonButton>);
+                if(negyzetm!=0&&email!=""){
+                  db.collection('Requests').add({
+                    Négyzetméter: negyzetm,
+                    date: date,
+                    desc: selected,
+                    distance: 0,
+                    elfogadva: false,
+                    email: email,
+                    longDesc: selected+" (Négyzetméter: "+negyzetm+
+                              ", távolság: "+tav+" km, e-mail: "+email+")"
+                })
+                .then(function(docRef) {
+                  setStatus(1);
+                  console.log("Document written with ID: ", docRef.id);
+                })
+                .catch(function(error) {
+                  console.error("Error adding document: ", error);
+                })
+                }else if(email!=""){
+                  setStatus(-1);
+                }else if (negyzetm!=0){
+                  setStatus(-2);
+                }else{
+                  setStatus(-3);
+                }}}>Ajánlat kérése</IonButton>);
             case 'Törmelék elhordás':
             return (
               <IonButton onClick={(e) => {
-                db.collection('Requests').add({
-                  Köbméter: kobm,
-                  date: date,
-                  desc: selected,
-                  distance: 0,
-                  elfogadva: false,
-                  email: email,
-                  longDesc: selected+" (Köbméter: "+kobm+
-                            ", távolság: "+tav+" km, e-mail: "+email+")"
-                })}}>Ajánlat kérése</IonButton>);
+                if(kobm!=0&&email!=""){
+                  db.collection('Requests').add({
+                    Köbméter: kobm,
+                    date: date,
+                    desc: selected,
+                    distance: 0,
+                    elfogadva: false,
+                    email: email,
+                    longDesc: selected+" (Köbméter: "+kobm+
+                              ", távolság: "+tav+" km, e-mail: "+email+")"
+                  })
+                  .then(function(docRef) {
+                    setStatus(1);
+                    console.log("Document written with ID: ", docRef.id);
+                  })
+                  .catch(function(error) {
+                    console.error("Error adding document: ", error);
+                  })
+                }else if(email!=""){
+                  setStatus(-1);
+                }else if (kobm!=0){
+                  setStatus(-2);
+                }else{
+                  setStatus(-3);
+                }}}>Ajánlat kérése</IonButton>);
             case 'Tüköralap':
             return (
               <IonButton onClick={(e) => {
-                db.collection('Requests').add({
-                  Négyzetméter: negyzetm,
-                  date: date,
-                  desc: selected,
-                  distance: 0,
-                  elfogadva: false,
-                  email: email,
-                  longDesc: selected+" (Négyzetméter: "+negyzetm+
-                            ", távolság: "+tav+" km, e-mail: "+email+")"
-                })}}>Ajánlat kérése</IonButton>);
+                if(negyzetm!=0&&email!=""){
+                  db.collection('Requests').add({
+                    Négyzetméter: negyzetm,
+                    date: date,
+                    desc: selected,
+                    distance: 0,
+                    elfogadva: false,
+                    email: email,
+                    longDesc: selected+" (Négyzetméter: "+negyzetm+
+                              ", távolság: "+tav+" km, e-mail: "+email+")"
+                  })
+                  .then(function(docRef) {
+                    setStatus(1);
+                    console.log("Document written with ID: ", docRef.id);
+                  })
+                  .catch(function(error) {
+                    console.error("Error adding document: ", error);
+                  })
+                }else if(email!=""){
+                  setStatus(-1);
+                }else if (negyzetm!=0){
+                  setStatus(-2);
+                }else{
+                  setStatus(-3);
+                }}}>Ajánlat kérése</IonButton>);
             case 'Tereprendezés':
             case 'Medence ásás':
             case 'Közműbeásás':
@@ -367,14 +443,25 @@ export const Bid: React.FC = () => {
               <>
                 <p>Ehhez a munkakörhöz további egyeztetés szükséges!</p>
                 <IonButton onClick={(e) => {
-                  db.collection('Requests').add({
-                    date: date,
-                    desc: selected,
-                    distance: 0,
-                    elfogadva: false,
-                    email: email,
-                    longDesc: selected+" (Távolság: "+tav+" km, e-mail: "+email+")"
-                  })}}>Ajánlat kérése</IonButton>
+                  if(email!=""){
+                    db.collection('Requests').add({
+                      date: date,
+                      desc: selected,
+                      distance: 0,
+                      elfogadva: false,
+                      email: email,
+                      longDesc: selected+" (Távolság: "+tav+" km, e-mail: "+email+")"
+                    })
+                    .then(function(docRef) {
+                      setStatus(1);
+                      console.log("Document written with ID: ", docRef.id);
+                    })
+                    .catch(function(error) {
+                      console.error("Error adding document: ", error);
+                    })
+                  }else{
+                    setStatus(-1);
+                  }}}>Ajánlat kérése</IonButton>
               </>);
             default:
             return (
@@ -384,6 +471,36 @@ export const Bid: React.FC = () => {
             }
           })()}
 
+          {(() => {
+            if(status==0){
+              return(
+                <>
+
+                </>
+              );
+            }else if (status==-2) {
+              return(
+                <p className="errorMsg">Kérem adja meg az e-mail címét!</p>
+              );
+            }else if (status==-1) {
+              return(
+                <p className="errorMsg">Kérem adja meg az összes paramétert!</p>
+              );
+            }else if (status==-3) {
+              return(
+                <p className="errorMsg">Kérem adja meg az összes paramétert és az e-mail címét!</p>
+              );
+            }else if (status==1) {
+              return(
+                <p className="successMsg">Kérés sikeresen elküldve!</p>
+              );
+            }else{
+              return(
+                <>
+                </>
+              );
+            }
+          })()}
         </div>
         <br/>
         <br/>
