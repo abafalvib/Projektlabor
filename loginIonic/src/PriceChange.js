@@ -112,24 +112,10 @@ const PriceChange = ({history}) => {
       <IonGrid>
            <IonRow>
 
-             <IonCol className = "fel">
 
-              <div className="Center">
-
-              <IonCard>
-              <IonCardHeader>
-                <IonCardTitle>Ajánlatok</IonCardTitle>
-              </IonCardHeader>
-                  <IonCardContent>
-                  hres
-                  </IonCardContent>
-              </IonCard>
-
-              </div>
-            </IonCol>
 
             <IonCol  className = "fel">
-             <div className="Center">
+             <div>
              <IonList>
               <IonItem>
                 <h1>Jelenlegi árak</h1>
