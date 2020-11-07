@@ -32,6 +32,56 @@ const PriceHandler = ({history}) => {
   const [sub, setSub] = useState("");
   const [desc, setDesc] = useState("");
 
+  // Example POST method implementation:
+  async function postData(url = '', data = {}) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+
+
+
+
+
+  function geolocation(FROM, TO){
+
+    var tomtomAPI = "MBNtaBuKtyOFiiYTopy9xIEHGjDcPjA2";
+    var fromlat,fromlng;
+    var tolat,tolng;
+    var link = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=i4R1AKVNa4CLmxY7a07gUZxvkM50FztT&locale=hu_HU&unit=k&from="+FROM+"&to="+TO+"&outFormat=json&ambiguities=ignore&routeType=shortest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false"
+
+
+    fetch(link)
+    .then(response => response.json())
+    .then((data) => {
+      fromlat = data["route"]["locations"]["0"]["latLng"]["lat"];
+      fromlng = data["route"]["locations"]["0"]["latLng"]["lng"];
+      tolat = data["route"]["locations"]["1"]["latLng"]["lat"];
+      tolng = data["route"]["locations"]["1"]["latLng"]["lng"];
+        console.log(data["route"]["distance"]+" km");
+      return(data["route"]["distance"]+" km")
+
+    });
+
+
+
+
+    }
+
+
+
 
   function Elfogad(){
 
@@ -108,6 +158,10 @@ const PriceHandler = ({history}) => {
 
   useEffect(() => {
     showNext();
+    geolocation("Veszprém","Budapest");
+
+
+
   }, []);
 
 

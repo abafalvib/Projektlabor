@@ -39,6 +39,9 @@ const PriceChange = ({history}) => {
     const [thirdValue, setThirdValue] = useState("");
     const [fourthValue, setFourthValue] = useState("");
     const [fifthValue, setFifthValue] = useState("");
+
+    
+
     useEffect(() => {var db = fire.firestore("");
     var docRef = db.collection("AdminData").doc("e7U5eti6iZbTraUz57vu");
     docRef.get().then(function(doc) {
