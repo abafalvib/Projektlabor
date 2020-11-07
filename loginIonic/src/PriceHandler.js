@@ -66,12 +66,18 @@ const PriceHandler = ({history}) => {
     fetch(link)
     .then(response => response.json())
     .then((data) => {
-      fromlat = data["route"]["locations"]["0"]["latLng"]["lat"];
-      fromlng = data["route"]["locations"]["0"]["latLng"]["lng"];
-      tolat = data["route"]["locations"]["1"]["latLng"]["lat"];
-      tolng = data["route"]["locations"]["1"]["latLng"]["lng"];
-        console.log(data["route"]["distance"]+" km");
-      return(data["route"]["distance"]+" km")
+      try{
+        fromlat = data["route"]["locations"]["0"]["latLng"]["lat"];
+        fromlng = data["route"]["locations"]["0"]["latLng"]["lng"];
+        tolat = data["route"]["locations"]["1"]["latLng"]["lat"];
+        tolng = data["route"]["locations"]["1"]["latLng"]["lng"];
+          console.log(data["route"]["distance"]+" km");
+        return(data["route"]["distance"]+" km")
+      }catch(err){
+        console.log("hibás város");
+        return -1;
+      }
+
 
     });
 
@@ -158,7 +164,7 @@ const PriceHandler = ({history}) => {
 
   useEffect(() => {
     showNext();
-    geolocation("Veszprém","Budapest");
+    geolocation("Veszprém","Budaapest");
 
 
 
