@@ -39,8 +39,9 @@ export const Bid: React.FC = () => {
   const [tekobm, setTekobm] = useState(0);
   const [tanegyzetm, setTanegyzetm] = useState(0);
   const [email, setEmail] = useState('');
-  const [tav, setTav] = useState(0);
-  const [status, setStatus] = useState(0);  //-1:paraméterek nincsenek megadva, 0:alapállapot (semmi sincs megadva), 1:email nincs megadva, 2:minden meg van adva
+  const [city, setCity] = useState('');
+  const [tav, setTav] = useState('');
+  const [status, setStatus] = useState(0);
 
   const [first, setFirst] = useState(0);
   const [second, setSecond] = useState(0);
@@ -71,6 +72,37 @@ export const Bid: React.FC = () => {
       console.log("Error getting document:", error);
   });}, []);
 
+
+  function geolocation(FROM, TO){
+
+    var tomtomAPI = "MBNtaBuKtyOFiiYTopy9xIEHGjDcPjA2";
+    var fromlat,fromlng;
+    var tolat,tolng;
+    var link = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=i4R1AKVNa4CLmxY7a07gUZxvkM50FztT&locale=hu_HU&unit=k&from="+FROM+"&to="+TO+"&outFormat=json&ambiguities=ignore&routeType=shortest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false"
+
+
+    fetch(link)
+    .then(response => response.json())
+    .then((data) => {
+      try{
+        fromlat = data["route"]["locations"]["0"]["latLng"]["lat"];
+        fromlng = data["route"]["locations"]["0"]["latLng"]["lng"];
+        tolat = data["route"]["locations"]["1"]["latLng"]["lat"];
+        tolng = data["route"]["locations"]["1"]["latLng"]["lng"];
+          console.log(data["route"]["distance"]+" km");
+        setTav(data["route"].getString("distance"));
+      }catch(err){
+        console.log("hibás város");
+        setTav("-1");
+      }
+
+
+    });
+
+
+
+
+    }
 
   let folyom;
   if (selected=="Sávalap ásás") {
@@ -103,8 +135,6 @@ export const Bid: React.FC = () => {
   } else {
     kobm = 0;
   }
-
-
 
 
   let koltseg;
@@ -289,6 +319,10 @@ export const Bid: React.FC = () => {
           </div>
           <IonLabel>Határidő:</IonLabel>
           <Calendar onChange={onDateChange} value={date} minDate={today}/>
+          <IonItem>
+            <IonLabel>Település:</IonLabel>
+            <IonInput value={city} onIonChange={(e) => {setCity(e.target.value)}}/>
+          </IonItem>
         </div>
 
         <div align="center"> {(() => {
@@ -297,13 +331,16 @@ export const Bid: React.FC = () => {
             case 'Sávalap ásás':
             return (
               <IonButton onClick={(e) => {
-                if(folyom!=0&&kanalm!=0&&email!=""){
+                setTav(geolocation("Farkasgyepű",city));
+                console.log(city+tav);
+                if(folyom!=0&&kanalm!=0&&email!=""&&tav!="-1"){
                   db.collection('Requests').add({
                     Folyóméter : folyom,
                     Kanálméret: kanalm,
                     date: date,
                     desc: selected,
-                    distance: 0,
+                    location: city,
+                    distance: tav,
                     elfogadva: false,
                     email: email,
                     longDesc: selected+" (Folyóméter: "+folyom+", Kanálméret: "+
@@ -327,12 +364,15 @@ export const Bid: React.FC = () => {
             case 'Ház körüli drainezés':
             return (
               <IonButton onClick={(e) => {
-                if(folyom!=0&&email!=""){
+                setTav(geolocation("Farkasgyepű",city));
+                console.log(city+tav);
+                if(folyom!=0&&email!=""&&tav!="-1"){
                   db.collection('Requests').add({
                     Folyóméter : folyom,
                     date: date,
                     desc: selected,
-                    distance: 0,
+                    location: city,
+                    distance: tav,
                     elfogadva: false,
                     email: email,
                     longDesc: selected+" (Folyóméter: "+folyom+
@@ -355,12 +395,15 @@ export const Bid: React.FC = () => {
             case 'Térkő alap előkészítés':
             return (
               <IonButton onClick={(e) => {
-                if(negyzetm!=0&&email!=""){
+                setTav(geolocation("Farkasgyepű",city));
+                console.log(city+tav);
+                if(negyzetm!=0&&email!=""&&tav!="-1"){
                   db.collection('Requests').add({
                     Négyzetméter: negyzetm,
                     date: date,
                     desc: selected,
-                    distance: 0,
+                    location: city,
+                    distance: tav,
                     elfogadva: false,
                     email: email,
                     longDesc: selected+" (Négyzetméter: "+negyzetm+
@@ -383,12 +426,15 @@ export const Bid: React.FC = () => {
             case 'Törmelék elhordás':
             return (
               <IonButton onClick={(e) => {
-                if(kobm!=0&&email!=""){
+                setTav(geolocation("Farkasgyepű",city));
+                console.log(city+tav);
+                if(kobm!=0&&email!=""&&tav!="-1"){
                   db.collection('Requests').add({
                     Köbméter: kobm,
                     date: date,
                     desc: selected,
-                    distance: 0,
+                    location: city,
+                    distance: tav,
                     elfogadva: false,
                     email: email,
                     longDesc: selected+" (Köbméter: "+kobm+
@@ -411,12 +457,15 @@ export const Bid: React.FC = () => {
             case 'Tüköralap':
             return (
               <IonButton onClick={(e) => {
-                if(negyzetm!=0&&email!=""){
+                setTav(geolocation("Farkasgyepű",city));
+                console.log(city+tav);
+                if(negyzetm!=0&&email!=""&&tav!="-1"){
                   db.collection('Requests').add({
                     Négyzetméter: negyzetm,
                     date: date,
                     desc: selected,
-                    distance: 0,
+                    location: city,
+                    distance: tav,
                     elfogadva: false,
                     email: email,
                     longDesc: selected+" (Négyzetméter: "+negyzetm+
@@ -443,11 +492,14 @@ export const Bid: React.FC = () => {
               <>
                 <p>Ehhez a munkakörhöz további egyeztetés szükséges!</p>
                 <IonButton onClick={(e) => {
-                  if(email!=""){
+                  setTav(geolocation("Farkasgyepű",city));
+                  console.log(city+tav);
+                  if(email!=""&&tav!="-1"){
                     db.collection('Requests').add({
                       date: date,
                       desc: selected,
-                      distance: 0,
+                      location: city,
+                      distance: tav,
                       elfogadva: false,
                       email: email,
                       longDesc: selected+" (Távolság: "+tav+" km, e-mail: "+email+")"
