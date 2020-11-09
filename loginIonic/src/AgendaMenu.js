@@ -79,11 +79,19 @@ const AgendaMenu = () => {
           querySnapshot.forEach(function(doc) {
             if (doc.get("elfogadva")) {
               // doc.data() is never undefined for query doc snapshots
+              var t = doc.get("date").toDate();
+
+              years.push(parseInt(t.getFullYear()));
+              months.push(parseInt(t.getMonth()));
+              days.push(parseInt(t.getDate()));
+              events.push(doc.get("longDesc"));
+              ids.push(doc.id);
+/*
               years.push(parseInt(doc.get("Year")));
               months.push(parseInt(doc.get("Month"))-1);
               days.push(parseInt(doc.get("Day")));
               events.push(doc.get("longDesc"));
-              ids.push(doc.id);
+              ids.push(doc.id);*/
             }
           });
       })
