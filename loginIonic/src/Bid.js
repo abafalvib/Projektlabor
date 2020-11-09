@@ -40,7 +40,6 @@ export const Bid: React.FC = () => {
   const [tanegyzetm, setTanegyzetm] = useState(0);
   const [email, setEmail] = useState('');
   const [city, setCity] = useState('');
-  const [tav, setTav] = useState('');
   const [status, setStatus] = useState(0);
 
   const [first, setFirst] = useState(0);
@@ -74,20 +73,17 @@ export const Bid: React.FC = () => {
 
 
   function GenerateName(){
+    var db = fire.firestore("");
     var currentdate = new Date();
-    var datetime = currentdate.getFullYear() +"."+ currentdate.getMonth() +"."+ (currentdate.getDate()+1)+";"+currentdate.getHours()+":"+ currentdate.getMinutes()+":"+currentdate.getSeconds();
-    var n = 0;
-    var datetime2 = datetime+"+"+n;
-    while(db.collection("Requests").doc(datetime2).get().exists){
-      n++;
-      var datetime2 = datetime+"+"+n;
-    }
+    var datetime = (currentdate.getFullYear()+1111) +"."+ (currentdate.getMonth()+11) +"."+ (currentdate.getDate()+11)+";"+(currentdate.getHours()+11)+":"+ (currentdate.getMinutes()+11)+":"+(currentdate.getSeconds()+11)+(currentdate.getMilliseconds()+11111);
+    var datetime2 = datetime+"+"+Math.floor(Math.random() * 10);
+    var done = false;
     datetime = datetime2;
     return datetime;
   }
 
 
-   function geolocation(FROM, TO){
+   function loadSavalap(FROM, TO){
 
     var tomtomAPI = "MBNtaBuKtyOFiiYTopy9xIEHGjDcPjA2";
     var fromlat,fromlng;
@@ -100,19 +96,263 @@ export const Bid: React.FC = () => {
     .then((data) => {
       try{
         console.log("siker");
-        return(data["route"]["distance"]+" km");
+        if(folyom!=0&&kanalm!=0&&email!=""&&city!=""&&data["route"]["distance"]!=undefined){
+          db.collection('Requests').doc(GenerateName()).set({
+            Folyóméter : folyom,
+            Kanálméret: kanalm,
+            date: date,
+            desc: selected,
+            location: city,
+            distance: data["route"]["distance"]+" km",
+            elfogadva: false,
+            email: email,
+            longDesc: selected+" (Folyóméter: "+folyom+", Kanálméret: "+
+                      kanalm+", távolság: "+data["route"]["distance"]+" km"+", e-mail: "+email+")"
+          })
+        .then(function(docRef) {
+          setStatus(1);
+          console.log("Document written");
+        })
+        .catch(function(error) {
+          console.error("Error adding document: ", error);
+        })
+        }else if(email!=""){
+          setStatus(-1);
+        }else if (folyom!=0&&kanalm!=0){
+          setStatus(-2);
+        }else{
+          setStatus(-3);
+        }
       }catch(err){
+        setStatus(-4);
         console.log("hibás város");
-        setTav("-");
       }
-
-
     });
+  }
+
+  function loadDrainezes(FROM, TO){
+
+   var tomtomAPI = "MBNtaBuKtyOFiiYTopy9xIEHGjDcPjA2";
+   var fromlat,fromlng;
+   var tolat,tolng;
+   var link = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=i4R1AKVNa4CLmxY7a07gUZxvkM50FztT&locale=hu_HU&unit=k&from="+FROM+"&to="+TO+"&outFormat=json&ambiguities=ignore&routeType=shortest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false"
 
 
+   fetch(link)
+   .then(response => response.json())
+   .then((data) => {
+     try{
+       console.log("siker");
+       if(folyom!=0&&email!=""&&city!=""&&data["route"]["distance"]!=undefined){
+         db.collection('Requests').doc(GenerateName()).set({
+           Folyóméter : folyom,
+           date: date,
+           desc: selected,
+           location: city,
+           distance: data["route"]["distance"]+" km",
+           elfogadva: false,
+           email: email,
+           longDesc: selected+" (Folyóméter: "+folyom+
+                     ", távolság: "+data["route"]["distance"]+" km, e-mail: "+email+")"
+       })
+       .then(function(docRef) {
+         setStatus(1);
+         console.log("Document written.");
+       })
+       .catch(function(error) {
+         console.error("Error adding document: ", error);
+       })
+       }else if(email!=""){
+         setStatus(-1);
+       }else if (folyom!=0){
+         setStatus(-2);
+       }else{
+         setStatus(-3);
+       }
+     }catch(err){
+       setStatus(-4);
+       console.log("hibás város");
+     }
+   });
+ }
+
+ function loadTerko(FROM, TO){
+
+  var tomtomAPI = "MBNtaBuKtyOFiiYTopy9xIEHGjDcPjA2";
+  var fromlat,fromlng;
+  var tolat,tolng;
+  var link = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=i4R1AKVNa4CLmxY7a07gUZxvkM50FztT&locale=hu_HU&unit=k&from="+FROM+"&to="+TO+"&outFormat=json&ambiguities=ignore&routeType=shortest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false"
 
 
+  fetch(link)
+  .then(response => response.json())
+  .then((data) => {
+    try{
+      console.log("siker");
+      if(negyzetm!=0&&email!=""&&city!=""&&data["route"]["distance"]!=undefined){
+        db.collection('Requests').doc(GenerateName()).set({
+          Négyzetméter : negyzetm,
+          date: date,
+          desc: selected,
+          location: city,
+          distance: data["route"]["distance"]+" km",
+          elfogadva: false,
+          email: email,
+          longDesc: selected+" (Négyzetméter: "+negyzetm+
+                    ", távolság: "+data["route"]["distance"]+" km, e-mail: "+email+")"
+      })
+      .then(function(docRef) {
+        setStatus(1);
+        console.log("Document written.");
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+      })
+      }else if(email!=""){
+        setStatus(-1);
+      }else if (negyzetm!=0){
+        setStatus(-2);
+      }else{
+        setStatus(-3);
+      }
+    }catch(err){
+      setStatus(-4);
+      console.log("hibás város");
     }
+  });
+}
+
+function loadTormelek(FROM, TO){
+
+ var tomtomAPI = "MBNtaBuKtyOFiiYTopy9xIEHGjDcPjA2";
+ var fromlat,fromlng;
+ var tolat,tolng;
+ var link = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=i4R1AKVNa4CLmxY7a07gUZxvkM50FztT&locale=hu_HU&unit=k&from="+FROM+"&to="+TO+"&outFormat=json&ambiguities=ignore&routeType=shortest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false"
+
+
+ fetch(link)
+ .then(response => response.json())
+ .then((data) => {
+   try{
+     console.log("siker");
+     if(kobm!=0&&email!=""&&city!=""&&data["route"]["distance"]!=undefined){
+       db.collection('Requests').doc(GenerateName()).set({
+         Köbméter : kobm,
+         date: date,
+         desc: selected,
+         location: city,
+         distance: data["route"]["distance"]+" km",
+         elfogadva: false,
+         email: email,
+         longDesc: selected+" (Köbméter: "+kobm+
+                   ", távolság: "+data["route"]["distance"]+" km, e-mail: "+email+")"
+     })
+     .then(function(docRef) {
+       setStatus(1);
+       console.log("Document written.");
+     })
+     .catch(function(error) {
+       console.error("Error adding document: ", error);
+     })
+     }else if(email!=""){
+       setStatus(-1);
+     }else if (kobm!=0){
+       setStatus(-2);
+     }else{
+       setStatus(-3);
+     }
+   }catch(err){
+     setStatus(-4);
+     console.log("hibás város");
+   }
+ });
+}
+
+function loadTukoralap(FROM, TO){
+
+ var tomtomAPI = "MBNtaBuKtyOFiiYTopy9xIEHGjDcPjA2";
+ var fromlat,fromlng;
+ var tolat,tolng;
+ var link = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=i4R1AKVNa4CLmxY7a07gUZxvkM50FztT&locale=hu_HU&unit=k&from="+FROM+"&to="+TO+"&outFormat=json&ambiguities=ignore&routeType=shortest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false"
+
+
+ fetch(link)
+ .then(response => response.json())
+ .then((data) => {
+   try{
+     console.log("siker");
+     if(negyzetm!=0&&email!=""&&city!=""&&data["route"]["distance"]!=undefined){
+       db.collection('Requests').doc(GenerateName()).set({
+         Négyzetméter : negyzetm,
+         date: date,
+         desc: selected,
+         location: city,
+         distance: data["route"]["distance"]+" km",
+         elfogadva: false,
+         email: email,
+         longDesc: selected+" (Négyzetméter: "+negyzetm+
+                   ", távolság: "+data["route"]["distance"]+" km, e-mail: "+email+")"
+     })
+     .then(function(docRef) {
+       setStatus(1);
+       console.log("Document written.");
+     })
+     .catch(function(error) {
+       console.error("Error adding document: ", error);
+     })
+     }else if(email!=""){
+       setStatus(-1);
+     }else if (negyzetm!=0){
+       setStatus(-2);
+     }else{
+       setStatus(-3);
+     }
+   }catch(err){
+     setStatus(-4);
+     console.log("hibás város");
+   }
+ });
+}
+
+function loadEgyeb(FROM, TO){
+
+ var tomtomAPI = "MBNtaBuKtyOFiiYTopy9xIEHGjDcPjA2";
+ var fromlat,fromlng;
+ var tolat,tolng;
+ var link = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=i4R1AKVNa4CLmxY7a07gUZxvkM50FztT&locale=hu_HU&unit=k&from="+FROM+"&to="+TO+"&outFormat=json&ambiguities=ignore&routeType=shortest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false"
+
+
+ fetch(link)
+ .then(response => response.json())
+ .then((data) => {
+   try{
+     console.log("siker");
+     if(email!=""&&city!=""&&data["route"]["distance"]!=undefined){
+       db.collection('Requests').doc(GenerateName()).set({
+         date: date,
+         desc: selected,
+         location: city,
+         distance: data["route"]["distance"]+" km",
+         elfogadva: false,
+         email: email,
+         longDesc: selected+" (Távolság: "+data["route"]["distance"]+" km, e-mail: "+email+")"
+       })
+       .then(function(docRef) {
+         setStatus(1);
+         console.log("Document written.");
+       })
+       .catch(function(error) {
+         console.error("Error adding document: ", error);
+       })
+     }else{
+       setStatus(-1);
+     }
+   }catch(err){
+     setStatus(-4);
+     console.log("hibás város");
+   }
+ });
+}
 
   let folyom;
   if (selected=="Sávalap ásás") {
@@ -341,153 +581,29 @@ export const Bid: React.FC = () => {
             case 'Sávalap ásás':
             return (
               <IonButton onClick={(e) => {
-
-                if(folyom!=0&&kanalm!=0&&email!=""&&tav!="-1"){
-                  db.collection('Requests').doc(GenerateName()).set({
-                    Folyóméter : folyom,
-                    Kanálméret: kanalm,
-                    date: date,
-                    desc: selected,
-                    location: city,
-                    distance: tav,
-                    elfogadva: false,
-                    email: email,
-                    longDesc: selected+" (Folyóméter: "+folyom+", Kanálméret: "+
-                              kanalm+", távolság: "+tav+" km, e-mail: "+email+")"
-                  })
-                .then(function(docRef) {
-                  setStatus(1);
-                  console.log("Document written with ID: ", docRef.id);
-                })
-                .catch(function(error) {
-                  console.error("Error adding document: ", error);
-                })
-                }else if(email!=""){
-                  setStatus(-1);
-                }else if (folyom!=0&&kanalm!=0){
-                  setStatus(-2);
-                }else{
-                  setStatus(-3);
-                }}}>Ajánlat kérése</IonButton>
+                  loadSavalap("Farkasgyepű",city);
+                }}>Ajánlat kérése</IonButton>
               );
             case 'Ház körüli drainezés':
             return (
               <IonButton onClick={(e) => {
-
-                if(folyom!=0&&email!=""&&tav!="-1"){
-                  db.collection('Requests').doc(GenerateName()).set({
-                    Folyóméter : folyom,
-                    date: date,
-                    desc: selected,
-                    location: city,
-                    distance: tav,
-                    elfogadva: false,
-                    email: email,
-                    longDesc: selected+" (Folyóméter: "+folyom+
-                              ", távolság: "+tav+" km, e-mail: "+email+")"
-                })
-                .then(function(docRef) {
-                  setStatus(1);
-                  console.log("Document written with ID: ", docRef.id);
-                })
-                .catch(function(error) {
-                  console.error("Error adding document: ", error);
-                })
-                }else if(email!=""){
-                  setStatus(-1);
-                }else if (folyom!=0){
-                  setStatus(-2);
-                }else{
-                  setStatus(-3);
-                }}}>Ajánlat kérése</IonButton>);
+                  loadDrainezes("Farkasgyepű",city);
+                }}>Ajánlat kérése</IonButton>);
             case 'Térkő alap előkészítés':
             return (
               <IonButton onClick={(e) => {
-
-                if(negyzetm!=0&&email!=""&&tav!="-1"){
-                  db.collection('Requests').doc(GenerateName()).set({
-                    Négyzetméter: negyzetm,
-                    date: date,
-                    desc: selected,
-                    location: city,
-                    distance: tav,
-                    elfogadva: false,
-                    email: email,
-                    longDesc: selected+" (Négyzetméter: "+negyzetm+
-                              ", távolság: "+tav+" km, e-mail: "+email+")"
-                })
-                .then(function(docRef) {
-                  setStatus(1);
-                  console.log("Document written with ID: ", docRef.id);
-                })
-                .catch(function(error) {
-                  console.error("Error adding document: ", error);
-                })
-                }else if(email!=""){
-                  setStatus(-1);
-                }else if (negyzetm!=0){
-                  setStatus(-2);
-                }else{
-                  setStatus(-3);
-                }}}>Ajánlat kérése</IonButton>);
+                  loadTerko("Farkasgyepű",city);
+                }}>Ajánlat kérése</IonButton>);
             case 'Törmelék elhordás':
             return (
               <IonButton onClick={(e) => {
-                if(kobm!=0&&email!=""&&tav!="-1"){
-                  db.collection('Requests').doc(GenerateName()).set({
-                    Köbméter: kobm,
-                    date: date,
-                    desc: selected,
-                    location: city,
-                    distance: tav,
-                    elfogadva: false,
-                    email: email,
-                    longDesc: selected+" (Köbméter: "+kobm+
-                              ", távolság: "+tav+" km, e-mail: "+email+")"
-                  })
-                  .then(function(docRef) {
-                    setStatus(1);
-                    console.log("Document written with ID: ", docRef.id);
-                  })
-                  .catch(function(error) {
-                    console.error("Error adding document: ", error);
-                  })
-                }else if(email!=""){
-                  setStatus(-1);
-                }else if (kobm!=0){
-                  setStatus(-2);
-                }else{
-                  setStatus(-3);
-                }}}>Ajánlat kérése</IonButton>);
+                  loadTormelek("Farkasgyepű",city);
+                }}>Ajánlat kérése</IonButton>);
             case 'Tüköralap':
             return (
               <IonButton onClick={(e) => {
-                if(negyzetm!=0&&email!=""&&tav!="-1"){
-                  db.collection('Requests').doc(GenerateName()).set({
-                    Négyzetméter: negyzetm,
-                    date: date,
-                    desc: selected,
-                    location: city,
-                    distance: tav,
-                    elfogadva: false,
-                    email: email,
-                    longDesc: selected+" (Négyzetméter: "+negyzetm+
-                              ", távolság: "+tav+" km, e-mail: "+email+")"
-                  })
-                  .then(function(docRef) {
-                    setStatus(1);
-                    console.log("Document written with ID: ", docRef.id);
-                  })
-                  .catch(function(error) {
-                    console.error("Error adding document: ", error);
-                  })
-                }else if(email!=""){
-                  setStatus(-1);
-                }else if (negyzetm!=0){
-                  setStatus(-2);
-                }else{
-                  setStatus(-3);
-                }}}>Ajánlat kérése</IonButton>);
+                  loadTukoralap("Farkasgyepű",city);
+                }}>Ajánlat kérése</IonButton>);
             case 'Tereprendezés':
             case 'Medence ásás':
             case 'Közműbeásás':
@@ -495,26 +611,8 @@ export const Bid: React.FC = () => {
               <>
                 <p>Ehhez a munkakörhöz további egyeztetés szükséges!</p>
                 <IonButton onClick={(e) => {
-                  if(email!=""&&tav!="-1"){
-                    db.collection('Requests').doc(GenerateName()).set({
-                      date: date,
-                      desc: selected,
-                      location: city,
-                      distance: tav,
-                      elfogadva: false,
-                      email: email,
-                      longDesc: selected+" (Távolság: "+tav+" km, e-mail: "+email+")"
-                    })
-                    .then(function(docRef) {
-                      setStatus(1);
-                      console.log("Document written with ID: ", docRef.id);
-                    })
-                    .catch(function(error) {
-                      console.error("Error adding document: ", error);
-                    })
-                  }else{
-                    setStatus(-1);
-                  }}}>Ajánlat kérése</IonButton>
+                  loadEgyeb("Farkasgyepű",city);
+                }}>Ajánlat kérése</IonButton>
               </>);
             default:
             return (
@@ -542,6 +640,10 @@ export const Bid: React.FC = () => {
             }else if (status==-3) {
               return(
                 <p className="errorMsg">Kérem adja meg az összes paramétert és az e-mail címét!</p>
+              );
+            }else if (status==-4) {
+              return(
+                <p className="errorMsg">Kérem adjon meg egy létező várost!</p>
               );
             }else if (status==1) {
               return(
