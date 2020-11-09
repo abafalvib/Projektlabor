@@ -31,7 +31,7 @@ const PriceHandler = ({history}) => {
   const [title, setTitle] = useState("");
   const [sub, setSub] = useState("");
   const [desc, setDesc] = useState("");
-
+  const [admin, setAdmin] = useState("admin@gmail.com");
   // Example POST method implementation:
   async function postData(url = '', data = {}) {
     // Default options are marked with *
@@ -51,8 +51,13 @@ const PriceHandler = ({history}) => {
     return response.json(); // parses JSON response into native JavaScript objects
   }
 
-  function sendEmail(){
+  function sendEmail(text,email){
 
+    emailjs.send('gmail', 'Accept_Template', {tartalom : text,email : email}, 'user_i5wHzJ9RuYMkYklggEtke').then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+    }, function(error) {
+       console.log('FAILED...', error);
+    });
   }
 
 
@@ -101,8 +106,39 @@ const PriceHandler = ({history}) => {
     .then(querySnapshot => {
     if (!querySnapshot.empty) {
         const queryDocumentSnapshot = querySnapshot.docs[0];
+         //Edit date
+         //Edit date
+         //Edit date
+         //Edit date
+         //Edit date
+         //Edit date
+         //Edit date
+         //Edit date
+
          id = queryDocumentSnapshot.id;
+         var desc;
+         var email;
+         var date;
+         var long;
          db.collection("Requests").doc(id).update({elfogadva:true}).finally(()=>{showNext();});
+         db.collection("Requests").doc(id).get().then((doc)=>{
+           desc= doc.get("desc");
+           date = doc.get("date").toDate();
+           email = doc.get("email");
+           long = `Az Ön által leadott `+desc+` munka kérelem elfogadásra került !
+A munka végzés időpontja: `+ date +`
+További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail címet!`;
+
+
+         }).finally(()=>{
+           sendEmail(long,email);
+         });
+
+
+
+
+
+
     } else {
         console.log("No document corresponding to the query!");
     }
@@ -121,7 +157,25 @@ const PriceHandler = ({history}) => {
     if (!querySnapshot.empty) {
         const queryDocumentSnapshot = querySnapshot.docs[0];
          id = queryDocumentSnapshot.id;
-         db.collection("Requests").doc(id).delete().finally(()=>{showNext();});
+         var desc;
+         var email;
+         var date;
+         var long;
+         db.collection("Requests").doc(id).update({elfogadva:true}).finally(()=>{showNext();});
+         db.collection("Requests").doc(id).get().then((doc)=>{
+           desc= doc.get("desc");
+           date = doc.get("date").toDate();
+           email = doc.get("email");
+           long = `Az Ön által leadott `+desc+` munka kérelem ulatasításra került !`;
+         }).finally(()=>{
+           sendEmail(long,email);
+            db.collection("Requests").doc(id).delete().finally(()=>{showNext();});
+         });
+
+
+
+
+
 
 
     } else {
@@ -133,15 +187,12 @@ const PriceHandler = ({history}) => {
   function Varakoztat(){
     var db = fire.firestore("");
     var currentdate = new Date();
-    var datetime = currentdate.getFullYear() +"."+ (currentdate.getMonth()+1) +"."+ (currentdate.getDate()+1)+";"+currentdate.getHours()+":"+ currentdate.getMinutes()+":"+currentdate.getSeconds();
-    var n = 0;
-    var datetime2 = datetime+"+"+n;
-    while(db.collection("Requests").doc(datetime2).get().exists){
-      n++;
-      var datetime2 = datetime+"+"+n;
-    }
+    var datetime = (currentdate.getFullYear()+1111) +"."+ (currentdate.getMonth()+11) +"."+ (currentdate.getDate()+11)+";"+(currentdate.getHours()+11)+":"+ (currentdate.getMinutes()+11)+":"+(currentdate.getSeconds()+11)+(currentdate.getMilliseconds()+11111);
+    var datetime2 = datetime+"+"+Math.floor(Math.random() * 10);
+    var done = false;
     datetime = datetime2;
     console.log(datetime+" Is unique");
+
 
 
     var id;
@@ -166,9 +217,6 @@ const PriceHandler = ({history}) => {
 
   useEffect(() => {
     showNext();
-
-
-
   }, []);
 
 
@@ -185,9 +233,9 @@ const PriceHandler = ({history}) => {
         const queryDocumentSnapshot = querySnapshot.docs[0];
         var temp = queryDocumentSnapshot.get("desc")+', '+queryDocumentSnapshot.get("email");
         setTitle(temp);
-        temp =(queryDocumentSnapshot.get("date").toDate())+", "+"Helyszín";
+        temp =(queryDocumentSnapshot.get("date").toDate())+", "+queryDocumentSnapshot.get("location")+" ("+queryDocumentSnapshot.get("distance")+")";
         setSub(temp);
-        setDesc(queryDocumentSnapshot.get("longDesc"));
+        //setDesc(queryDocumentSnapshot.get("longDesc"));
 
     } else {
         setTitle("Nincs több Értesítés");
@@ -220,7 +268,7 @@ const PriceHandler = ({history}) => {
           </IonCardHeader>
 
           <IonCardContent>
-          {desc}
+          <img src="https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png" />
           </IonCardContent>
       <IonButton color="green"  onClick={()=>{Elfogad();}}>Elfogad</IonButton>
       <IonButton color="yellow"  onClick={()=>{Varakoztat();}}>Várakoztat</IonButton>
