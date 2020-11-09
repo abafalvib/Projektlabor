@@ -73,7 +73,21 @@ export const Bid: React.FC = () => {
   });}, []);
 
 
-  function geolocation(FROM, TO){
+  function GenerateName(){
+    var currentdate = new Date();
+    var datetime = currentdate.getFullYear() +"."+ currentdate.getMonth() +"."+ (currentdate.getDate()+1)+";"+currentdate.getHours()+":"+ currentdate.getMinutes()+":"+currentdate.getSeconds();
+    var n = 0;
+    var datetime2 = datetime+"+"+n;
+    while(db.collection("Requests").doc(datetime2).get().exists){
+      n++;
+      var datetime2 = datetime+"+"+n;
+    }
+    datetime = datetime2;
+    return datetime;
+  }
+
+
+   function geolocation(FROM, TO){
 
     var tomtomAPI = "MBNtaBuKtyOFiiYTopy9xIEHGjDcPjA2";
     var fromlat,fromlng;
@@ -85,15 +99,11 @@ export const Bid: React.FC = () => {
     .then(response => response.json())
     .then((data) => {
       try{
-        fromlat = data["route"]["locations"]["0"]["latLng"]["lat"];
-        fromlng = data["route"]["locations"]["0"]["latLng"]["lng"];
-        tolat = data["route"]["locations"]["1"]["latLng"]["lat"];
-        tolng = data["route"]["locations"]["1"]["latLng"]["lng"];
-          console.log(data["route"]["distance"]+" km");
-        setTav(data["route"].getString("distance"));
+        console.log("siker");
+        return(data["route"]["distance"]+" km");
       }catch(err){
         console.log("hibás város");
-        setTav("-1");
+        setTav("-");
       }
 
 
@@ -331,10 +341,9 @@ export const Bid: React.FC = () => {
             case 'Sávalap ásás':
             return (
               <IonButton onClick={(e) => {
-                setTav(geolocation("Farkasgyepű",city));
-                console.log(city+tav);
+
                 if(folyom!=0&&kanalm!=0&&email!=""&&tav!="-1"){
-                  db.collection('Requests').add({
+                  db.collection('Requests').doc(GenerateName()).set({
                     Folyóméter : folyom,
                     Kanálméret: kanalm,
                     date: date,
@@ -364,10 +373,9 @@ export const Bid: React.FC = () => {
             case 'Ház körüli drainezés':
             return (
               <IonButton onClick={(e) => {
-                setTav(geolocation("Farkasgyepű",city));
-                console.log(city+tav);
+
                 if(folyom!=0&&email!=""&&tav!="-1"){
-                  db.collection('Requests').add({
+                  db.collection('Requests').doc(GenerateName()).set({
                     Folyóméter : folyom,
                     date: date,
                     desc: selected,
@@ -395,10 +403,9 @@ export const Bid: React.FC = () => {
             case 'Térkő alap előkészítés':
             return (
               <IonButton onClick={(e) => {
-                setTav(geolocation("Farkasgyepű",city));
-                console.log(city+tav);
+
                 if(negyzetm!=0&&email!=""&&tav!="-1"){
-                  db.collection('Requests').add({
+                  db.collection('Requests').doc(GenerateName()).set({
                     Négyzetméter: negyzetm,
                     date: date,
                     desc: selected,
@@ -426,10 +433,8 @@ export const Bid: React.FC = () => {
             case 'Törmelék elhordás':
             return (
               <IonButton onClick={(e) => {
-                setTav(geolocation("Farkasgyepű",city));
-                console.log(city+tav);
                 if(kobm!=0&&email!=""&&tav!="-1"){
-                  db.collection('Requests').add({
+                  db.collection('Requests').doc(GenerateName()).set({
                     Köbméter: kobm,
                     date: date,
                     desc: selected,
@@ -457,10 +462,8 @@ export const Bid: React.FC = () => {
             case 'Tüköralap':
             return (
               <IonButton onClick={(e) => {
-                setTav(geolocation("Farkasgyepű",city));
-                console.log(city+tav);
                 if(negyzetm!=0&&email!=""&&tav!="-1"){
-                  db.collection('Requests').add({
+                  db.collection('Requests').doc(GenerateName()).set({
                     Négyzetméter: negyzetm,
                     date: date,
                     desc: selected,
@@ -492,10 +495,8 @@ export const Bid: React.FC = () => {
               <>
                 <p>Ehhez a munkakörhöz további egyeztetés szükséges!</p>
                 <IonButton onClick={(e) => {
-                  setTav(geolocation("Farkasgyepű",city));
-                  console.log(city+tav);
                   if(email!=""&&tav!="-1"){
-                    db.collection('Requests').add({
+                    db.collection('Requests').doc(GenerateName()).set({
                       date: date,
                       desc: selected,
                       location: city,

@@ -24,7 +24,7 @@ import Cookies from 'js-cookie';
 import {Redirect} from 'react-router-dom';
 import fire from './fire';
 
-
+import emailjs from 'emailjs-com';
 
 const PriceHandler = ({history}) => {
   const proba=Cookies.get('log');
@@ -51,7 +51,9 @@ const PriceHandler = ({history}) => {
     return response.json(); // parses JSON response into native JavaScript objects
   }
 
+  function sendEmail(){
 
+  }
 
 
 
@@ -131,7 +133,7 @@ const PriceHandler = ({history}) => {
   function Varakoztat(){
     var db = fire.firestore("");
     var currentdate = new Date();
-    var datetime = currentdate.getFullYear() +"."+ currentdate.getMonth() +"."+ (currentdate.getDate()+1)+";"+currentdate.getHours()+":"+ currentdate.getMinutes()+":"+currentdate.getSeconds();
+    var datetime = currentdate.getFullYear() +"."+ (currentdate.getMonth()+1) +"."+ (currentdate.getDate()+1)+";"+currentdate.getHours()+":"+ currentdate.getMinutes()+":"+currentdate.getSeconds();
     var n = 0;
     var datetime2 = datetime+"+"+n;
     while(db.collection("Requests").doc(datetime2).get().exists){
@@ -164,7 +166,6 @@ const PriceHandler = ({history}) => {
 
   useEffect(() => {
     showNext();
-    geolocation("Veszprém","Budaapest");
 
 
 
