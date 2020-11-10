@@ -94,12 +94,43 @@ const PriceHandler = ({history}) => {
     }
 
 
+  var currentdate = new Date();
+  const [maxDate,setMaxDate]= useState(new Date());
 
 
   function Elfogad(){
 
     var db = fire.firestore("");
     var id;
+    var t;
+    db.collection("Requests")
+      .get()
+      .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            if (doc.get("elfogadva")) {
+              // doc.data() is never undefined for query doc snapshots
+              t = doc.get("when").toDate();
+              console.log("t: "+t);
+              if (t>maxDate&&t>=currentdate) {
+                setMaxDate(t);
+                console.log("max: "+maxDate);
+              }
+            }
+          });
+      })
+      .catch(function(error) {
+          console.log("Error getting documents: ", error);
+      }).finally(()=>{
+        if (maxDate==currentdate) {
+          setMaxDate(maxDate.setDate(currentdate.getDate() + 1));
+        } else {
+          var newDate=new Date(0,0,1);
+          setMaxDate(maxDate.setDate(maxDate.getDate() + 1));
+        }
+
+        console.log("Végső max: "+maxDate)
+      });
+
     db.collection("Requests").where("elfogadva", "==" ,false)
     .limit(1)
     .get()
@@ -120,7 +151,7 @@ const PriceHandler = ({history}) => {
          var email;
          var date;
          var long;
-         db.collection("Requests").doc(id).update({elfogadva:true}).finally(()=>{showNext();});
+         db.collection("Requests").doc(id).update({elfogadva:true,when:maxDate}).finally(()=>{showNext();});
          db.collection("Requests").doc(id).get().then((doc)=>{
            desc= doc.get("desc");
            date = doc.get("date").toDate();
@@ -213,6 +244,26 @@ További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail c
   });
   }
 
+
+  useEffect(() => {
+    var db = fire.firestore("");
+    var id;
+    db.collection("Requests").where("elfogadva","==",true)
+      .get()
+      .then(function(querySnapshot) {
+          const queryDoc = querySnapshot.docs[0];
+          // doc.data() is never undefined for query doc snapshots
+          setMaxDate(queryDoc.get("when").toDate());
+
+      }).catch(function(error) {
+          console.log("Error getting documents: ", error);
+      }).finally(()=>{
+        if (maxDate==undefined){
+          setMaxDate(currentdate);
+        }
+        console.log(maxDate)
+      });
+  }, []);
 
 
   useEffect(() => {
