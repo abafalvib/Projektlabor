@@ -103,7 +103,7 @@ const PriceHandler = ({history}) => {
     var db = fire.firestore("");
     var id;
     var t;
-    db.collection("Requests")
+    /*db.collection("Requests")
       .get()
       .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
@@ -121,7 +121,10 @@ const PriceHandler = ({history}) => {
       .catch(function(error) {
           console.log("Error getting documents: ", error);
       }).finally(()=>{
-        if (maxDate==currentdate) {
+        if (maxDate==undefined){
+          setMaxDate(currentdate);
+          console.log("Hibás dátum.");
+        }else if (maxDate==currentdate) {
           setMaxDate(maxDate.setDate(currentdate.getDate() + 1));
         } else {
           var newDate=new Date(0,0,1);
@@ -129,7 +132,7 @@ const PriceHandler = ({history}) => {
         }
 
         console.log("Végső max: "+maxDate)
-      });
+      }); - Adam1ú*/
 
     db.collection("Requests").where("elfogadva", "==" ,false)
     .limit(1)
@@ -151,7 +154,7 @@ const PriceHandler = ({history}) => {
          var email;
          var date;
          var long;
-         db.collection("Requests").doc(id).update({elfogadva:true,when:maxDate}).finally(()=>{showNext();});
+         db.collection("Requests").doc(id).update({elfogadva:true/*,when:maxDate*/}).finally(()=>{showNext();});
          db.collection("Requests").doc(id).get().then((doc)=>{
            desc= doc.get("desc");
            date = doc.get("date").toDate();
