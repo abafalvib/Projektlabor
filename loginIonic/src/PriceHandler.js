@@ -166,7 +166,7 @@ További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail c
            desc= doc.get("desc");
            date = doc.get("date").toDate();
            email = doc.get("email");
-           long = `Az Ön által leadott `+desc+` munka kérelem ulatasításra került !`;
+           long = `Az Ön által leadott `+desc+` munka kérelem elutasításra került !`;
          }).finally(()=>{
            sendEmail(long,email);
             db.collection("Requests").doc(id).delete().finally(()=>{showNext();});
