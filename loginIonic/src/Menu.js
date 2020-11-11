@@ -23,7 +23,7 @@ const Menu = ({ history }) => {
               <IonItem onClick={() => history.push('/pricehandler')}  class="Clickable"><IonIcon name="person-outline" slot="start" /><div>Árajánlat kezelése</div></IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
-              <IonItem onClick={() => history.push('/agendamenu')}  class="Clickable"><IonIcon name="calendar-outline" slot="start" /><div>Napirend</div></IonItem>
+              <IonItem onClick={() => history.push('/agendamenu')}  class="Clickable"><IonIcon name="calendar-outline" slot="start" /><div>Naptár</div></IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
               <IonItem onClick={() => history.push('/pricechange')}  class="Clickable"><IonIcon name="pencil-outline" slot="start" /><div>Árszerkesztés</div></IonItem>

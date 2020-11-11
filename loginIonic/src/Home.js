@@ -25,7 +25,7 @@ const Home = () => (
       </IonToolbar>
     </IonHeader>
     <IonContent>
-    <h1>KKV Segítő</h1>
+    <h1>Plechinger Bau Kft</h1>
     <IonSlides scrollbar="true">
     <IonSlide>
     <IonCard class="HomeCard">
