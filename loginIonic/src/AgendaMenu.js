@@ -79,7 +79,7 @@ const AgendaMenu = () => {
           querySnapshot.forEach(function(doc) {
             if (doc.get("elfogadva")) {
               // doc.data() is never undefined for query doc snapshots
-              var t = doc.get("when").toDate();
+              var t = doc.get("date").toDate();
 
               years.push(parseInt(t.getFullYear()));
               months.push(parseInt(t.getMonth()));

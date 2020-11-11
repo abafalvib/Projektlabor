@@ -95,7 +95,6 @@ export const Bid: React.FC = () => {
     .then(response => response.json())
     .then((data) => {
       try{
-        console.log("siker");
         if(folyom!=0&&kanalm!=0&&email!=""&&city!=""&&data["route"]["distance"]!=undefined){
           db.collection('Requests').doc(GenerateName()).set({
             Folyóméter : folyom,
@@ -142,7 +141,6 @@ export const Bid: React.FC = () => {
    .then(response => response.json())
    .then((data) => {
      try{
-       console.log("siker");
        if(folyom!=0&&email!=""&&city!=""&&data["route"]["distance"]!=undefined){
          db.collection('Requests').doc(GenerateName()).set({
            Folyóméter : folyom,
@@ -188,7 +186,6 @@ export const Bid: React.FC = () => {
   .then(response => response.json())
   .then((data) => {
     try{
-      console.log("siker");
       if(negyzetm!=0&&email!=""&&city!=""&&data["route"]["distance"]!=undefined){
         db.collection('Requests').doc(GenerateName()).set({
           Négyzetméter : negyzetm,
@@ -234,7 +231,6 @@ function loadTormelek(FROM, TO){
  .then(response => response.json())
  .then((data) => {
    try{
-     console.log("siker");
      if(kobm!=0&&email!=""&&city!=""&&data["route"]["distance"]!=undefined){
        db.collection('Requests').doc(GenerateName()).set({
          Köbméter : kobm,
@@ -280,7 +276,6 @@ function loadTukoralap(FROM, TO){
  .then(response => response.json())
  .then((data) => {
    try{
-     console.log("siker");
      if(negyzetm!=0&&email!=""&&city!=""&&data["route"]["distance"]!=undefined){
        db.collection('Requests').doc(GenerateName()).set({
          Négyzetméter : negyzetm,
@@ -326,7 +321,6 @@ function loadEgyeb(FROM, TO){
  .then(response => response.json())
  .then((data) => {
    try{
-     console.log("siker");
      if(email!=""&&city!=""&&data["route"]["distance"]!=undefined){
        db.collection('Requests').doc(GenerateName()).set({
          date: date,
