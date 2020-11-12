@@ -313,10 +313,10 @@ További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail c
               <IonTitle>Árajánlat kezelése</IonTitle>
             </IonToolbar>
           </IonHeader>
-          <IonContent>
+          <IonContent className="kontent">
           <IonCard>
           <IonCardHeader>
-            <IonCardTitle >{title} </IonCardTitle>
+            <IonCardTitle align="center">{title} </IonCardTitle>
             <IonCardSubtitle >{sub} </IonCardSubtitle>
 
           </IonCardHeader>
@@ -324,9 +324,11 @@ További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail c
           <IonCardContent>
           <img src="https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png" />
           </IonCardContent>
-      <IonButton color="green"  onClick={()=>{Elfogad();}}>Elfogad</IonButton>
-      <IonButton color="yellow"  onClick={()=>{Varakoztat();}}>Várakoztat</IonButton>
-      <IonButton color="red"  onClick={()=>{Elutasit();}}>Elutasít</IonButton>
+          <div align="center">
+            <IonButton color="green"  onClick={()=>{Elfogad();}}>Elfogad</IonButton>
+            <IonButton color="yellow"  onClick={()=>{Varakoztat();}}>Várakoztat</IonButton>
+            <IonButton color="red"  onClick={()=>{Elutasit();}}>Elutasít</IonButton>
+          </div>
         </IonCard>
 
 

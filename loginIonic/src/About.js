@@ -1,5 +1,8 @@
 
 import React, {useState, useEffect} from 'react';
+
+import {callOutline, businessOutline, mailOutline, personOutline} from 'ionicons/icons';
+
 import {
   IonHeader,
   IonTextarea,
@@ -151,34 +154,36 @@ return(
 
                 <div className="area">
                 <IonItem>
-                <IonIcon name="call-outline" slot="start" />
+                <IonIcon icon={callOutline} className="rolunk" slot="start" />
                 <IonTextarea  placeholder={telText}value={telText}onIonChange={(e) => setTelText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>
                 <div className="area">
                 <IonItem>
-                <IonIcon name="business-outline" slot="start" />
+                <IonIcon icon={businessOutline} className="rolunk" slot="start" />
                 <IonTextarea  placeholder={adressText}value={adressText}onIonChange={(e) => setAdressText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>
                 <div className="area">
                 <IonItem >
-                <IonIcon name="mail-outline" slot="start" />
+                <IonIcon icon={mailOutline} className="rolunk" slot="start" />
                 <IonTextarea    placeholder={emailText}value={emailText}onIonChange={(e) => setEmailText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>
                 <div className="area">
                 <IonItem >
-                <IonIcon name="person-outline" slot="start" />
+                <IonIcon icon={personOutline} className="rolunk" slot="start" />
                 <IonTextarea    placeholder={nameText}value={nameText}onIonChange={(e) => setNameText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>
                 </IonCardContent>
 
               </IonCard>
+              <div align="center">
               <IonButton onClick={(e) => Submit()}>
                 Változtatások mentése
               </IonButton>
+              </div>
               <br/>
               <br/>
               <br/>
@@ -245,25 +250,25 @@ return(
 
                 <div className="area">
                 <IonItem>
-                <IonIcon name="call-outline" slot="start" />
+                <IonIcon icon={callOutline} className="rolunk" slot="start" />
                 <IonTextarea readonly  placeholder={telText}value={telText}onIonChange={(e) => setTelText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>
                 <div className="area">
                 <IonItem>
-                <IonIcon name="business-outline" slot="start" />
+                <IonIcon icon={businessOutline} className="rolunk" slot="start" />
                 <IonTextarea readonly placeholder={adressText}value={adressText}onIonChange={(e) => setAdressText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>
                 <div className="area">
                 <IonItem >
-                <IonIcon name="mail-outline" slot="start" />
+                <IonIcon icon={mailOutline} className="rolunk" slot="start" />
                 <IonTextarea  readonly  placeholder={emailText}value={emailText}onIonChange={(e) => setEmailText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>
                 <div className="area">
                 <IonItem >
-                <IonIcon name="person-outline" slot="start" />
+                <IonIcon icon={personOutline} className="rolunk" slot="start" />
                 <IonTextarea readonly   placeholder={nameText}value={nameText}onIonChange={(e) => setNameText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>

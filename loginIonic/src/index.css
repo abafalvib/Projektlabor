@@ -12,12 +12,66 @@ body{
   cursor: pointer;
 }
 
+.menukontent{
+	--background: #2d353f;
+}
+
+.menukont{
+	--color: white;
+	--background: #2d353f;
+}
+
+.admincucc{
+	--background: #2d353f;
+}
+
+.menukont:hover{
+	--background: #2d353f;
+	--color: #819db3;
+}
+
+ion-icon {
+	color: white;
+}
+
+.rolunk {
+	color: black;
+}
+
+ion-button {
+  --color: white;
+}
+
 ion-card{
   --ion-background-color:white;
 }
 .area{
   height: 4em;
   width: 100%;
+}
+
+ion-menu{
+		--ion-background-color:#f00000;
+}
+
+ion-input {
+	--color: white;
+}
+
+ion-item {
+	--color: black;
+}
+
+.munkas{
+	height: 866px;
+}
+
+ion-content{
+	width:100%;
+	--font-family:'Open-sans', sans-serif;
+
+		--color: black;
+    --ion-background-color:#f4f4f4;
 }
 
 img {
@@ -52,7 +106,7 @@ ion-grid {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background-color: #f4f4f4;
 }
 .form-wrapper{
   width: 400px;
@@ -61,7 +115,7 @@ ion-grid {
   padding: 20px 40px;
   border-radius: 10px;
   box-shadow: 0px 10px 50px #555;
-  background-color: #fff;
+  background-color: #f4f4f4;
 }
 .wrapper2
 {

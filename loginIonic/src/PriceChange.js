@@ -40,7 +40,7 @@ const PriceChange = ({history}) => {
     const [fourthValue, setFourthValue] = useState("");
     const [fifthValue, setFifthValue] = useState("");
 
-    
+
 
     useEffect(() => {var db = fire.firestore("");
     var docRef = db.collection("AdminData").doc("e7U5eti6iZbTraUz57vu");
@@ -112,6 +112,7 @@ const PriceChange = ({history}) => {
                 <IonTitle>Árszerkesztés</IonTitle>
               </IonToolbar>
             </IonHeader>
+      <IonContent>
       <IonGrid>
            <IonRow>
 
@@ -120,9 +121,7 @@ const PriceChange = ({history}) => {
             <IonCol  className = "fel">
              <div>
              <IonList>
-              <IonItem>
                 <h1>Jelenlegi árak</h1>
-              </IonItem>
                <IonItem>
                  <IonLabel position="floating">Sáv: </IonLabel>
                  <IonInput placeholder={first} value={firstValue} onIonChange={(e) => setFirstValue(e.target.value)}></IonInput>
@@ -143,15 +142,17 @@ const PriceChange = ({history}) => {
                  <IonLabel position="floating">Tükör:</IonLabel>
                  <IonInput placeholder={fifth} value={fifthValue} onIonChange={(e) => setFifthValue(e.target.value)}></IonInput>
                </IonItem>
-               <IonItem>
+               <br/>
+               <div align="center">
                  <IonButton onClick={ () => {Submit();}}>Save Changes</IonButton>
               { /*/<IonButton onClick={ () => {resetChages();console.log({firstValue})} }>Reset Changes</IonButton>*/}
-               </IonItem>
+               </div>
 
              </IonList>
              </div></IonCol>
            </IonRow>
       </IonGrid>
+      </IonContent>
       </>
           )
         } else {

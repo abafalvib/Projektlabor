@@ -542,13 +542,15 @@ function loadEgyeb(FROM, TO){
             case 'Közműbeásás':
             return (
               <>
-                <p>Ehhez a munkakörhöz további egyeztetés szükséges!</p>
+                <p align="center">Ehhez a munkakörhöz további egyeztetés szükséges!</p>
               </>);
             default:
             return (
               <>
-                Kérem válasszon munkakört!
-
+                <br/>
+                <div align="center">
+                  Kérem válasszon munkakört!
+                </div>
               </>);
             }
           })()}
@@ -558,12 +560,15 @@ function loadEgyeb(FROM, TO){
             <IonLabel>E-mail cím:</IonLabel>
             <IonInput value={email} onIonChange={(e) => {setEmail(e.target.value)}}/>
           </IonItem>
-          <div>
+          <br/>
+          <div align="center">
             <IonLabel>Várható költség: {koltseg} Ft</IonLabel>
           </div>
           <IonLabel>Határidő:</IonLabel>
-          <Calendar onChange={onDateChange} value={date} minDate={today}/>
-          <IonItem>
+          <div align="center">
+            <Calendar align="center" onChange={onDateChange} value={date} minDate={today}/>
+          </div>
+            <IonItem>
             <IonLabel>Település:</IonLabel>
             <IonInput value={city} onIonChange={(e) => {setCity(e.target.value)}}/>
           </IonItem>

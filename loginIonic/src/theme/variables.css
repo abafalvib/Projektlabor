@@ -2,8 +2,13 @@
 http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
+
+@font-face {
+font-family: 'Open-sans', sans-serif;
+}
 :root {
   /** primary **/
+  --ion-font-family: ‘Open-sans’, sans-serif;
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
@@ -83,6 +88,7 @@ http://ionicframework.com/docs/theming/ */
    */
 
   body {
+
     --ion-color-primary: #428cff;
     --ion-color-primary-rgb: 66,140,255;
     --ion-color-primary-contrast: #ffffff;

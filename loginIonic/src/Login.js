@@ -118,7 +118,7 @@ useEffect(() => {
             <IonHeader>
             <IonToolbar color="primary">
             <IonIcon slot="end" size="large" icon={calendarOutline}/>
-            <IonTitle>Admin</IonTitle>
+            <IonTitle className="admincucc">Admin</IonTitle>
             </IonToolbar>
             </IonHeader>
 
