@@ -55,10 +55,12 @@ ion-input{
 ion-back-button{
 	--color: white;
 }
+
 .menukont:hover{
 	--background: #2d353f;
 	--color: #819db3;
 }
+
 
 ion-toolbar{
 	--background: #2d353f;
@@ -91,7 +93,7 @@ ion-card-subtitle {
 	text-align: center;
 }
 .rolunk {
-	color: black;
+	color: white;
 }
 
 ion-button {
