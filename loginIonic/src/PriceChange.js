@@ -113,12 +113,11 @@ const PriceChange = ({history}) => {
               </IonToolbar>
             </IonHeader>
       <IonContent>
-      <IonGrid>
-           <IonRow>
+        <IonCard>
 
 
 
-            <IonCol  className = "fel">
+
              <div>
              <IonList>
                 <h1>Jelenlegi árak</h1>
@@ -149,9 +148,8 @@ const PriceChange = ({history}) => {
                </div>
 
              </IonList>
-             </div></IonCol>
-           </IonRow>
-      </IonGrid>
+             </div>
+  </IonCard>
       </IonContent>
       </>
           )
