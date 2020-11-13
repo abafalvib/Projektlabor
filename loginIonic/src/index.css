@@ -19,7 +19,9 @@ body{
 align-items: center;
 justify-content: center;
 }
-
+ion-label{
+	background: #2d353f;
+}
 
 
 
@@ -116,6 +118,9 @@ ion-item {
 	--color: black;
 }
 
+ion-label{
+	background: #2d353f;
+}
 .munkas{
 	height: 866px;
 }
@@ -162,6 +167,12 @@ ion-grid {
   align-items: center;
   background-color: #f4f4f4;
 }
+
+ion-item{
+	--backgrou-color: #2d353f;
+
+}
+
 .form-wrapper{
   width: 400px;
 
@@ -328,7 +339,9 @@ textarea::placeholder{
   color: #999;
   font-weight: lighter;
 }
-
+div{
+	color:white;
+}
 
 /*Színek */
 

@@ -19,7 +19,9 @@ import {
   IonRow,
   IonInput,
   IonSelect,
-  IonSelectOption
+  IonSelectOption,
+  IonCard
+
 } from '@ionic/react';
 
 import fire from './fire';
@@ -415,6 +417,7 @@ function loadEgyeb(FROM, TO){
     </IonHeader>
 
     <IonContent>
+    <IonCard>
     <IonList>
     <IonRadioGroup value={selected} onIonChange={e => setSelected(e.detail.value)}>
           <IonItem>
@@ -659,6 +662,8 @@ function loadEgyeb(FROM, TO){
         <br/>
         <br/>
         <br/>
+        </IonCard>
+
     </IonContent>
   </>
 )}
