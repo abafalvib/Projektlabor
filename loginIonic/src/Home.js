@@ -35,9 +35,10 @@ const Home = () => (
       <IonCardHeader>
       <IonCardTitle>Ha minőségi munkát szeretne, itt keresse!</IonCardTitle>
 
-        <img src="https://previews.123rf.com/images/7106108800/71061088001101/7106108800110100006/8586435-worker-with-protective-gear-with-thumbs-up.jpg" />
 
           <IonCardSubtitle>Plechinger Bau Kft</IonCardSubtitle>
+          <img className="elso" height="150 px" width="150 px" src="https://solid.accountants/wp-content/uploads/2018/04/solid-accountants-tax-VAT-relief-disabled-person.jpg" />
+
         </IonCardHeader>
       </IonCard>
     </IonSlide>
@@ -54,7 +55,7 @@ const Home = () => (
       <IonCard class="HomeCard">
         <IonCardHeader>
         <img className="munkas" src="https://contentgrid.homedepot-static.com/hdus/en_US/DTCCOMNEW/Articles/hearing-protection-thumbnail.jpg" />
-        
+
           <IonCardTitle>Képzett szakemberek</IonCardTitle>
         </IonCardHeader>
       </IonCard>
