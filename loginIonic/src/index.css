@@ -119,11 +119,7 @@ ion-item {
 .munkas{
 	height: 866px;
 }
-.elso{
 
-		width:50%;
-		height:50%;
-}
 ion-content{
 	width:100%;
 	--font-family:'Open-sans', sans-serif;
@@ -132,7 +128,11 @@ ion-content{
     --ion-background-color:#f4f4f4;
 }
 
-
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 .Center{
   margin: auto;
     position: absolute;
@@ -209,7 +209,11 @@ h5{
 	padding: 10px;
 }
 
-
+img{
+	 padding: 10px;
+	 width: 80%;
+	 height: 80%;
+}
 
 .white{
 	background: #f4f4f4 ;
