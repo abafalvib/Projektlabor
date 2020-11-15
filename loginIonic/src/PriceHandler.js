@@ -299,6 +299,7 @@ const PriceHandler = ({history}) => {
 
     } else {
         setTitle("Nincs több Értesítés");
+        setSub("");
     }
   });
   }
