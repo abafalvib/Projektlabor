@@ -23,7 +23,10 @@ ion-label{
 	background: #2d353f;
 }
 
+.emin{
+	--color: black;
 
+}
 
  form{
   background-color: #2d353f;
