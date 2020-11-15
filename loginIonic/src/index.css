@@ -11,24 +11,6 @@ body{
   --background:#3880ff;
   cursor: pointer;
 }
-.HomeCard{
-	width:100%;
-	height:100%;
-
-	display: flex;
-align-items: center;
-justify-content: center;
-}
-div {
-  background-color: #2d353f;
-}
- form{
-  background-color: #2d353f;
-}
-input{
- background-color: #2d353f;
-}
-
 
 .menukontent{
 	--background: #2d353f;
@@ -63,18 +45,6 @@ ion-icon {
 	color: white;
 }
 ion-card-title {
-	color: white;
-}
-ion-item {
-	color: white;
-}
-.rolunk {
-	color:  white;
-}
-ion-card-content {
-	color: white;
-}
-ion-textarea {
 	color: white;
 }
 ion-card-subtitle {
@@ -157,13 +127,12 @@ ion-grid {
 }
 .form-wrapper{
   width: 400px;
-
   display:flex;
   flex-direction: column;
   padding: 20px 40px;
   border-radius: 10px;
   box-shadow: 0px 10px 50px #555;
-  background-color:  #2d353f
+  background-color: #f4f4f4;
 }
 .wrapper2
 {
@@ -173,7 +142,7 @@ ion-grid {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #2d353f;
+  background-color: #fff;
 }
 .form-wrapper2{
   width:440px;
@@ -181,7 +150,7 @@ ion-grid {
   flex-direction: column;
   padding: 20px 40px;
 
-  background-color: #2d353f;
+  background-color: #fff;
 }
 form{
   width:100%;
@@ -190,26 +159,10 @@ form{
 }
 h5{
   width: 100%;
-  color:white;
+  color:#111;
   font-weight: lighter;
   font-family: -apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,cursive,Ubuntu,Cantarell,
   "Open Sans","Helvetica Neue"m sans-serif;
-}
-
-.homeslider{
-	width:80%;
-	height: 80%;
-	padding: 10px;
-}
-
-img{
-	 padding: 10px;
-	 width: 80%;
-	 height: 80%;
-}
-
-.white{
-	background: #f4f4f4 ;
 }
 h1{
   text-align: center;
@@ -253,8 +206,6 @@ input::placeholder{
   font-size: 1.2em;
   font-weight: lighter;
   color:999;
-	color : white;
-
 }
 textarea{
   resize: none;
@@ -263,14 +214,12 @@ textarea{
   border-radius: 5px;
   outline: none;
   border: 1px solid #999;
-	background-color: #2d353f
 }
 
 textarea::placeholder{
   font-size: 1.2em;
   font-weight: lighter;
   color:999;
-	color : white;
 }
 .errorMsg{
   color: red;

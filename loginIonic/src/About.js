@@ -154,32 +154,32 @@ return(
 
                 <div className="area">
                 <IonItem>
-                <IonIcon icon={callOutline} slot="start" />
+                <IonIcon icon={callOutline} className="rolunk" slot="start" />
                 <IonTextarea  placeholder={telText}value={telText}onIonChange={(e) => setTelText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>
                 <div className="area">
                 <IonItem>
-                <IonIcon icon={businessOutline} slot="start" />
+                <IonIcon icon={businessOutline} className="rolunk" slot="start" />
                 <IonTextarea  placeholder={adressText}value={adressText}onIonChange={(e) => setAdressText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>
                 <div className="area">
                 <IonItem >
-                <IonIcon icon={mailOutline} slot="start" />
+                <IonIcon icon={mailOutline} className="rolunk" slot="start" />
                 <IonTextarea    placeholder={emailText}value={emailText}onIonChange={(e) => setEmailText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>
                 <div className="area">
                 <IonItem >
-                <IonIcon icon={personOutline} slot="start" />
+                <IonIcon icon={personOutline} className="rolunk" slot="start" />
                 <IonTextarea    placeholder={nameText}value={nameText}onIonChange={(e) => setNameText(e.target.value)}></IonTextarea>
                 </IonItem>
                 </div>
                 </IonCardContent>
 
               </IonCard>
-              <div align="center" className="white">
+              <div align="center">
               <IonButton onClick={(e) => Submit()}>
                 Változtatások mentése
               </IonButton>
