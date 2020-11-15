@@ -62,6 +62,8 @@ const PriceHandler = ({history}) => {
 
 
 
+
+
   function geolocation(FROM, TO){
 
     var tomtomAPI = "MBNtaBuKtyOFiiYTopy9xIEHGjDcPjA2";
@@ -103,36 +105,7 @@ const PriceHandler = ({history}) => {
     var db = fire.firestore("");
     var id;
     var t;
-    /*db.collection("Requests")
-      .get()
-      .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            if (doc.get("elfogadva")) {
-              // doc.data() is never undefined for query doc snapshots
-              t = doc.get("when").toDate();
-              console.log("t: "+t);
-              if (t>maxDate&&t>=currentdate) {
-                setMaxDate(t);
-                console.log("max: "+maxDate);
-              }
-            }
-          });
-      })
-      .catch(function(error) {
-          console.log("Error getting documents: ", error);
-      }).finally(()=>{
-        if (maxDate==undefined){
-          setMaxDate(currentdate);
-          console.log("Hibás dátum.");
-        }else if (maxDate==currentdate) {
-          setMaxDate(maxDate.setDate(currentdate.getDate() + 1));
-        } else {
-          var newDate=new Date(0,0,1);
-          setMaxDate(maxDate.setDate(maxDate.getDate() + 1));
-        }
 
-        console.log("Végső max: "+maxDate)
-      }); - Adam1ú*/
 
     db.collection("Requests").where("elfogadva", "==" ,false)
     .limit(1)
@@ -154,17 +127,67 @@ const PriceHandler = ({history}) => {
          var email;
          var date;
          var long;
-         db.collection("Requests").doc(id).update({elfogadva:true/*,when:maxDate*/}).finally(()=>{showNext();});
+         var f;
          db.collection("Requests").doc(id).get().then((doc)=>{
            desc= doc.get("desc");
            date = doc.get("date").toDate();
            email = doc.get("email");
            long = `Az Ön által leadott `+desc+` munka kérelem elfogadásra került !
-A munka végzés időpontja: `+ date +`
-További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail címet!`;
+  A munka végzés időpontja: `+ date +`
+  További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail címet!`;
+
+
+           db.collection("Requests").where("elfogadva", "==" ,true).orderBy("date","desc")
+           .limit(1)
+           .get()
+           .then(querySnapshot => {
+           if (!querySnapshot.empty) {
+               //We know there is one doc in the querySnapshot
+               const queryDocumentSnapshot = querySnapshot.docs[0];
+               var temp = queryDocumentSnapshot.get("date").toDate();
+
+               const tomorrow = new Date(temp);
+               tomorrow.setDate(tomorrow.getDate() + 1);
+
+               if(tomorrow>date){
+                 console.log("wrong data");
+                 f=undefined;
+                 Elutasit();
+               }else {
+                 f=tomorrow;
+                 console.log(f);
+               }
+
+
+               //setDesc(queryDocumentSnapshot.get("longDesc"));
+
+           } else {
+             const today = new Date();
+             const tomorrow = new Date(today);
+             tomorrow.setDate(tomorrow.getDate() + 1);
+             if(tomorrow>date){
+               f=undefined;
+               Elutasit();
+             }
+             f = tomorrow;
+           }
+         }).then(()=>{
+
+
+
+                       console.log(f);
+                       if(f==undefined){
+                         console.log("error")
+                         return;
+                       }else{
+                         db.collection("Requests").doc(id).update({date:f}).finally(()=>{showNext();});
+
+                       }
+
 
 
          }).finally(()=>{
+           db.collection("Requests").doc(id).update({elfogadva:true}).finally(()=>{showNext();});
            sendEmail(long,email);
          });
 
@@ -173,11 +196,13 @@ További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail c
 
 
 
-    } else {
+
+  }).finally(()=>{showNext();});
+  }   else {
         console.log("No document corresponding to the query!");
     }
-  }).finally(()=>{showNext();});
-  }
+  })
+}
 
 
 
@@ -195,7 +220,6 @@ További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail c
          var email;
          var date;
          var long;
-         db.collection("Requests").doc(id).update({elfogadva:true}).finally(()=>{showNext();});
          db.collection("Requests").doc(id).get().then((doc)=>{
            desc= doc.get("desc");
            date = doc.get("date").toDate();
@@ -248,25 +272,7 @@ További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail c
   }
 
 
-  useEffect(() => {
-    var db = fire.firestore("");
-    var id;
-    db.collection("Requests").where("elfogadva","==",true)
-      .get()
-      .then(function(querySnapshot) {
-          const queryDoc = querySnapshot.docs[0];
-          // doc.data() is never undefined for query doc snapshots
-          setMaxDate(queryDoc.get("when").toDate());
 
-      }).catch(function(error) {
-          console.log("Error getting documents: ", error);
-      }).finally(()=>{
-        if (maxDate==undefined){
-          setMaxDate(currentdate);
-        }
-        console.log(maxDate)
-      });
-  }, []);
 
 
   useEffect(() => {
