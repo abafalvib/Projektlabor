@@ -123,15 +123,15 @@ useEffect(() => {
             </IonHeader>
 
             <IonItem>
-            <IonLabel  position="floating">User Name</IonLabel>
-            <IonInput className="emin" type="text" autoFocus required id="name"
+            <IonLabel position="floating">User Name</IonLabel>
+            <IonInput type="text" autoFocus required id="name"
             value={email} onIonChange={(e)=> setEmail(e.target.value)}></IonInput>
             </IonItem>
             <p className="errorMsg">{emailError}</p>
 
             <IonItem>
             <IonLabel position="floating">Password</IonLabel>
-            <IonInput className="emin" type="password" name="password"
+            <IonInput type="password" name="password"
             required value={password} noValidate id="pw" onIonChange={(e)=> setPassword(e.target.value)}></IonInput>
             </IonItem>
             <p className="errorMsg">{passwordError}</p>
