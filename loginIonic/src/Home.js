@@ -37,7 +37,7 @@ const Home = () => (
 
 
           <IonCardSubtitle>Plechinger Bau Kft</IonCardSubtitle>
-          <img className="elso" height="150 px" width="150 px" src="https://media.istockphoto.com/photos/confident-architect-at-construction-site-picture-id1189913209?k=6&m=1189913209&s=612x612&w=0&h=oupcjI4XvOMKuvh6yOAslUQzMn5Lpoka3iOgCJgMoxQ=" />
+          <img className="elso" height="150 px" width="150 px" src="https://solid.accountants/wp-content/uploads/2018/04/solid-accountants-tax-VAT-relief-disabled-person.jpg" />
 
         </IonCardHeader>
       </IonCard>
