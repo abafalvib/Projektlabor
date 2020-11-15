@@ -322,7 +322,7 @@ További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail c
           </IonCardHeader>
 
           <IonCardContent>
-          <img src="https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png" />
+          <img src="https://epitoabc.hu/wp-content/uploads/2017/09/%C3%81rok%C3%A1s%C3%A1s-1024x576.jpg" />
           </IonCardContent>
           <div align="center">
             <IonButton color="green"  onClick={()=>{Elfogad();}}>Elfogad</IonButton>

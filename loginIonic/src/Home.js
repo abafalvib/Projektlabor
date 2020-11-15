@@ -29,7 +29,7 @@ const Home = () => (
     <IonSlides scrollbar="true">
     <IonSlide>
       <IonCard class="HomeCard">
-        <img src="https://previews.123rf.com/images/7106108800/71061088001101/7106108800110100006/8586435-worker-with-protective-gear-with-thumbs-up.jpg" />
+        <img src="https://media.istockphoto.com/photos/confident-architect-at-construction-site-picture-id1189913209?k=6&m=1189913209&s=612x612&w=0&h=oupcjI4XvOMKuvh6yOAslUQzMn5Lpoka3iOgCJgMoxQ=" />
         <IonCardHeader>
           <IonCardTitle>Ha minőségi munkát szeretne, itt keresse!</IonCardTitle>
         </IonCardHeader>
@@ -45,7 +45,7 @@ const Home = () => (
     </IonSlide>
     <IonSlide>
       <IonCard class="HomeCard">
-        <img className="munkas" src="https://contentgrid.homedepot-static.com/hdus/en_US/DTCCOMNEW/Articles/hearing-protection-thumbnail.jpg" />
+        <img src="https://contentgrid.homedepot-static.com/hdus/en_US/DTCCOMNEW/Articles/hearing-protection-thumbnail.jpg" />
         <IonCardHeader>
           <IonCardTitle>Képzett szakemberek</IonCardTitle>
         </IonCardHeader>
