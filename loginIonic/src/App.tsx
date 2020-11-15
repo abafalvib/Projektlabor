@@ -28,7 +28,6 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 import Calendar from 'react-calendar';
-import myCalendar from './components/Calendar';
 import 'react-calendar/dist/Calendar.css';
 import Cookies from 'js-cookie'
 

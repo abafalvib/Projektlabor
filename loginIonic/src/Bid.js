@@ -25,7 +25,6 @@ import {
 import fire from './fire';
 
 import Calendar from 'react-calendar';
-import myCalendar from './components/Calendar';
 import 'react-calendar/dist/Calendar.css';
 
 export const Bid: React.FC = () => {
