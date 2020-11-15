@@ -19,10 +19,9 @@ body{
 align-items: center;
 justify-content: center;
 }
-
-
-
-
+div {
+  background-color: #2d353f;
+}
  form{
   background-color: #2d353f;
 }
@@ -46,10 +45,6 @@ input{
 ion-menu-button{
 	--color: white;
 }
-
-ion-input{
-	background: #2d353f;
-}
 ion-back-button{
 	--color: white;
 }
@@ -72,9 +67,7 @@ ion-card-title {
 }
 ion-item {
 	color: white;
-	background: #2d353f;
 }
-
 .rolunk {
 	color:  white;
 }
@@ -221,7 +214,7 @@ img{
 h1{
   text-align: center;
   width: 100%;
-  color:white;
+  color:#111;
   font-weight: lighter;
   font-family: -apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,cursive,Ubuntu,Cantarell,
   "Open Sans","Helvetica Neue"m sans-serif;
