@@ -29,9 +29,9 @@ const AgendaMenu = () => {
   var scheduleObj: ScheduleComponent;
 
   var events: string[] = [];
-  var years: int[] = [];
-  var months: int[] = [];
-  var days: int[] = [];
+  var years: number[] = [];
+  var months: number[] = [];
+  var days: number[] = [];
   var ids: string[] = [];
 
 
