@@ -132,7 +132,7 @@ const AgendaMenu = () => {
             </IonToolbar>
           </IonHeader>
           <IonContent>
-            <ScheduleComponent ref={schedule => scheduleObj = schedule} as ScheduleComponent
+            <ScheduleComponent ref={schedule => scheduleObj = schedule}
             currentView='Month' eventSettings={localData}>
               <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
             </ScheduleComponent>
