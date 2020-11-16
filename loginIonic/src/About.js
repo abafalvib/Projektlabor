@@ -144,6 +144,9 @@ return(
                 </form>
                 </div>
                   </IonCardContent>
+                  <br/>
+                    <br/>
+                      <br/>
 
 
                 <IonCardContent>
@@ -241,6 +244,9 @@ return(
                 </form>
                 </div>
                   </IonCardContent>
+                  <br/>
+                    <br/>
+                      <br/>
                 <IonCardContent>
 
                 <IonItem>
