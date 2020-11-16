@@ -28,7 +28,7 @@ import Calendar from 'react-calendar';
 import myCalendar from './components/Calendar';
 import 'react-calendar/dist/Calendar.css';
 
-export const Bid: React.FC = () => {
+const Bid = () => {
   const [ selected, setSelected ] = useState('');
   const [date, setDate] = useState(new Date());
   const [today, setToday] = useState(new Date());
@@ -48,7 +48,8 @@ export const Bid: React.FC = () => {
   const [fourth, setFourth] = useState(0);
   const [fifth, setFifth] = useState(0);
 
-  const onDateChange = date => {
+
+  function onDateChange (date) {
     setDate(date);
   };
 

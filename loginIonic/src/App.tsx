@@ -45,7 +45,7 @@ const App: React.FC = () => {
 return (
   <BrowserRouter>
     <IonApp>
-      <IonSplitPane disabled="true" contentId="main">
+      <IonSplitPane disabled={true} contentId="main">
         <Menu />
         <IonPage id="main">
           <IonRouterOutlet>

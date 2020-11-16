@@ -21,11 +21,11 @@ import {
   IonApp
 } from '@ionic/react';
 
-const Login:React.FC = () => {
+const Login = () => {
 
 
 
-  const [user, setUser] = useState('');
+    const [user, setUser] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -70,7 +70,7 @@ const Login:React.FC = () => {
     fire.auth().onAuthStateChanged((user) => {
       if (user){
         clearInputs();
-        setUser(user);
+        setUser(user.toString());
         Cookies.set("log","loginTrue");
       }
       else {
@@ -124,15 +124,15 @@ useEffect(() => {
 
             <IonItem>
             <IonLabel position="floating">User Name</IonLabel>
-            <IonInput type="text" autoFocus required id="name"
-            value={email} onIonChange={(e)=> setEmail(e.target.value)}></IonInput>
+            <IonInput type="text" required id="name"
+            value={email} onIonChange={(e)=> {setEmail(e.target.value)}}></IonInput>
             </IonItem>
             <p className="errorMsg">{emailError}</p>
 
             <IonItem>
             <IonLabel position="floating">Password</IonLabel>
             <IonInput type="password" name="password"
-            required value={password} noValidate id="pw" onIonChange={(e)=> setPassword(e.target.value)}></IonInput>
+            required value={password} noValidate id="pw" onIonChange={(e)=> {setPassword(e.target.value)}}></IonInput>
             </IonItem>
             <p className="errorMsg">{passwordError}</p>
             <IonButton onClick={handleLogin}>Login</IonButton>

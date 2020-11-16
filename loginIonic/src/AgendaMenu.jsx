@@ -26,16 +26,16 @@ const AgendaMenu = () => {
 
   var db = fire.firestore();
 
-  var scheduleObj: ScheduleComponent;
+  var scheduleObj;
 
-  var events: string[] = [];
-  var years: number[] = [];
-  var months: number[] = [];
-  var days: number[] = [];
-  var ids: string[] = [];
+  var events = [];
+  var years = [];
+  var months = [];
+  var days = [];
+  var ids = [];
 
 
-  var localData: EventSettingsModel = {
+  var localData = {
     allowDeleting: true,
     allowEditing: true,
     fields: {
@@ -44,32 +44,6 @@ const AgendaMenu = () => {
       endTime: { name: 'End'}
     }
   };
-
-  var deleted: ActionEventArgs = {
-
-  }
-
-
-
-  const saveChanges = () => {
-    console.log(deleted.deletedRecords);
-    /*let deleted:{[key: string]: Object} = deletedRecords;*/
-    for (var j=0;j<events.length;j++){
-      db.collection("Requests").doc(ids[j]).delete().then(function() {
-          console.log("Document successfully deleted!");
-      }).catch(function(error) {
-          console.error("Error removing document: ", error);
-      });
-    }
-    for (var j=0;j<events.length;j++){
-      db.collection("Requests").add({
-        Year: years[j],
-        Month: months[j]+1,
-        Day: days[j],
-        desc: events[j]
-      })
-    }
-  }
 
 
   useEffect(() => {
@@ -99,7 +73,7 @@ const AgendaMenu = () => {
           console.log("Error getting documents: ", error);
       }).finally(function() {
         for (var j=0;j<events.length;j++){
-          let eventData:{[key: string]: Object} = {
+          let eventData = {
             id: ids[j],
             Summary: events[j],
             End: new Date(years[j],months[j],days[j],23,59),
@@ -132,11 +106,10 @@ const AgendaMenu = () => {
             </IonToolbar>
           </IonHeader>
           <IonContent>
-            <ScheduleComponent ref={schedule => scheduleObj = schedule}
+            <ScheduleComponent ref={schedule => scheduleObj = schedule} as ScheduleComponent
             currentView='Month' eventSettings={localData}>
               <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
             </ScheduleComponent>
-            {/*<IonButton onClick={(e) => saveChanges()}>Változtatások mentése</IonButton>*/}
           </IonContent>
           </>
         )
