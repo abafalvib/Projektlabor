@@ -144,7 +144,7 @@ const PriceChange = ({history}) => {
                </IonItem>
                <br/>
                <div align="center">
-                 <IonButton onClick={ () => {Submit();}}>Save Changes</IonButton>
+                 <IonButton onClick={ () => {Submit();}}>Változtatások mentése</IonButton>
               { /*/<IonButton onClick={ () => {resetChages();console.log({firstValue})} }>Reset Changes</IonButton>*/}
                </div>
 
