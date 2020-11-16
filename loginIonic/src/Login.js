@@ -21,7 +21,7 @@ import {
   IonApp
 } from '@ionic/react';
 
-const Login = () => {
+const Login:React.FC = () => {
 
 
 
