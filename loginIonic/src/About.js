@@ -129,7 +129,9 @@ return(
                   <IonTextarea auto-grow="true" placeholder={contactText} value={contactText} onIonChange={(e) => setContactText(e.target.value)}></IonTextarea>
                   </IonItem>
                 </IonCardContent>
-
+                <br/>
+                <br/>
+                <br/>
                 <IonCardContent className="wrapper2">
                 <div className="form-wrapper2">
                 <form onSubmit={sendEmail}>
@@ -144,7 +146,9 @@ return(
                 </form>
                 </div>
                   </IonCardContent>
-
+                  <br/>
+                  <br/>
+                  <br/>
 
 
                 <IonCardContent>
@@ -228,6 +232,9 @@ return(
                   <IonTextarea readonly auto-grow="true" placeholder={contactText} value={contactText} onIonChange={(e) => setContactText(e.target.value)}></IonTextarea>
                   </IonItem>
                 </IonCardContent>
+                <br/>
+                <br/>
+                <br/>
                 <IonCardContent className="wrapper2">
                 <div className="form-wrapper2">
                 <form onSubmit={sendEmail}>
@@ -242,7 +249,9 @@ return(
                 </form>
                 </div>
                   </IonCardContent>
-                  
+                  <br/>
+                  <br/>
+                  <br/>
                 <IonCardContent>
 
                 <IonItem>
