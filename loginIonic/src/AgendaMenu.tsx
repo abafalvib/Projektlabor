@@ -45,14 +45,10 @@ const AgendaMenu = () => {
     }
   };
 
-  var deleted: ActionEventArgs = {
-
-  }
 
 
 
   const saveChanges = () => {
-    console.log(deleted.deletedRecords);
     /*let deleted:{[key: string]: Object} = deletedRecords;*/
     for (var j=0;j<events.length;j++){
       db.collection("Requests").doc(ids[j]).delete().then(function() {
@@ -132,7 +128,7 @@ const AgendaMenu = () => {
             </IonToolbar>
           </IonHeader>
           <IonContent>
-            <ScheduleComponent ref={schedule => scheduleObj = schedule}
+            <ScheduleComponent ref={schedule => scheduleObj = schedule} as ScheduleComponent
             currentView='Month' eventSettings={localData}>
               <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
             </ScheduleComponent>
