@@ -52,12 +52,19 @@ const PriceHandler = ({history}) => {
   }
 
   function sendEmail(text,email){
+    if(email=="" || email==undefined){
+      return;
+    }
+    try{
+      emailjs.send('gmail', 'Accept_Template', {tartalom : text,email : email}, 'user_i5wHzJ9RuYMkYklggEtke').then(function(response) {
+         console.log('SUCCESS!', response.status, response.text);
+      }, function(error) {
+         console.log('FAILED...', error);
+      });
+    }catch(error){
+      console.log(error);
+    }
 
-    emailjs.send('gmail', 'Accept_Template', {tartalom : text,email : email}, 'user_i5wHzJ9RuYMkYklggEtke').then(function(response) {
-       console.log('SUCCESS!', response.status, response.text);
-    }, function(error) {
-       console.log('FAILED...', error);
-    });
   }
 
 
