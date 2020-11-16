@@ -28,11 +28,11 @@ const AgendaMenu = () => {
 
   var scheduleObj: ScheduleComponent;
 
-  var events = [];
-  var years = [];
-  var months = [];
-  var days = [];
-  var ids = [];
+  var events: string[] = [];
+  var years: int[] = [];
+  var months: int[] = [];
+  var days: int[] = [];
+  var ids: string[] = [];
 
 
   var localData: EventSettingsModel = {
