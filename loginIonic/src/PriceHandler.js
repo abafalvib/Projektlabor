@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import {Inject, ScheduleComponent,
         Day, Week, WorkWeek, Month, Agenda,
         EventSettingsModel, ActionEventArgs} from '@syncfusion/ej2-react-schedule';
@@ -18,17 +18,22 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonCardSubtitle
+  IonCardSubtitle,
+  IonLabel,
+  IonInput
 } from '@ionic/react';
 import Cookies from 'js-cookie';
 import {Redirect} from 'react-router-dom';
 import fire from './fire';
+import { isPlatform } from '@ionic/react';
 
 import emailjs from 'emailjs-com';
 
 const PriceHandler = ({history}) => {
   const proba=Cookies.get('log');
   const [title, setTitle] = useState("");
+  const [hely, setHely] = useState("");
+  const [nem, setNem] = useState("");
   const [sub, setSub] = useState("");
   const [desc, setDesc] = useState("");
   const [admin, setAdmin] = useState("admin@gmail.com");
@@ -278,8 +283,52 @@ const PriceHandler = ({history}) => {
   });
   }
 
+  function GenerateName(){
+    var db = fire.firestore("");
+    var currentdate = new Date();
+    var datetime = (currentdate.getFullYear()+1111) +"."+ (currentdate.getMonth()+11) +"."+ (currentdate.getDate()+11)+";"+(currentdate.getHours()+11)+":"+ (currentdate.getMinutes()+11)+":"+(currentdate.getSeconds()+11)+(currentdate.getMilliseconds()+11111);
+    var datetime2 = datetime+"+"+Math.floor(Math.random() * 10);
+    var done = false;
+    datetime = datetime2;
+    return datetime;
+  }
+
+  function Hozzaad(FROM, TO){
+   var db = fire.firestore("");
+   var tomtomAPI = "MBNtaBuKtyOFiiYTopy9xIEHGjDcPjA2";
+   var fromlat,fromlng;
+   var tolat,tolng;
+   var date= new Date();
+   var link = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=i4R1AKVNa4CLmxY7a07gUZxvkM50FztT&locale=hu_HU&unit=k&from="+FROM+"&to="+TO+"&outFormat=json&ambiguities=ignore&routeType=shortest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false"
 
 
+   fetch(link)
+   .then(response => response.json())
+   .then((data) => {
+     try{
+       if(hely!=""&&data["route"]["distance"]!=undefined){
+         db.collection('Requests').doc(GenerateName()).set({
+           date: date,
+           desc: nem,
+           location: hely,
+           distance: data["route"]["distance"]+" km",
+           elfogadva: true,
+           email: "",
+           longDesc: nem+" (Távolság: "+data["route"]["distance"]+" km)"
+         })
+         .then(function(docRef) {
+           console.log("Document written.");
+         })
+         .catch(function(error) {
+           console.error("Error adding document: ", error);
+         })
+       }else{
+       }
+     }catch(err){
+       console.log("hibás város");
+     }
+   });
+  }
 
 
   useEffect(() => {
@@ -331,21 +380,61 @@ const PriceHandler = ({history}) => {
           <IonCard>
           <IonCardHeader>
             <IonCardTitle align="center">{title} </IonCardTitle>
-            <IonCardSubtitle >{sub} </IonCardSubtitle>
+            <IonCardSubtitle align="center">{sub} </IonCardSubtitle>
 
           </IonCardHeader>
 
           <IonCardContent>
-          <img src="https://epitoabc.hu/wp-content/uploads/2017/09/%C3%81rok%C3%A1s%C3%A1s-1024x576.jpg" />
+          <img src="https://3dwarehouse.sketchup.com/warehouse/v1.0/publiccontent/33b74c22-267d-4c88-9fc0-7b2a6908b918" />
           </IonCardContent>
           <div align="center">
-            <IonButton color="green"  onClick={()=>{Elfogad();}}>Elfogad</IonButton>
-            <IonButton color="yellow"  onClick={()=>{Varakoztat();}}>Várakoztat</IonButton>
-            <IonButton color="red"  onClick={()=>{Elutasit();}}>Elutasít</IonButton>
+          {(() => {
+            if (sub=="") {
+            if (isPlatform('desktop')){
+            return(
+              <>
+              <p>
+              Desktop bois
+              </p>
+              </>
+
+            )}
+            else {
+              return(
+                <>
+                <p>
+                Toto, I don't think we're on desktop anymore
+                </p>
+                </>
+              )
+            }
+            }
+            else {
+              return(
+                <>
+                <IonButton color="green"  onClick={()=>{Elfogad();}}>Elfogad</IonButton>
+              <IonButton color="yellow"  onClick={()=>{Varakoztat();}}>Várakoztat</IonButton>
+              <IonButton color="red"  onClick={()=>{Elutasit();}}>Elutasít</IonButton>
+            </>)
+            }
+          })()}
           </div>
         </IonCard>
-
-
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle align="center">Esemény manuális hozzáadása </IonCardTitle>
+            <IonCardSubtitle align="center">Az esemény a mai naphoz lesz hozzáadva</IonCardSubtitle>
+            <IonItem>
+              <IonLabel>Munkavégzés helye:</IonLabel>
+              <IonInput value={hely} onIonChange={(e) => {setHely(e.target.value)}}/>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Munkanem:</IonLabel>
+              <IonInput value={nem} onIonChange={(e) => {setNem(e.target.value)}}/>
+            </IonItem>
+            <IonButton onClick={()=>{Hozzaad("Farkasgyepű",hely);}}>Hozzáadás</IonButton>
+          </IonCardHeader>
+        </IonCard>
 
 
 
