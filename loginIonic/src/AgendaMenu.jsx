@@ -58,7 +58,7 @@ const AgendaMenu = () => {
               years.push(parseInt(t.getFullYear()));
               months.push(parseInt(t.getMonth()));
               days.push(parseInt(t.getDate()));
-              events.push(doc.get("longDesc"));
+              events.push(doc.get("location")+": "+doc.get("desc"));
               ids.push(doc.id);
 /*
               years.push(parseInt(doc.get("Year")));
@@ -76,7 +76,7 @@ const AgendaMenu = () => {
           let eventData = {
             id: ids[j],
             Summary: events[j],
-            End: new Date(years[j],months[j],days[j],23,59),
+            End: new Date(years[j],months[j],days[j],0,0),
             Start: new Date(years[j],months[j],days[j],0,0),
             IsAllDay: true
           };
