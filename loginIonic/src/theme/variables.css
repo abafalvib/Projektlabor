@@ -12,9 +12,9 @@ font-family: 'Open-sans', sans-serif;
 .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
   font-weight:normal;overflow:hidden;padding:10px 20px;word-break:normal;}
 .tg .tg-0lax{text-align:center;vertical-align:center;font-size:28px;border-color:#ffffff}
-.tg .tg-1lax{text-align:center;vertical-align:center;font-size:14px;border-color:#ffffff}
+.tg .tg-1lax{text-align:left;vertical-align: top;font-size:14px;border-color:#ffffff;padding-left: 0px;padding-top: 0px}
 .tg .tg-2lax{text-align:center;vertical-align:center;font-size:28px;background-color:#34cdf9;color:#ffffff;border-color:#ffffff}
-.tg .tg-3lax{text-align:center;vertical-align:center;font-size:14px;background-color:#34cdf9;color:#ffffff;border-color:#ffffff}
+.tg .tg-3lax{text-align:left;vertical-align:top;font-size:14px;background-color:#34cdf9;color:#ffffff;border-color:#ffffff;padding-left: 0px;padding-top: 0px}
 :root {
   /** primary **/
   --ion-font-family: ‘Open-sans’, sans-serif;

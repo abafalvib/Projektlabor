@@ -29,15 +29,13 @@ import { isPlatform } from '@ionic/react';
 
 import emailjs from 'emailjs-com';
 
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 
 const PriceHandler = ({history}) => {
   const proba=Cookies.get('log');
   const [title, setTitle] = useState("");
+  const [sub, setSub] = useState("");
   const [hely, setHely] = useState("");
   const [nem, setNem] = useState("");
-  const [sub, setSub] = useState("");
   const [desc, setDesc] = useState("");
   const [admin, setAdmin] = useState("admin@gmail.com");
   const [addDate, setAddDate] = useState(new Date());
@@ -404,24 +402,6 @@ const PriceHandler = ({history}) => {
           <div align="center">
           {(() => {
             if (sub=="") {
-            if (isPlatform('desktop')){
-            return(
-              <>
-              <p>
-              Desktop bois
-              </p>
-              </>
-
-            )}
-            else {
-              return(
-                <>
-                <p>
-                Toto, I don't think we're on desktop anymore
-                </p>
-                </>
-              )
-            }
             }
             else {
               return(
@@ -434,51 +414,6 @@ const PriceHandler = ({history}) => {
           })()}
           </div>
         </IonCard>
-        <IonCard>
-          <IonCardHeader>
-            <IonCardTitle align="center">Esemény manuális hozzáadása </IonCardTitle>
-            <IonCardSubtitle align="center">Az esemény a választott naphoz lesz hozzáadva</IonCardSubtitle>
-            <IonItem>
-              <IonLabel>Munkavégzés helye:</IonLabel>
-              <IonInput value={hely} onIonChange={(e) => {setHely(e.target.value)}}/>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Munkanem:</IonLabel>
-              <IonInput value={nem} onIonChange={(e) => {setNem(e.target.value)}}/>
-            </IonItem>
-            <h1>Határidő:</h1>
-            <div align="center">
-              <Calendar align="center" onChange={onDateChange} value={addDate} minDate={new Date()}/>
-            </div>
-            <br/>
-            <br/>
-            <div align="center">
-              <IonButton align="center" onClick={()=>{Hozzaad("Farkasgyepű",hely);}}>Hozzáadás</IonButton>
-            </div>
-            {(() => {
-              if (sentState==1) {
-                return(
-                  <p className="successMsg" align="center">Esemény sikeresen hozzáadva!</p>
-                )
-              }else if (sentState==-2) {
-                return(
-                  <p className="errorMsg" align="center">Kérem adjon meg egy munkanemet!</p>
-                );
-              }else if (sentState==-1) {
-                return(
-                  <p className="errorMsg" align="center">Kérem adjon meg egy létező várost!</p>
-                );
-              }
-            })()}
-            <br/>
-            <br/>
-          </IonCardHeader>
-        </IonCard>
-
-
-
-
-
 
 
 
