@@ -55,12 +55,11 @@ const AgendaMenu = () => {
   const [text7,setText7]=useState("");
 
   const [viewState,setViewState]=useState("0");
-  const [eventList,setEventList]=useState([]);
+  const [clickedDay,setClickedDay]=useState(0);
 
   const [hely, setHely] = useState("");
   const [nem, setNem] = useState("");
   const [sentState,setSentState] = useState(0);
-  const [addDate, setAddDate] = useState(new Date());
 
   var db = fire.firestore();
 
@@ -113,9 +112,6 @@ const AgendaMenu = () => {
     return datetime;
   }
 
-  function onDateChange (date) {
-    setAddDate(date);
-  };
 
   function Hozzaad(FROM, TO){
    var db = fire.firestore("");
@@ -124,7 +120,31 @@ const AgendaMenu = () => {
    var tolat,tolng;
    var date= new Date();
    var link = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=i4R1AKVNa4CLmxY7a07gUZxvkM50FztT&locale=hu_HU&unit=k&from="+FROM+"&to="+TO+"&outFormat=json&ambiguities=ignore&routeType=shortest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false"
-
+   switch (clickedDay) {
+     case 1:
+       date=new Date(startingDay);
+       break;
+     case 2:
+       date=new Date(day2);
+       break;
+     case 3:
+       date=new Date(day3);
+       break;
+     case 4:
+       date=new Date(day4);
+       break;
+     case 5:
+       date=new Date(day5);
+       break;
+     case 6:
+       date=new Date(day6);
+       break;
+     case 7:
+       date=new Date(day7);
+       break;
+     default:
+       break;
+   }
 
    fetch(link)
    .then(response => response.json())
@@ -132,7 +152,7 @@ const AgendaMenu = () => {
      try{
        if(hely!=""&&data["route"]["distance"]!=undefined){
          db.collection('Requests').doc(GenerateName()).set({
-           date: addDate,
+           date: date,
            desc: nem,
            location: hely,
            distance: data["route"]["distance"]+" km",
@@ -258,44 +278,6 @@ const AgendaMenu = () => {
 
   }, []);
 
-
-  function loadData(){
-    db.collection("Requests")
-      .get()
-      .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            if (doc.get("elfogadva")) {
-              // doc.data() is never undefined for query doc snapshots
-              var t = doc.get("date").toDate();
-
-              years.push(parseInt(t.getFullYear()));
-              months.push(parseInt(t.getMonth()));
-              days.push(parseInt(t.getDate()));
-              events.push(doc.get("location")+": "+doc.get("desc"));
-              ids.push(doc.id);
-
-/*
-              years.push(parseInt(doc.get("Year")));
-              months.push(parseInt(doc.get("Month"))-1);
-              days.push(parseInt(doc.get("Day")));
-              events.push(doc.get("longDesc"));
-              ids.push(doc.id);*/
-            }
-          });
-      })
-      .catch(function(error) {
-          console.log("Error getting documents: ", error);
-      }).finally(function() {
-        let eventList2 = [];
-        for (var j=0;j<events.length;j++){
-          dates.push(new Date(years[j],months[j],days[j]));
-          eventList2[new Date(years[j],months[j],days[j])]=events[j];
-        };
-        console.log(eventList2[new Date(years[1],months[1],days[1])]);
-        return eventList2;
-      });
-  }
-
   function rewrite(d1,d2,d3,d4,d5,d6,d7){
     let t1="";
     let t2="";
@@ -361,45 +343,6 @@ const AgendaMenu = () => {
       });
   }
 
-
-  function writeDay(d){
-    let correctEvents=[];
-    let d2=new Date(d);
-    d2.setMonth(d.getMonth()-1);
-    //console.log(d2);
-    db.collection("Requests")
-      .get()
-      .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            if (doc.get("elfogadva")&&doc.get("date").toDate().getFullYear()==d.getFullYear()
-                &&doc.get("date").toDate().getMonth()==d.getMonth()&&doc.get("date").toDate().getDate()==d.getDate()) {
-              // doc.data() is never undefined for query doc snapshots
-
-              correctEvents.push(doc.get("location")+": "+doc.get("desc"));
-              //console.log(doc.get("location")+": "+doc.get("desc")+doc.get("date").toDate().getFullYear()+doc.get("date").toDate().getMonth()+doc.get("date").toDate().getDate())
-/*
-              years.push(parseInt(doc.get("Year")));
-              months.push(parseInt(doc.get("Month"))-1);
-              days.push(parseInt(doc.get("Day")));
-              events.push(doc.get("longDesc"));
-              ids.push(doc.id);*/
-            }
-          });
-      })
-      .catch(function(error) {
-          console.log("Error getting documents: ", error);
-      }).finally(function() {
-        var res="";
-        if (correctEvents!=null){
-          correctEvents.forEach(element => res=res+(element)+"\n"+"    ");
-          console.log(res);
-          if (res!=""){
-            setStartingText(res);
-          }
-        }
-
-      });
-  }
 
   {/*useEffect(() => {
 
@@ -502,41 +445,41 @@ const AgendaMenu = () => {
 <table width="100%" className="tg">
 <thead>
   <tr>
-    <th width="15%" className="tg-0lax" onClick={()=>{loadData();}}>H<br/>{startingDay.getDate()}</th>
-    <th width="75%" className="tg-1lax" onClick={()=>{setViewState("add");}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{startingText}</th>
-    <th width="10%" className="tg-0lax" onClick={()=>{setViewState("del");}}>-</th>
+    <th width="15%" className="tg-0lax">H<br/>{startingDay.getDate()}</th>
+    <th width="75%" className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(1);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{startingText}</th>
+    <th width="10%" className="tg-0lax" onClick={()=>{setViewState("del");setClickedDay(1);}}>-</th>
   </tr>
 </thead>
 <tbody>
   <tr>
     <td className="tg-2lax">K<br/>{day2.getDate()}</td>
-    <td className="tg-3lax" onClick={()=>{setViewState("add");}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text2}</td>
-    <td className="tg-2lax" onClick={()=>{setViewState("del");}}>-</td>
+    <td className="tg-3lax" onClick={()=>{setViewState("add");setClickedDay(2);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text2}</td>
+    <td className="tg-2lax" onClick={()=>{setViewState("del");setClickedDay(2);}}>-</td>
   </tr>
   <tr>
     <td className="tg-0lax">SZ<br/>{day3.getDate()}</td>
-    <td className="tg-1lax" onClick={()=>{setViewState("add");}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text3}</td>
-    <td className="tg-0lax" onClick={()=>{setViewState("del");}}>-</td>
+    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(3);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text3}</td>
+    <td className="tg-0lax" onClick={()=>{setViewState("del");setClickedDay(3);}}>-</td>
   </tr>
   <tr>
     <td className="tg-2lax">CS<br/>{day4.getDate()}</td>
-    <td className="tg-3lax" onClick={()=>{setViewState("add");}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text4}</td>
-    <td className="tg-2lax" onClick={()=>{setViewState("del");}}>-</td>
+    <td className="tg-3lax" onClick={()=>{setViewState("add");setClickedDay(4);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text4}</td>
+    <td className="tg-2lax" onClick={()=>{setViewState("del");setClickedDay(4);}}>-</td>
   </tr>
   <tr>
     <td className="tg-0lax">P<br/>{day5.getDate()}</td>
-    <td className="tg-1lax" onClick={()=>{setViewState("add");}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text5}</td>
-    <td className="tg-0lax" onClick={()=>{setViewState("del");}}>-</td>
+    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(5);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text5}</td>
+    <td className="tg-0lax" onClick={()=>{setViewState("del");setClickedDay(5);}}>-</td>
   </tr>
   <tr>
     <td className="tg-2lax">SZ<br/>{day6.getDate()}</td>
-    <td className="tg-3lax" onClick={()=>{setViewState("add");}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text6}</td>
-    <td className="tg-2lax" onClick={()=>{setViewState("del");}}>-</td>
+    <td className="tg-3lax" onClick={()=>{setViewState("add");setClickedDay(6);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text6}</td>
+    <td className="tg-2lax" onClick={()=>{setViewState("del");setClickedDay(6);}}>-</td>
   </tr>
   <tr>
     <td className="tg-0lax">V<br/>{day7.getDate()}</td>
-    <td className="tg-1lax" onClick={()=>{setViewState("add");}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text7}</td>
-    <td className="tg-0lax" onClick={()=>{setViewState("del");}}>-</td>
+    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(7);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text7}</td>
+    <td className="tg-0lax" onClick={()=>{setViewState("del");setClickedDay(7);}}>-</td>
   </tr>
 </tbody>
 </table>
@@ -634,21 +577,51 @@ const AgendaMenu = () => {
                     <IonLabel>Munkanem:</IonLabel>
                     <IonInput value={nem} onIonChange={(e) => {setNem(e.target.value)}}/>
                   </IonItem>
-                  <h1>Határidő:</h1>
-                  <div align="center">
-                    <Calendar align="center" onChange={onDateChange} value={addDate} minDate={new Date()}/>
-                  </div>
+                  <h1>Dátum:</h1>
+                  {(() => {
+                    let str="";
+                    switch (clickedDay) {
+                      case 1:
+                        str=startingDay.toString();
+                        break;
+                      case 2:
+                        str=day2.toString();
+                        break;
+                      case 3:
+                        str=day3.toString();
+                        break;
+                      case 4:
+                        str=day4.toString();
+                        break;
+                      case 5:
+                        str=day5.toString();
+                        break;
+                      case 6:
+                        str=day6.toString();
+                        break;
+                      case 7:
+                        str=day7.toString();
+                        break;
+                      default:
+                        break;
+                    }
+                    return(str);
+                  })()}
                   <br/>
                   <br/>
                   <div align="center">
                     <IonButton align="center" onClick={()=>{Hozzaad("Farkasgyepű",hely);}}>Hozzáadás</IonButton>
-                    <IonButton onClick={()=>{setViewState("0");}}>Vissza</IonButton>
+                    <IonButton onClick={()=>{setViewState("0");setSentState(0);setHely("");setNem("");rewrite(startingDay,day2,day3,day4,day5,day6,day7);}}>Vissza</IonButton>
                   </div>
                   {(() => {
                     if (sentState==1) {
                       return(
                         <p className="successMsg" align="center">Esemény sikeresen hozzáadva!</p>
                       )
+                    }else if (sentState==0) {
+                      return(
+                        <p className="errorMsg" align="center"></p>
+                      );
                     }else if (sentState==-2) {
                       return(
                         <p className="errorMsg" align="center">Kérem adjon meg egy munkanemet!</p>
