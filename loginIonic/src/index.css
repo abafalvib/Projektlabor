@@ -92,6 +92,9 @@ ion-grid {
   display: grid;
 }
 
+ion-select {
+	max-width: 100% !important;
+}
 
 .fel{
   width: 50%;

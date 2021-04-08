@@ -61,9 +61,11 @@ const AgendaMenu = () => {
   const [delState,setDelState]=useState(0);
   const [delEvent,setDelEvent]=useState("0");
 
-  const [events2,setEvents2]=useState([]);
-  const [ids2,setIds2]=useState([]);
-  const [selectOptions,setSelectOptions]=useState("sad");
+  const [opNum,setOpNum]=useState(0);
+  const [evDesc,setEvDesc]=useState("");
+  const [evId,setEvId]=useState("");
+  const [evDesc2,setEvDesc2]=useState("");
+  const [evId2,setEvId2]=useState("");
 
   const [hely, setHely] = useState("");
   const [nem, setNem] = useState("");
@@ -353,11 +355,13 @@ const AgendaMenu = () => {
   }
 
   function loadEvents(x){
-    setEvents2([]);
-    setIds2([]);
-    setSelectOptions("");
+    setOpNum(0);
+    setEvId("");
+    setEvDesc("");
+    setEvId2("");
+    setEvDesc2("");
+    let num=0;
     let d;
-    let str='<IonSelect value={delEvent} onIonChange={(e) => setDelEvent(e.target.value);}>';
     switch (x) {
       case 1:
         d=new Date(startingDay);
@@ -393,7 +397,15 @@ const AgendaMenu = () => {
 
               if (doc.get("elfogadva")&&doc.get("date").toDate().getFullYear()==d.getFullYear()
                   &&doc.get("date").toDate().getMonth()==d.getMonth()&&doc.get("date").toDate().getDate()==d.getDate()) {
-                    str+=("<IonSelectOption value='"+doc.id+"'>"+doc.get("location")+": "+doc.get("desc")+"</IonSelectOption>");
+                    num++;
+                    if (num==1){
+                      setEvId(doc.id);
+                      setEvDesc(doc.get("location")+": "+doc.get("desc"));
+                    }
+                    if (num==2){
+                      setEvId2(doc.id);
+                      setEvDesc2(doc.get("location")+": "+doc.get("desc"));
+                    }
               }
             }
           });
@@ -401,18 +413,17 @@ const AgendaMenu = () => {
       .catch(function(error) {
           console.log("Error getting documents: ", error);
       }).finally(function() {
-          str+='</IonSelect>';
-          console.log(str);
-          setSelectOptions(str);
-          console.log(selectOptions);
-
+          setOpNum(num);
       });
 
   }
 
-  {/*useEffect(() => {
-
-  }, []);*/}
+  function torol(e){
+    db.collection("Requests").doc(e).delete()
+    setDelState(1);
+    loadEvents(clickedDay);
+    setDelEvent("0");
+  }
 
 
   return(
@@ -712,9 +723,25 @@ const AgendaMenu = () => {
                   <IonCardTitle align="center">Esemény törlése</IonCardTitle>
                   <IonItem>
                     <IonLabel>Esemény:</IonLabel>
-                    <Fragment>
-                    {[selectOptions]}
-                    </Fragment>
+                    {(() => {
+                      switch (opNum) {
+                        case 1:
+                          return <IonSelect value={delEvent} onIonChange={(e) => setDelEvent(e.target.value)}>
+                                  <IonSelectOption value={evId}>{evDesc}</IonSelectOption>
+                                 </IonSelect>;
+                          break;
+                        case 2:
+                          return <IonSelect value={delEvent} onIonChange={(e) => setDelEvent(e.target.value)}>
+                                  <IonSelectOption value={evId}>{evDesc}</IonSelectOption>
+                                  <IonSelectOption value={evId2}>{evDesc2}</IonSelectOption>
+                                 </IonSelect>;
+                          break;
+                        case 0:
+                          break;
+                        default:
+                          break;
+                      }
+                    })()}
                   </IonItem>
                   <h1>Dátum:</h1>
                   {(() => {
@@ -752,22 +779,47 @@ const AgendaMenu = () => {
                   {(() => {
                     if (delState==1) {
                       return(
+                        <div align="center">
+                        <IonButton align="center" onClick={()=>{if (delEvent=="0"){
+                                                                setDelState(-2);
+                                                              }else {
+                                                                setDelState(-1);
+                                                              }}}>Törlés</IonButton>
+                        <IonButton onClick={()=>{setViewState("0");setDelState(0);setDelEvent("0");rewrite(startingDay,day2,day3,day4,day5,day6,day7);}}>Vissza</IonButton>
+
                         <p className="successMsg" align="center">Esemény sikeresen törölve!</p>
+                        </div>
                       )
-                    }else if (sentState==0) {
+                    }else if (delState==0) {
                       return(
                         <div align="center">
-                          <IonButton align="center" onClick={()=>{Hozzaad("Farkasgyepű",hely);}}>Törlés</IonButton>
+                          <IonButton align="center" onClick={()=>{if (delEvent=="0"){
+                                                                    setDelState(-2);
+                                                                  }else {
+                                                                    setDelState(-1);
+                                                                  }}}>Törlés</IonButton>
                           <IonButton onClick={()=>{setViewState("0");setDelState(0);setDelEvent("0");rewrite(startingDay,day2,day3,day4,day5,day6,day7);}}>Vissza</IonButton>
                         </div>
                       );
-                    }else if (sentState==-2) {
+                    }else if (delState==-2) {
                       return(
-                        <p className="errorMsg" align="center">Kérem adjon meg egy munkanemet!</p>
+                        <div align="center">
+                        <IonButton align="center" onClick={()=>{if (delEvent=="0"){
+                                                                  setDelState(-2);
+                                                                }else {
+                                                                  setDelState(-1);
+                                                                }}}>Törlés</IonButton>
+                        <IonButton onClick={()=>{setViewState("0");setDelState(0);setDelEvent("0");rewrite(startingDay,day2,day3,day4,day5,day6,day7);}}>Vissza</IonButton>
+                        <p className="errorMsg" align="center">Kérem válasszon egy eseményt!</p>
+                        </div>
                       );
-                    }else if (sentState==-1) {
+                    }else if (delState==-1) {
                       return(
-                        <p className="errorMsg" align="center">Kérem adjon meg egy létező várost!</p>
+                        <div align="center">
+                          <p>Biztosan törölni akarja a kiválasztott eseményt?</p>
+                          <IonButton align="center" onClick={()=>{torol(delEvent);}}>IGEN</IonButton>
+                          <IonButton onClick={()=>setDelState(0)}>Mégse</IonButton>
+                        </div>
                       );
                     }
                   })()}
