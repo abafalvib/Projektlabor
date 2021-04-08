@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import {Inject, ScheduleComponent,
         Day, Week, WorkWeek, Month, Agenda,
         EventSettingsModel, ActionEventArgs} from '@syncfusion/ej2-react-schedule';
@@ -23,7 +23,9 @@ import {
   IonCardContent,
   IonCardSubtitle,
   IonCardHeader,
-  IonInput
+  IonInput,
+  IonSelect,
+  IonSelectOption
 } from '@ionic/react';
 import Cookies from 'js-cookie';
 import {Redirect} from 'react-router-dom';
@@ -56,6 +58,12 @@ const AgendaMenu = () => {
 
   const [viewState,setViewState]=useState("0");
   const [clickedDay,setClickedDay]=useState(0);
+  const [delState,setDelState]=useState(0);
+  const [delEvent,setDelEvent]=useState("0");
+
+  const [events2,setEvents2]=useState([]);
+  const [ids2,setIds2]=useState([]);
+  const [selectOptions,setSelectOptions]=useState("sad");
 
   const [hely, setHely] = useState("");
   const [nem, setNem] = useState("");
@@ -69,7 +77,6 @@ const AgendaMenu = () => {
   var d= new Date();
 
   let events = [];
-  let events2 = [];
   var years = [];
   var months = [];
   var days = [];
@@ -190,16 +197,18 @@ const AgendaMenu = () => {
     db.collection("Requests")
       .get()
       .then(function(querySnapshot) {
-          startingDay.setDate(startingDay.getDate()-(startingDay.getDay()-1));
-          startingDay.setHours(1,1,1,1);
-          day2.setDate(startingDay.getDate()+1);
-          day3.setDate(startingDay.getDate()+2);
-          day4.setDate(startingDay.getDate()+3);
-          day5.setDate(startingDay.getDate()+4);
-          day6.setDate(startingDay.getDate()+5);
-          day7.setDate(startingDay.getDate()+6);
-          setMonth(monthName);
-          setWeekNum(new Date().getWeek());
+          if (!isPlatform('desktop')){
+            startingDay.setDate(startingDay.getDate()-(startingDay.getDay()-1));
+            startingDay.setHours(1,1,1,1);
+            day2.setDate(startingDay.getDate()+1);
+            day3.setDate(startingDay.getDate()+2);
+            day4.setDate(startingDay.getDate()+3);
+            day5.setDate(startingDay.getDate()+4);
+            day6.setDate(startingDay.getDate()+5);
+            day7.setDate(startingDay.getDate()+6);
+            setMonth(monthName);
+            setWeekNum(new Date().getWeek());
+        }
 
           querySnapshot.forEach(function(doc) {
             if (doc.get("elfogadva")) {
@@ -343,6 +352,63 @@ const AgendaMenu = () => {
       });
   }
 
+  function loadEvents(x){
+    setEvents2([]);
+    setIds2([]);
+    setSelectOptions("");
+    let d;
+    let str='<IonSelect value={delEvent} onIonChange={(e) => setDelEvent(e.target.value);}>';
+    switch (x) {
+      case 1:
+        d=new Date(startingDay);
+        break;
+      case 2:
+        d=new Date(day2);
+        break;
+      case 3:
+        d=new Date(day3);
+        break;
+      case 4:
+        d=new Date(day4);
+        break;
+      case 5:
+        d=new Date(day5);
+        break;
+      case 6:
+        d=new Date(day6);
+        break;
+      case 7:
+        d=new Date(day7);
+        break;
+      default:
+        break;
+    }
+
+    db.collection("Requests")
+      .get()
+      .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            if (doc.get("elfogadva")) {
+              // doc.data() is never undefined for query doc snapshots
+
+              if (doc.get("elfogadva")&&doc.get("date").toDate().getFullYear()==d.getFullYear()
+                  &&doc.get("date").toDate().getMonth()==d.getMonth()&&doc.get("date").toDate().getDate()==d.getDate()) {
+                    str+=("<IonSelectOption value='"+doc.id+"'>"+doc.get("location")+": "+doc.get("desc")+"</IonSelectOption>");
+              }
+            }
+          });
+      })
+      .catch(function(error) {
+          console.log("Error getting documents: ", error);
+      }).finally(function() {
+          str+='</IonSelect>';
+          console.log(str);
+          setSelectOptions(str);
+          console.log(selectOptions);
+
+      });
+
+  }
 
   {/*useEffect(() => {
 
@@ -447,39 +513,39 @@ const AgendaMenu = () => {
   <tr>
     <th width="15%" className="tg-0lax">H<br/>{startingDay.getDate()}</th>
     <th width="75%" className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(1);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{startingText}</th>
-    <th width="10%" className="tg-0lax" onClick={()=>{setViewState("del");setClickedDay(1);}}>-</th>
+    <th width="10%" className="tg-0lax" onClick={()=>{loadEvents(1);setViewState("del");setClickedDay(1);}}>-</th>
   </tr>
 </thead>
 <tbody>
   <tr>
     <td className="tg-2lax">K<br/>{day2.getDate()}</td>
     <td className="tg-3lax" onClick={()=>{setViewState("add");setClickedDay(2);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text2}</td>
-    <td className="tg-2lax" onClick={()=>{setViewState("del");setClickedDay(2);}}>-</td>
+    <td className="tg-2lax" onClick={()=>{loadEvents(2);setViewState("del");setClickedDay(2);}}>-</td>
   </tr>
   <tr>
     <td className="tg-0lax">SZ<br/>{day3.getDate()}</td>
     <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(3);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text3}</td>
-    <td className="tg-0lax" onClick={()=>{setViewState("del");setClickedDay(3);}}>-</td>
+    <td className="tg-0lax" onClick={()=>{loadEvents(3);setViewState("del");setClickedDay(3);}}>-</td>
   </tr>
   <tr>
     <td className="tg-2lax">CS<br/>{day4.getDate()}</td>
     <td className="tg-3lax" onClick={()=>{setViewState("add");setClickedDay(4);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text4}</td>
-    <td className="tg-2lax" onClick={()=>{setViewState("del");setClickedDay(4);}}>-</td>
+    <td className="tg-2lax" onClick={()=>{loadEvents(4);setViewState("del");setClickedDay(4);}}>-</td>
   </tr>
   <tr>
     <td className="tg-0lax">P<br/>{day5.getDate()}</td>
     <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(5);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text5}</td>
-    <td className="tg-0lax" onClick={()=>{setViewState("del");setClickedDay(5);}}>-</td>
+    <td className="tg-0lax" onClick={()=>{loadEvents(5);setViewState("del");setClickedDay(5);}}>-</td>
   </tr>
   <tr>
     <td className="tg-2lax">SZ<br/>{day6.getDate()}</td>
     <td className="tg-3lax" onClick={()=>{setViewState("add");setClickedDay(6);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text6}</td>
-    <td className="tg-2lax" onClick={()=>{setViewState("del");setClickedDay(6);}}>-</td>
+    <td className="tg-2lax" onClick={()=>{loadEvents(6);setViewState("del");setClickedDay(6);}}>-</td>
   </tr>
   <tr>
     <td className="tg-0lax">V<br/>{day7.getDate()}</td>
     <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(7);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text7}</td>
-    <td className="tg-0lax" onClick={()=>{setViewState("del");setClickedDay(7);}}>-</td>
+    <td className="tg-0lax" onClick={()=>{loadEvents(7);setViewState("del");setClickedDay(7);}}>-</td>
   </tr>
 </tbody>
 </table>
@@ -641,8 +707,74 @@ const AgendaMenu = () => {
           }else if (viewState=="del") {
             return(
               <>
-              <p>Delete stuff here</p>
-              <IonButton onClick={()=>{setViewState("0");}}>Vissza</IonButton>
+              <IonCard>
+                <IonCardHeader>
+                  <IonCardTitle align="center">Esemény törlése</IonCardTitle>
+                  <IonItem>
+                    <IonLabel>Esemény:</IonLabel>
+                    <Fragment>
+                    {[selectOptions]}
+                    </Fragment>
+                  </IonItem>
+                  <h1>Dátum:</h1>
+                  {(() => {
+                    let str="";
+                    switch (clickedDay) {
+                      case 1:
+                        str=startingDay.toString();
+                        break;
+                      case 2:
+                        str=day2.toString();
+                        break;
+                      case 3:
+                        str=day3.toString();
+                        break;
+                      case 4:
+                        str=day4.toString();
+                        break;
+                      case 5:
+                        str=day5.toString();
+                        break;
+                      case 6:
+                        str=day6.toString();
+                        break;
+                      case 7:
+                        str=day7.toString();
+                        break;
+                      default:
+                        break;
+                    }
+                    return(str);
+                  })()}
+                  <br/>
+                  <br/>
+
+                  {(() => {
+                    if (delState==1) {
+                      return(
+                        <p className="successMsg" align="center">Esemény sikeresen törölve!</p>
+                      )
+                    }else if (sentState==0) {
+                      return(
+                        <div align="center">
+                          <IonButton align="center" onClick={()=>{Hozzaad("Farkasgyepű",hely);}}>Törlés</IonButton>
+                          <IonButton onClick={()=>{setViewState("0");setDelState(0);setDelEvent("0");rewrite(startingDay,day2,day3,day4,day5,day6,day7);}}>Vissza</IonButton>
+                        </div>
+                      );
+                    }else if (sentState==-2) {
+                      return(
+                        <p className="errorMsg" align="center">Kérem adjon meg egy munkanemet!</p>
+                      );
+                    }else if (sentState==-1) {
+                      return(
+                        <p className="errorMsg" align="center">Kérem adjon meg egy létező várost!</p>
+                      );
+                    }
+                  })()}
+                  <br/>
+                  <br/>
+                </IonCardHeader>
+              </IonCard>
               </>
             )
           }
