@@ -29,7 +29,7 @@ const Home = () => (
     <IonSlides scrollbar="true">
     <IonSlide>
       <IonCard class="HomeCard">
-        <img src="https://media.istockphoto.com/photos/confident-architect-at-construction-site-picture-id1189913209?k=6&m=1189913209&s=612x612&w=0&h=oupcjI4XvOMKuvh6yOAslUQzMn5Lpoka3iOgCJgMoxQ=" />
+        <img height="50%" width="50%" src="https://miro.medium.com/max/744/1*vh4vsuoZCWZhKJTnJy_jVg.jpeg" />
         <IonCardHeader>
           <IonCardTitle>Ha minőségi munkát szeretne, itt keresse!</IonCardTitle>
         </IonCardHeader>

@@ -66,6 +66,8 @@ const AgendaMenu = () => {
   const [evId,setEvId]=useState("");
   const [evDesc2,setEvDesc2]=useState("");
   const [evId2,setEvId2]=useState("");
+  const [evDesc3,setEvDesc3]=useState("");
+  const [evId3,setEvId3]=useState("");
 
   const [hely, setHely] = useState("");
   const [nem, setNem] = useState("");
@@ -406,6 +408,10 @@ const AgendaMenu = () => {
                       setEvId2(doc.id);
                       setEvDesc2(doc.get("location")+": "+doc.get("desc"));
                     }
+                    if (num==3){
+                      setEvId3(doc.id);
+                      setEvDesc3(doc.get("location")+": "+doc.get("desc"));
+                    }
               }
             }
           });
@@ -523,39 +529,39 @@ const AgendaMenu = () => {
 <thead>
   <tr>
     <th width="15%" className="tg-0lax">H<br/>{startingDay.getDate()}</th>
-    <th width="75%" className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(1);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{startingText}</th>
+    <th width="75%" className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(1);}}><pre>{startingText}</pre></th>
     <th width="10%" className="tg-0lax" onClick={()=>{loadEvents(1);setViewState("del");setClickedDay(1);}}>-</th>
   </tr>
 </thead>
 <tbody>
   <tr>
     <td className="tg-2lax">K<br/>{day2.getDate()}</td>
-    <td className="tg-3lax" onClick={()=>{setViewState("add");setClickedDay(2);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text2}</td>
-    <td className="tg-2lax" onClick={()=>{loadEvents(2);setViewState("del");setClickedDay(2);}}>-</td>
+    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(2);}}><pre>{text2}</pre></td>
+    <td className="tg-0lax" onClick={()=>{loadEvents(2);setViewState("del");setClickedDay(2);}}>-</td>
   </tr>
   <tr>
     <td className="tg-0lax">SZ<br/>{day3.getDate()}</td>
-    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(3);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text3}</td>
+    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(3);}}><pre>{text3}</pre></td>
     <td className="tg-0lax" onClick={()=>{loadEvents(3);setViewState("del");setClickedDay(3);}}>-</td>
   </tr>
   <tr>
     <td className="tg-2lax">CS<br/>{day4.getDate()}</td>
-    <td className="tg-3lax" onClick={()=>{setViewState("add");setClickedDay(4);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text4}</td>
-    <td className="tg-2lax" onClick={()=>{loadEvents(4);setViewState("del");setClickedDay(4);}}>-</td>
+    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(4);}}><pre>{text4}</pre></td>
+    <td className="tg-0lax" onClick={()=>{loadEvents(4);setViewState("del");setClickedDay(4);}}>-</td>
   </tr>
   <tr>
     <td className="tg-0lax">P<br/>{day5.getDate()}</td>
-    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(5);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text5}</td>
+    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(5);}}><pre>{text5}</pre></td>
     <td className="tg-0lax" onClick={()=>{loadEvents(5);setViewState("del");setClickedDay(5);}}>-</td>
   </tr>
   <tr>
     <td className="tg-2lax">SZ<br/>{day6.getDate()}</td>
-    <td className="tg-3lax" onClick={()=>{setViewState("add");setClickedDay(6);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text6}</td>
-    <td className="tg-2lax" onClick={()=>{loadEvents(6);setViewState("del");setClickedDay(6);}}>-</td>
+    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(6);}}><pre>{text6}</pre></td>
+    <td className="tg-0lax" onClick={()=>{loadEvents(6);setViewState("del");setClickedDay(6);}}>-</td>
   </tr>
   <tr>
     <td className="tg-0lax">V<br/>{day7.getDate()}</td>
-    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(7);}}>+<br/>&nbsp;&nbsp;&nbsp;&nbsp;{text7}</td>
+    <td className="tg-1lax" onClick={()=>{setViewState("add");setClickedDay(7);}}><pre>{text7}</pre></td>
     <td className="tg-0lax" onClick={()=>{loadEvents(7);setViewState("del");setClickedDay(7);}}>-</td>
   </tr>
 </tbody>
@@ -735,6 +741,13 @@ const AgendaMenu = () => {
                           return <IonSelect value={delEvent} onIonChange={(e) => setDelEvent(e.target.value)}>
                                   <IonSelectOption value={evId}>{evDesc}</IonSelectOption>
                                   <IonSelectOption value={evId2}>{evDesc2}</IonSelectOption>
+                                 </IonSelect>;
+                          break;
+                        case 3:
+                          return <IonSelect value={delEvent} onIonChange={(e) => setDelEvent(e.target.value)}>
+                                  <IonSelectOption value={evId}>{evDesc}</IonSelectOption>
+                                  <IonSelectOption value={evId2}>{evDesc2}</IonSelectOption>
+                                  <IonSelectOption value={evId3}>{evDesc3}</IonSelectOption>
                                  </IonSelect>;
                           break;
                         case 0:

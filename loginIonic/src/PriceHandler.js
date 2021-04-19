@@ -2,6 +2,7 @@
 import {Inject, ScheduleComponent,
         Day, Week, WorkWeek, Month, Agenda,
         EventSettingsModel, ActionEventArgs} from '@syncfusion/ej2-react-schedule';
+import {checkmarkCircleOutline, closeCircleOutline,timeOutline} from 'ionicons/icons';
 import {
   IonHeader,
   IonToolbar,
@@ -20,7 +21,8 @@ import {
   IonCardContent,
   IonCardSubtitle,
   IonLabel,
-  IonInput
+  IonInput,
+  IonIcon
 } from '@ionic/react';
 import Cookies from 'js-cookie';
 import {Redirect} from 'react-router-dom';
@@ -399,22 +401,24 @@ const PriceHandler = ({history}) => {
           <IonCardContent>
           <img src="https://3dwarehouse.sketchup.com/warehouse/v1.0/publiccontent/33b74c22-267d-4c88-9fc0-7b2a6908b918" />
           </IonCardContent>
-          <div align="center">
-          {(() => {
-            if (sub=="") {
-            }
-            else {
-              return(
-                <>
-                <IonButton color="green"  onClick={()=>{Elfogad();}}>Elfogad</IonButton>
-              <IonButton color="yellow"  onClick={()=>{Varakoztat();}}>Várakoztat</IonButton>
-              <IonButton color="red"  onClick={()=>{Elutasit();}}>Elutasít</IonButton>
-            </>)
-            }
-          })()}
-          </div>
-        </IonCard>
 
+        </IonCard>
+        <div align="center">
+        {(() => {
+          if (sub=="") {
+          }
+          else {
+            return(
+              <>
+            <IonButton color="red"  onClick={()=>{Elutasit();}}><IonIcon icon={closeCircleOutline} /></IonButton>
+            &nbsp;&nbsp;
+            <IonButton color="yellow"  onClick={()=>{Varakoztat();}}><IonIcon icon={timeOutline} /></IonButton>
+            &nbsp;&nbsp;
+            <IonButton color="green"  onClick={()=>{Elfogad();}}><IonIcon icon={checkmarkCircleOutline} /></IonButton>
+          </>)
+          }
+        })()}
+        </div>
 
 
 
