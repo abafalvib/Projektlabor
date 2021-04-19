@@ -723,6 +723,7 @@ const AgendaMenu = () => {
                   <IonCardTitle align="center">Esemény törlése</IonCardTitle>
                   <IonItem>
                     <IonLabel>Esemény:</IonLabel>
+                    <br/>
                     {(() => {
                       switch (opNum) {
                         case 1:
