@@ -56,6 +56,13 @@ ion-menu{
 
 ion-input {
 	--color: white;
+	input {
+	 text-align: justify;
+	 }
+}
+
+ion-textarea{
+	 text-align: justify;
 }
 
 ion-item {
@@ -72,6 +79,9 @@ ion-content{
 
 		--color: black;
     --ion-background-color:#f4f4f4;
+}
+
+.utolsokep{
 }
 
 img {

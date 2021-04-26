@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect,useState} from 'react';
 import {
   IonHeader,
   IonToolbar,
@@ -13,10 +13,36 @@ import {
   IonCard,
   IonCardHeader,
   IonCardContent,
-  IonCardTitle
+  IonCardTitle,
+  IonTextarea
 } from '@ionic/react';
+import fire from './fire';
 
-const Home = () => (
+import Cookies from 'js-cookie';
+const proba=Cookies.get('log');
+
+
+
+
+const Home = () => {
+  const [text,setText]=useState("");
+
+  useEffect(() => {var db = fire.firestore("");
+  var docRef = db.collection("Texts").doc("NhaKoopVtQ8K21zBXvmk");
+  docRef.get().then(function(doc) {
+      if (doc.exists) {
+          setText(doc.get("About"));
+          console.log(text);
+          } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+      }
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+  });}, []);
+
+return(
+
   <>
     <IonHeader>
       <IonToolbar>
@@ -52,8 +78,25 @@ const Home = () => (
       </IonCard>
     </IonSlide>
   </IonSlides>
+  <IonCard>
+      <IonCardHeader>
+      <IonCardTitle>Rólunk</IonCardTitle>
+    </IonCardHeader>
+    <IonCardContent>
+    <IonItem>
+      <IonTextarea readonly auto-grow="true" placeholder={text} value={text}></IonTextarea>
+    </IonItem>
+
+    </IonCardContent>
+    </IonCard>
+    <br/>
+    <br/>
+    <br/>
+
     </IonContent>
+
   </>
 );
+}
 
 export default Home;

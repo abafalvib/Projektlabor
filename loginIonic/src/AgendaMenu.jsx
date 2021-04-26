@@ -444,7 +444,7 @@ const AgendaMenu = () => {
               <IonHeader>
                 <IonToolbar>
                 <IonButtons slot="start">
-                  <IonBackButton defaultHref="/"></IonBackButton>
+                  <IonMenuButton></IonMenuButton>
                   {/*<IonMenuButton />*/}
                 </IonButtons>
                   <IonTitle>Napirend</IonTitle>
@@ -466,14 +466,15 @@ const AgendaMenu = () => {
               <IonHeader>
                 <IonToolbar>
                 <IonButtons slot="start">
-                  <IonBackButton defaultHref="/"></IonBackButton>
+                  <IonMenuButton></IonMenuButton>
+
                   {/*<IonMenuButton />*/}
                 </IonButtons>
                   <IonTitle>Napirend</IonTitle>
                 </IonToolbar>
 
-                <IonToolbar color="secondary">
-                  <IonIcon icon={arrowBackOutline} onClick={()=>{if(weekNum>0) {setWeekNum(weekNum-1);
+                <IonToolbar className="naptar" align="center" color="secondary">
+                  <IonIcon slot="start" icon={arrowBackOutline} onClick={()=>{if(weekNum>0) {setWeekNum(weekNum-1);
 
 
 

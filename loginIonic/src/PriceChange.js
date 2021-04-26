@@ -106,7 +106,7 @@ const PriceChange = ({history}) => {
             <IonHeader>
               <IonToolbar>
               <IonButtons slot="start">
-                <IonBackButton defaultHref="/"></IonBackButton>
+                <IonBackButton defaultHref='/agendamenu'></IonBackButton>
                 {/*<IonMenuButton />*/}
               </IonButtons>
                 <IonTitle>Árszerkesztés</IonTitle>

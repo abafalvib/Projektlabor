@@ -101,9 +101,9 @@ return(
           <IonHeader>
             <IonToolbar>
               <IonButtons slot="start">
-                <IonBackButton defaultHref="/" />
+                <IonBackButton defaultHref='/agendamenu' />
               </IonButtons>
-              <IonTitle>Rólunk</IonTitle>
+              <IonTitle>Rólunk & Kapcsolat</IonTitle>
             </IonToolbar>
           </IonHeader>
           <IonContent>
@@ -114,7 +114,7 @@ return(
               </IonCardHeader>
               <IonCardContent>
               <IonItem>
-                <IonTextarea auto-grow="true" placeholder={text} value={text} onIonChange={(e) => setText(e.target.value)}></IonTextarea>
+                <IonTextarea className="rolunk" auto-grow="true" placeholder={text} value={text} onIonChange={(e) => setText(e.target.value)}></IonTextarea>
                 </IonItem>
               </IonCardContent>
             </IonCard>
@@ -205,24 +205,14 @@ return(
               <IonButtons slot="start">
                 <IonBackButton defaultHref="/" />
               </IonButtons>
-              <IonTitle>Rólunk</IonTitle>
+              <IonTitle>Kapcsolat</IonTitle>
             </IonToolbar>
           </IonHeader>
           <IonContent className="aboutwrapper">
-          <IonCard>
-              <img src="https://as1.ftcdn.net/jpg/02/11/26/98/500_F_211269880_j3hBBnIyUSwg168l6tjAolifK8Z35Bif.jpg" />
-              <IonCardHeader>
-              <IonCardTitle>Rólunk</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-            <IonItem>
-            <IonTextarea readonly auto-grow="true" placeholder={text} value={text}></IonTextarea>
-              </IonItem>
-
-              </IonCardContent>
-            </IonCard>
 
             <IonCard>
+              <img src="https://as1.ftcdn.net/jpg/02/11/26/98/500_F_211269880_j3hBBnIyUSwg168l6tjAolifK8Z35Bif.jpg" />
+
                 <IonCardHeader>
                   <IonCardTitle>Kapcsolat</IonCardTitle>
                   <h5>Miben segíthetünk?</h5>

@@ -31,7 +31,7 @@ const Menu = ({ history }) => {
               <IonItem className="menukont" onClick={() => history.push('/pricechange')}  class="Clickable"><IonIcon icon={pencilOutline} slot="start" /><div>Árszerkesztés</div></IonItem>
             </IonMenuToggle>
               <IonMenuToggle>
-                <IonItem className="menukont" onClick={() => history.push('/about')} class="Clickable"><IonIcon icon={informationCircleOutline} slot="start" />Rólunk</IonItem>
+                <IonItem className="menukont" onClick={() => history.push('/about')} class="Clickable"><IonIcon icon={informationCircleOutline} slot="start" />Rólunk & Kapcsolat</IonItem>
               </IonMenuToggle>
 
               <IonMenuToggle>
@@ -56,7 +56,7 @@ const Menu = ({ history }) => {
         <IonItem className="menukont" onClick={() => history.push('/bid')} class="Clickable"><IonIcon icon={pricetagOutline} slot="start" />Árajánlat</IonItem>
       </IonMenuToggle>
       <IonMenuToggle>
-        <IonItem className="menukont" onClick={() => history.push('/about')} class="Clickable"><IonIcon icon={informationCircleOutline} slot="start" />Rólunk</IonItem>
+        <IonItem className="menukont" onClick={() => history.push('/about')} class="Clickable"><IonIcon icon={informationCircleOutline} slot="start" />Kapcsolat</IonItem>
       </IonMenuToggle>
 
       <IonMenuToggle>
