@@ -22,7 +22,10 @@ import {
   IonCardSubtitle,
   IonLabel,
   IonInput,
-  IonIcon
+  IonIcon,
+  IonItemOption,
+  IonItemOptions,
+  IonItemSliding
 } from '@ionic/react';
 import Cookies from 'js-cookie';
 import {Redirect} from 'react-router-dom';
@@ -78,7 +81,20 @@ const PriceHandler = ({history}) => {
   }
 
 
+  function handleSlide(event) {
+      event.target.getSlidingRatio().then(res => {
+        let ratio = res;
+        console.log(ratio);
+        if (ratio>=1) {
+          console.log("Elfogadva");
+          event.target.closeOpened();
+        }else if (ratio<=-1) {
+          console.log("Elutasitva");
+          event.target.closeOpened();
 
+        }
+    });
+  }
 
 
   function geolocation(FROM, TO){
@@ -391,6 +407,11 @@ const PriceHandler = ({history}) => {
             </IonToolbar>
           </IonHeader>
           <IonContent className="kontent">
+          <IonItemSliding onIonDrag={(e) => setTimeout(() => {handleSlide(e)},1000)}>
+          <IonItemOptions side="start">
+            <IonItemOption color="danger" onClick={() => console.log('Elutasitva')}>Elutasit</IonItemOption>
+          </IonItemOptions>
+          <IonItem>
           <IonCard>
           <IonCardHeader>
             <IonCardTitle align="center">{title} </IonCardTitle>
@@ -403,6 +424,13 @@ const PriceHandler = ({history}) => {
           </IonCardContent>
 
         </IonCard>
+        </IonItem>
+
+        <IonItemOptions side="end">
+          <IonItemOption color="green" onClick={() => console.log('Elfogadva')}>Elfogad</IonItemOption>
+        </IonItemOptions>
+        </IonItemSliding>
+
         <div align="center">
         {(() => {
           if (sub=="") {
@@ -415,6 +443,19 @@ const PriceHandler = ({history}) => {
             <IonButton color="yellow"  onClick={()=>{Varakoztat();}}><IonIcon icon={timeOutline} /></IonButton>
             &nbsp;&nbsp;
             <IonButton color="green"  onClick={()=>{Elfogad();}}><IonIcon icon={checkmarkCircleOutline} /></IonButton>
+            <IonItemSliding onIonDrag={(e) => setTimeout(() => {handleSlide(e)},1000)}>
+    <IonItemOptions side="start">
+      <IonItemOption color="danger" onClick={() => console.log('Elutasitva')}>Elutasit</IonItemOption>
+    </IonItemOptions>
+
+    <IonItem>
+      <IonLabel>Dontes</IonLabel>
+    </IonItem>
+
+    <IonItemOptions side="end">
+      <IonItemOption color="green" onClick={() => console.log('Elfogadva')}>Elfogad</IonItemOption>
+    </IonItemOptions>
+  </IonItemSliding>
           </>)
           }
         })()}

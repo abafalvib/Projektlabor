@@ -440,7 +440,6 @@ const AgendaMenu = () => {
           if (isPlatform('desktop')){
             return (
               <>
-
               <IonHeader>
                 <IonToolbar>
                 <IonButtons slot="start">
@@ -462,7 +461,7 @@ const AgendaMenu = () => {
             if (viewState=="0"){
             return(
               <>
-
+              <IonApp>
               <IonHeader>
                 <IonToolbar>
                 <IonButtons slot="start">
@@ -567,6 +566,7 @@ const AgendaMenu = () => {
   </tr>
 </tbody>
 </table>
+
             {/*  <IonList>
                 <IonItemDivider>
                 <IonIcon icon={addCircleOutline} className="rolunk" slot="start" />
@@ -644,6 +644,7 @@ const AgendaMenu = () => {
               </IonList>
               */}
               </IonContent>
+              </IonApp>
               </>
             )
           } else if (viewState=="add") {
