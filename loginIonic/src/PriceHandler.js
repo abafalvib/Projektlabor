@@ -88,10 +88,11 @@ const PriceHandler = ({history}) => {
         if (ratio>=1) {
           console.log("Elfogadva");
           event.target.closeOpened();
+          Elfogad();
         }else if (ratio<=-1) {
           console.log("Elutasitva");
           event.target.closeOpened();
-
+          Elutasit();
         }
     });
   }
@@ -165,9 +166,7 @@ const PriceHandler = ({history}) => {
            desc= doc.get("desc");
            date = doc.get("date").toDate();
            email = doc.get("email");
-           long = `Az Ön által leadott `+desc+` munka kérelem elfogadásra került !
-  A munka végzés időpontja: `+ date +`
-  További kérdés felmerülése esetén keresse plechingerbau@gmail.com e-mail címet!`;
+           long = `Az Ön által leadott `+desc+` munkakérelem elfogadásra került! A munkavégzés időpontja: `+ date +`További kérdés felmerülése esetén keressen az plechingerbau@gmail.com e-mail címen vagy a +36303002762 telefonszámon!`;
 
 
            db.collection("Requests").where("elfogadva", "==" ,true).orderBy("date","desc")
@@ -257,7 +256,7 @@ const PriceHandler = ({history}) => {
            desc= doc.get("desc");
            date = doc.get("date").toDate();
            email = doc.get("email");
-           long = `Az Ön által leadott `+desc+` munka kérelem elutasításra került !`;
+           long = `Az Ön által leadott `+desc+` munkakérelem elutasításra került!`;
          }).finally(()=>{
            sendEmail(long,email);
             db.collection("Requests").doc(id).delete().finally(()=>{showNext();});
@@ -294,7 +293,16 @@ const PriceHandler = ({history}) => {
     if (!querySnapshot.empty) {
         const queryDocumentSnapshot = querySnapshot.docs[0];
         id = queryDocumentSnapshot.id;
-        db.collection("Requests").doc(id).get().then((doc)=>{db.collection("Requests").doc(datetime).set(doc.data())}).finally(()=>{db.collection("Requests").doc(id).delete().finally(()=>{showNext();})});
+        var desc;
+        var email;
+        var date;
+        var long;
+        db.collection("Requests").doc(id).get().then((doc)=>{
+          desc= doc.get("desc");
+          date = doc.get("date").toDate();
+          email = doc.get("email");
+          long = `Az Ön által leadott `+desc+` munkához további egyeztetés szükséges, kérem ehhez keressen fel a plechingerbau@gmail.com e-mail címen vagy a +36303002762 telefonszámon!`;
+          db.collection("Requests").doc(datetime).set(doc.data())}).finally(()=>{sendEmail(long,email);db.collection("Requests").doc(id).delete().finally(()=>{showNext();})});
 
 
 
@@ -407,59 +415,59 @@ const PriceHandler = ({history}) => {
             </IonToolbar>
           </IonHeader>
           <IonContent className="kontent">
-          <IonItemSliding onIonDrag={(e) => setTimeout(() => {handleSlide(e)},1000)}>
-          <IonItemOptions side="start">
-            <IonItemOption color="danger" onClick={() => console.log('Elutasitva')}>Elutasit</IonItemOption>
-          </IonItemOptions>
-          <IonItem>
-          <IonCard>
-          <IonCardHeader>
-            <IonCardTitle align="center">{title} </IonCardTitle>
-            <IonCardSubtitle align="center">{sub} </IonCardSubtitle>
 
-          </IonCardHeader>
-
-          <IonCardContent>
-          <img src="https://3dwarehouse.sketchup.com/warehouse/v1.0/publiccontent/33b74c22-267d-4c88-9fc0-7b2a6908b918" />
-          </IonCardContent>
-
-        </IonCard>
-        </IonItem>
-
-        <IonItemOptions side="end">
-          <IonItemOption color="green" onClick={() => console.log('Elfogadva')}>Elfogad</IonItemOption>
-        </IonItemOptions>
-        </IonItemSliding>
-
-        <div align="center">
         {(() => {
           if (sub=="") {
+            return(
+            <IonItem>
+            <IonCard>
+            <IonCardHeader>
+              <IonCardTitle align="center">{title} </IonCardTitle>
+              <IonCardSubtitle align="center">{sub} </IonCardSubtitle>
+
+            </IonCardHeader>
+
+            <IonCardContent>
+            <img src="https://3dwarehouse.sketchup.com/warehouse/v1.0/publiccontent/33b74c22-267d-4c88-9fc0-7b2a6908b918" />
+            </IonCardContent>
+
+            </IonCard>
+            </IonItem>
+          )
           }
           else {
             return(
               <>
-            <IonButton color="red"  onClick={()=>{Elutasit();}}><IonIcon icon={closeCircleOutline} /></IonButton>
-            &nbsp;&nbsp;
-            <IonButton color="yellow"  onClick={()=>{Varakoztat();}}><IonIcon icon={timeOutline} /></IonButton>
-            &nbsp;&nbsp;
-            <IonButton color="green"  onClick={()=>{Elfogad();}}><IonIcon icon={checkmarkCircleOutline} /></IonButton>
-            <IonItemSliding onIonDrag={(e) => setTimeout(() => {handleSlide(e)},1000)}>
-    <IonItemOptions side="start">
-      <IonItemOption color="danger" onClick={() => console.log('Elutasitva')}>Elutasit</IonItemOption>
-    </IonItemOptions>
+              <IonItemSliding onIonDrag={(e) => setTimeout(() => {handleSlide(e)},1500)}>
+              <IonItemOptions side="start">
+                <IonItemOption color="danger" onClick={() => console.log('Elutasitva')}>Elutasit</IonItemOption>
+              </IonItemOptions>
+              <IonItem>
+              <IonCard>
+              <IonCardHeader>
+                <IonCardTitle align="center">{title} </IonCardTitle>
+                <IonCardSubtitle align="center">{sub} </IonCardSubtitle>
 
-    <IonItem>
-      <IonLabel>Dontes</IonLabel>
-    </IonItem>
+              </IonCardHeader>
 
-    <IonItemOptions side="end">
-      <IonItemOption color="green" onClick={() => console.log('Elfogadva')}>Elfogad</IonItemOption>
-    </IonItemOptions>
-  </IonItemSliding>
+              <IonCardContent>
+              <img src="https://3dwarehouse.sketchup.com/warehouse/v1.0/publiccontent/33b74c22-267d-4c88-9fc0-7b2a6908b918" />
+              </IonCardContent>
+
+              </IonCard>
+              </IonItem>
+
+              <IonItemOptions side="end">
+              <IonItemOption color="green" onClick={() => console.log('Elfogadva')}>Elfogad</IonItemOption>
+              </IonItemOptions>
+              </IonItemSliding>
+              <div align="center">
+              <IonButton color="yellow"  onClick={()=>{Varakoztat();}}>Várakoztatás</IonButton>
+              </div>
           </>)
           }
         })()}
-        </div>
+
 
 
 
