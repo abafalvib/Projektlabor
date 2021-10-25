@@ -51,7 +51,7 @@ const Menu = ({ history }) => {
               </IonMenuToggle>
 
               {(() => {
-                if (installVisible==true&&isPlatform('desktop')) {
+                if (installVisible==true) {
                   return (
                     <>
                     <IonMenuToggle>
@@ -111,7 +111,7 @@ const Menu = ({ history }) => {
         <IonItem className="menukont" onClick={() => history.push('/login')}  class="Clickable"><IonIcon icon={logInOutline} slot="start" /><div>Bejelentkezés</div></IonItem>
       </IonMenuToggle>
       {(() => {
-        if (installVisible==true&&isPlatform('desktop')) {
+        if (installVisible==true) {
           return (
             <>
             <IonMenuToggle>
