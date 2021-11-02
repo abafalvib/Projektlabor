@@ -166,8 +166,6 @@ const PriceHandler = ({history}) => {
            desc= doc.get("desc");
            date = doc.get("date").toDate();
            email = doc.get("email");
-           long = `Az Ön által leadott `+desc+` munkakérelem elfogadásra került! A munkavégzés időpontja: `+ date +`További kérdés felmerülése esetén keressen az plechingerbau@gmail.com e-mail címen vagy a +36303002762 telefonszámon!`;
-
 
            db.collection("Requests").where("elfogadva", "==" ,true).orderBy("date","desc")
            .limit(1)
@@ -178,24 +176,29 @@ const PriceHandler = ({history}) => {
                const queryDocumentSnapshot = querySnapshot.docs[0];
                var temp = queryDocumentSnapshot.get("date").toDate();
 
-               const tomorrow = new Date(temp);
+               var today = new Date();
+               today.setDate(today.getDate() + 1);
+               var tomorrow = new Date(temp);
                tomorrow.setDate(tomorrow.getDate() + 1);
 
-               if(tomorrow>date){
+               if(today>tomorrow) {
+                 f=today;
+               }else {
+                 f=tomorrow;
+               }
+
+               if(f>date){
                  console.log("wrong data");
                  f=undefined;
                  Elutasit();
                }else {
-                 f=tomorrow;
                  console.log(f);
                }
 
 
-               //setDesc(queryDocumentSnapshot.get("longDesc"));
-
            } else {
              const today = new Date();
-             const tomorrow = new Date(today);
+             var tomorrow = new Date(today);
              tomorrow.setDate(tomorrow.getDate() + 1);
              if(tomorrow>date){
                f=undefined;
@@ -220,6 +223,7 @@ const PriceHandler = ({history}) => {
 
          }).finally(()=>{
            db.collection("Requests").doc(id).update({elfogadva:true}).finally(()=>{showNext();});
+           long = `Az Ön által leadott `+desc+` munkakérelem elfogadásra került! A munkavégzés időpontja: `+ f +`További kérdés felmerülése esetén keressen az plechingerbau@gmail.com e-mail címen vagy a +36303002762 telefonszámon!`;
            sendEmail(long,email);
          });
 
