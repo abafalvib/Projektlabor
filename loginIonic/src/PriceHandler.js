@@ -85,11 +85,11 @@ const PriceHandler = ({history}) => {
       event.target.getSlidingRatio().then(res => {
         let ratio = res;
         console.log(ratio);
-        if (ratio>=1) {
+        if (ratio<=-1) {
           console.log("Elfogadva");
           event.target.closeOpened();
           Elfogad();
-        }else if (ratio<=-1) {
+        }else if (ratio>=1) {
           console.log("Elutasitva");
           event.target.closeOpened();
           Elutasit();
@@ -438,28 +438,26 @@ const PriceHandler = ({history}) => {
           else {
             return(
               <>
-              <IonItemSliding onIonDrag={(e) => setTimeout(() => {handleSlide(e)},1500)}>
-              <IonItemOptions side="start">
-                <IonItemOption color="danger" onClick={() => console.log('Elutasitva')}>Elutasit</IonItemOption>
-              </IonItemOptions>
-              <IonItem>
-              <IonCard>
-              <IonCardHeader>
-                <IonCardTitle align="center">{title} </IonCardTitle>
-                <IonCardSubtitle align="center">{sub} </IonCardSubtitle>
+              <IonItemSliding align="center" onIonDrag={(e) => setTimeout(() => {handleSlide(e)},1500)}>
+                <IonItemOptions side="end">
+                  <IonItemOption color="danger">Elutasit</IonItemOption>
+                </IonItemOptions>
+                <IonItem>
+                  <IonCard>
+                    <IonCardHeader>
+                      <IonCardTitle align="center">{title} </IonCardTitle>
+                      <IonCardSubtitle align="center">{sub} </IonCardSubtitle>
+                    </IonCardHeader>
 
-              </IonCardHeader>
+                    <IonCardContent>
+                      <img src="https://3dwarehouse.sketchup.com/warehouse/v1.0/publiccontent/33b74c22-267d-4c88-9fc0-7b2a6908b918" />
+                    </IonCardContent>
 
-              <IonCardContent>
-              <img src="https://3dwarehouse.sketchup.com/warehouse/v1.0/publiccontent/33b74c22-267d-4c88-9fc0-7b2a6908b918" />
-              </IonCardContent>
-
-              </IonCard>
-              </IonItem>
-
-              <IonItemOptions side="end">
-              <IonItemOption color="green" onClick={() => console.log('Elfogadva')}>Elfogad</IonItemOption>
-              </IonItemOptions>
+                  </IonCard>
+                </IonItem>
+                <IonItemOptions side="start">
+                  <IonItemOption color="green">Elfogad</IonItemOption>
+                </IonItemOptions>
               </IonItemSliding>
               <div align="center">
               <IonButton color="yellow"  onClick={()=>{Varakoztat();}}>Várakoztatás</IonButton>
